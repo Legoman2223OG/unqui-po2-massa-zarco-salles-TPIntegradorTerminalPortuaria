@@ -1,39 +1,53 @@
 package ar.edu.unq.po2.TerminalPortuaria.Container;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente;
 
 /**
- * Una clase abstracta que representa un Bill Of Landing. Un Bill Of Landing posee el patrón composite.
+ * Representa un Bill Of Landing común, el cual contiene
+ * información de su dueño, los productos del contenedor y
+ * el peso total de todos los productos.
  */
-public abstract class BillOfLanding {
+public class BillOfLanding implements IBillOfLanding{
+	private Cliente duenio;
+	private List<Producto> productos;
+
 	/**
-	 * Describe el peso total de todos los productos del BL.
-	 * @return double, el peso total de todos los productos del BL.
+	 * Describe un Bill of Landing con su duenio y los productos incluidos.
+	 * @param duenio, Cliente, el duenio importador del Bill of Landing. No puede ser nulo.
+	 * @param productos, Producto..., una lista de productos incluidos en el bill of landing. No pueden ser nulos
 	 */
-	public abstract double peso();
-	/**
-	 * Describe los propietarios de los items, si solo posee 1, da error.
-	 * @return List<Cliente>, la lista de los propietarios.
-	 * @throws Exception, Si es que se trata de un Bill Of Landing normal.
-	 */
-	public abstract List<Cliente> duenios() throws Exception;
-	/**
-	 * Describe al propietario del BL, si son varios, da error.
-	 * @return, Cliente, el duenio del BL.
-	 * @throws Exception, si es que es un Bill of Landing especial.
-	 */
-	public abstract Cliente duenio() throws Exception;
-	/**
-	 * Describe el contenido listado del BL.
-	 * @return List<Producto>, Los productos listados en el BL.
-	 */
-	public abstract List<Producto> productos();
-	/**
-	 * Agrega un nuevo bill of landing al contenedor. Mientras este sea un bill of landing especial, sino da error.
-	 * @throws Exception, Si es que es un bill of landing normal.
-	 */
-	public abstract void agregarBL(BillOfLanding bl) throws Exception;
+	public BillOfLanding(Cliente duenio, Producto...productos ){
+		this.duenio = duenio;
+		this.productos = new ArrayList<Producto>(Arrays.asList(productos));
+	}
+
+	public List<Cliente> getDuenios() {
+		return Arrays.asList(duenio);
+	}
+
+	public List<Producto> getProductos() {
+		return this.productos;
+	}
 	
+	/**
+	 * Describe el peso total registrado por el bill of landing.
+	 * @return double, el peso total de todos los productos incluidos en el bill of landing.
+	 */
+	public double getPeso() {
+		return this.productos.stream().mapToDouble(p -> p.getPeso()).sum();
+	}
+
+	@Override
+	public List<BillOfLanding> getBillOfLandings() {
+		return Arrays.asList(this);
+	}
+
+	@Override
+	public void agregarBillOfLanding(BillOfLanding bl) throws Exception {
+		throw new Exception("No se puede agregar un bill of landing a un bill of landing normal");
+	}
 }
