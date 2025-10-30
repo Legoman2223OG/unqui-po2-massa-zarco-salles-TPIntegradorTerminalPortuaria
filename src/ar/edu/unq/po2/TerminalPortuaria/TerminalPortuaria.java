@@ -17,4 +17,8 @@ public class TerminalPortuaria {
 		
 	}
 
+	public void working(Buque buque1) throws Exception {
+		buque1.working();
+	}
+
 }
