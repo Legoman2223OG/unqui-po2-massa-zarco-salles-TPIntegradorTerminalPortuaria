@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
  * Estado en donde el buque se encuentra listo para descargar y cargar contenedores. Una vez terminado

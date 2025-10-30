@@ -6,6 +6,11 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.TerminalPortuaria;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
+
 class BuqueTestCase {
 	//DOC
 	//Terminal Principal

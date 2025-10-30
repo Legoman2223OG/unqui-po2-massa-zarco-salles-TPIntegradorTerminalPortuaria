@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
  * Una clase abstracta que representa un estado del barco según su distancia u operación con una terminal de destino u origen.

@@ -1,5 +1,5 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-public class Viaje {
+public class Cliente {
 
 }

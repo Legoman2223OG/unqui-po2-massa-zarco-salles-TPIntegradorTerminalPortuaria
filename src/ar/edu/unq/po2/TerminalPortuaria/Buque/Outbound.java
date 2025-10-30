@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
  * Clase que representa el Estado Outbound del buque.

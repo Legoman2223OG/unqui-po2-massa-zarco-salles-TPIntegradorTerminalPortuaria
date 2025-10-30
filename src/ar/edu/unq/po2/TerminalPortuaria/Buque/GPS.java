@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
  * Una clase que representa un GPS de un buque, el cual permite hacer calculos de coordenadas y actualizar la información
