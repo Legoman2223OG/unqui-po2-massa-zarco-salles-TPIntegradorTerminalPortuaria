@@ -38,4 +38,43 @@ class BuqueTestCase {
 		verify(docT).proximoAArribar(docV);
 	}
 
+	/**
+	 * Indica que el buque pasa de arrived a working.
+	 * @throws Exception
+	 */
+	@Test
+	void test02_ElBuquePasaAWorking() throws Exception{
+		//Exercise
+		//Pasamos a Inbound.
+		buque1.moverA(new Coordenada(49,49));
+		//Pasamos a Arrived
+		buque1.moverA(new Coordenada(0,0));
+		docT.working(buque1);
+		//Verify
+		verify(docT, times(2)).getCoordenadas();
+		verify(docT, times(1)).working(buque1);
+	}
+	
+	/**
+	 * Indica que el buque pasa de Working, a Depart y luego a Outbound de vuelta, mandandole un mensaje de vuelta a la
+	 * terminal.
+	 * @throws Exception 
+	 */
+	@Test
+	void test03_ElBuquePasaDeWorkingADepartYLuegoOutbound() throws Exception {
+		//Exercise
+		//Pasamos a Inbound.
+		buque1.moverA(new Coordenada(49,49));
+		//Pasamos a Arrived
+		buque1.moverA(new Coordenada(0,0));
+		docT.working(buque1);
+		buque1.working();
+		//Pasamos a Depart
+		docT.depart(buque1);
+		buque1.depart();
+		//Finalmente nos movemos y volvemos a Outbound.
+		buque1.moverA(new Coordenada(20,20));
+		//Verify
+		verify(docT).partiendoAViaje(docV);
+	}
 }

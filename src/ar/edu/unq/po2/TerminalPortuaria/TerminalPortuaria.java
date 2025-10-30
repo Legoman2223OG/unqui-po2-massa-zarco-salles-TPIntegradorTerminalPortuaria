@@ -17,4 +17,12 @@ public class TerminalPortuaria {
 		
 	}
 
+	public void working(Buque buque1) throws Exception {
+		buque1.working();
+	}
+
+	public void depart(Buque buque1) throws Exception {
+		buque1.depart();
+	}
+
 }
