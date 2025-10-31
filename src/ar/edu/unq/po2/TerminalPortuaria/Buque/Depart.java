@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
  * Un Estado que representa el estado de partida del buque. Una vez que se aleja de 1km de la terminal, envia un mensaje

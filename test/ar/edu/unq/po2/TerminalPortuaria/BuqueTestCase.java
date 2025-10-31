@@ -6,6 +6,11 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.TerminalPortuaria;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
+
 class BuqueTestCase {
 	//DOC
 	//Terminal Principal
@@ -76,5 +81,22 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(20,20));
 		//Verify
 		verify(docT).partiendoAViaje(docV);
+	}
+	
+	/**
+	 * Indica que el buque que estaba en inbound vuelve a estar en outbound, debido a problemas ambientales que desviaron
+	 * su curso.
+	 */
+	@Test
+	void test04_ElBuquePasaDeInboundAOutbound() throws Exception{
+		//Exercise
+		//Pasamos a Inbound.
+		buque1.moverA(new Coordenada(49,49));
+		//Pasamos a Outbound.
+		buque1.moverA(new Coordenada(60,60));
+		//Pasamos otra vez a Inbound para confirmar que se envia otra vez el mensaje
+		buque1.moverA(new Coordenada(49,49));
+		//Verify
+		verify(docT,times(2)).proximoAArribar(docV);
 	}
 }
