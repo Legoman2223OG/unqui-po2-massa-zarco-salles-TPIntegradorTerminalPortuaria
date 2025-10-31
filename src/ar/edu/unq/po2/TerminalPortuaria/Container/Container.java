@@ -45,9 +45,9 @@ public abstract class Container {
 		if(identificador.length() < 11)
 			throw new Exception("El identificador no es de 11 caracteres");
 		//Los primeros 4 caracteres deben ser letras.
-		if(!identificador.substring(0, 3).chars().allMatch(Character::isLetter))
+		if(!identificador.substring(0, 4).chars().allMatch(Character::isLetter))
 			throw new Exception("No esta incluido el nombre del importador, usar letras");
-		if(!identificador.substring(3,11).chars().allMatch(Character::isDigit))
+		if(!identificador.substring(4,11).chars().allMatch(Character::isDigit))
 			throw new Exception("No se incluyo digitos despues de las letras que identifican al importador");
 	}
 

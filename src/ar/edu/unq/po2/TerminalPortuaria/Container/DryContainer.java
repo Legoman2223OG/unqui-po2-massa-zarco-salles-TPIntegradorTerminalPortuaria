@@ -5,8 +5,6 @@ import java.util.List;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente;
 
 public class DryContainer extends Container {
-
-	private IBillOfLanding bls;
 	
 	/**
 	 * Crea un Dry Container con su ancho, largo, altura, identificador 

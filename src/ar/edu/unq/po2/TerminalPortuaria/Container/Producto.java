@@ -1,5 +1,7 @@
 package ar.edu.unq.po2.TerminalPortuaria.Container;
 
+import java.util.Objects;
+
 /**
  * Un Value Object que representa un producto con su nombre y peso.
  */
@@ -23,6 +25,24 @@ public class Producto {
 
 	public double getPeso() {
 		return peso;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre, peso);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto other = (Producto) obj;
+		return Objects.equals(nombre, other.nombre)
+				&& Double.doubleToLongBits(peso) == Double.doubleToLongBits(other.peso);
 	}
 	
 }

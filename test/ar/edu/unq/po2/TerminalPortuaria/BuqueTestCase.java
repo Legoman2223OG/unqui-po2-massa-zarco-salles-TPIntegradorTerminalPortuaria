@@ -83,4 +83,20 @@ class BuqueTestCase {
 		verify(docT).partiendoAViaje(docV);
 	}
 	
+	/**
+	 * Indica que el buque que estaba en inbound vuelve a estar en outbound, debido a problemas ambientales que desviaron
+	 * su curso.
+	 */
+	@Test
+	void test04_ElBuquePasaDeInboundAOutbound() throws Exception{
+		//Exercise
+		//Pasamos a Inbound.
+		buque1.moverA(new Coordenada(49,49));
+		//Pasamos a Outbound.
+		buque1.moverA(new Coordenada(60,60));
+		//Pasamos otra vez a Inbound para confirmar que se envia otra vez el mensaje
+		buque1.moverA(new Coordenada(49,49));
+		//Verify
+		verify(docT,times(2)).proximoAArribar(docV);
+	}
 }
