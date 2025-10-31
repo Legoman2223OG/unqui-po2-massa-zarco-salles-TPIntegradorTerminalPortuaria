@@ -19,9 +19,9 @@ public abstract class Container {
 	
 	/**
 	 * Describe un Container con su ancho, largo, altura y su identificador.
-	 * @param ancho, double, el ancho del container, debe ser > 0.
-	 * @param largo, double, el largo del container, debe ser > 0.
-	 * @param altura, double, la altura del container, debe ser > 0.
+	 * @param ancho, double, el ancho del container, debe ser > 0. (Esta en metros cubicos)
+	 * @param largo, double, el largo del container, debe ser > 0. (Esta en metros cubicos)
+	 * @param altura, double, la altura del container, debe ser > 0. (Esta en metros cubicos)
 	 * @param identificador, String, el identificador del contenedor, debe ser de 11 caracteres, siendo los primeros 4 parte del nombre del importador y los 7 restantes digitos numericos aleatorios.
 	 * @param bl, BillOfLanding, bill of landing que define el contenido del contenedor.
 	 * @throws Exception 
@@ -90,4 +90,12 @@ public abstract class Container {
 	public abstract void agregarBillOfLanding(BillOfLanding bl) throws Exception;
 	
 	public abstract double consumoElectricidad() throws Exception;
+	
+	/**
+	 * Describe la capacidad del container.
+	 * @return double, la capacidad del container en metros cubicos.
+	 */
+	public double getCapacidad() {
+		return this.altura * this.ancho * this.largo;
+	}
 }
