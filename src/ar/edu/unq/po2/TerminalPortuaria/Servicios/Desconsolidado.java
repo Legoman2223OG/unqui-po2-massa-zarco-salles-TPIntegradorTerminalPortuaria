@@ -26,7 +26,7 @@ public class Desconsolidado extends Servicio {
 	 * @return BillOfLanding, el BL del cliente especificado.
 	 */
 	public BillOfLanding billOfLandingDelCliente(Cliente cl) {
-		return (BillOfLanding) this.container.getBillsOfLanding().stream().filter(bl -> bl.getDuenios().stream().anyMatch(duenio -> duenio == cl));
+		return (BillOfLanding) this.container.getBillsOfLanding().stream().filter(bl -> bl.getDuenios().stream().anyMatch(duenio -> duenio == cl)).findFirst().orElse(null);
 	}
 
 	@Override
