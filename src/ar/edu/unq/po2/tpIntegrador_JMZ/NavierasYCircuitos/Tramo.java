@@ -1,15 +1,15 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
 
-import java.time.LocalTime;
+import java.time.Duration;
 
 public class Tramo {
-	private final TerminalPortuaria puertoOrigen;
-	private final TerminalPortuaria puertoDestino;
-	private final LocalTime tiempoDeTranscurso;
+	private final String puertoOrigen;
+	private final String puertoDestino;
+	private final Duration tiempoDeTranscurso;
 	private Double precio;
 	
 	// Constructor
-	public Tramo(TerminalPortuaria puertoOrigen, TerminalPortuaria puertoDestino, LocalTime tiempoDeTranscurso, Double precio) {
+	public Tramo(String puertoOrigen, String puertoDestino, Duration tiempoDeTranscurso, Double precio) {
 		this.puertoOrigen = puertoOrigen;
 		this.puertoDestino = puertoDestino;
 		this.tiempoDeTranscurso = tiempoDeTranscurso;
@@ -17,13 +17,13 @@ public class Tramo {
 	}
 	
 	// Getters
-	public TerminalPortuaria getPuertoOrigen() {
+	public String getPuertoOrigen() {
 		return puertoOrigen;
 	}
-	public TerminalPortuaria getPuertoDestino() {
+	public String getPuertoDestino() {
 		return puertoDestino;
 	}
-	public LocalTime getTiempoDeTranscurso() {
+	public Duration getTiempoDeTranscurso() {
 		return tiempoDeTranscurso;
 	}
 	public Double getPrecio() {
@@ -31,11 +31,11 @@ public class Tramo {
 	}
 
 	// Metodos propios
-	public Boolean iniciaEnPuertoDado(TerminalPortuaria puerto) {
+	public Boolean iniciaEnPuertoDado(String puerto) {
 		return this.puertoOrigen==puerto;
 	}
 	
-	public Boolean terminaEnPuertoDado(TerminalPortuaria puerto) {
+	public Boolean terminaEnPuertoDado(String puerto) {
 		return this.puertoDestino==puerto;
 	}
 }
