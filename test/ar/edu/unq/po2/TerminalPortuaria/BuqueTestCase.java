@@ -82,4 +82,5 @@ class BuqueTestCase {
 		//Verify
 		verify(docT).partiendoAViaje(docV);
 	}
+	
 }

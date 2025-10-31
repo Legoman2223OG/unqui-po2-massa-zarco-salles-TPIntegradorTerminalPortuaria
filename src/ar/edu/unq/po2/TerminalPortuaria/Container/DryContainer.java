@@ -16,8 +16,8 @@ public class DryContainer extends Container {
 	 * @param contenido, BillOfLanding, el contenido del contenedor.
 	 * @throws Exception.
 	 */
-	public DryContainer(double ancho, double largo, double altura, BillOfLanding contenido) throws Exception {
-		super(ancho, largo, altura, crearIdentificadorAleatorio(), new BillOfLandingEspecial());
+	public DryContainer(double ancho, double largo, double altura, IBillOfLanding contenido) throws Exception {
+		super(ancho, largo, altura, crearIdentificadorAleatorio(), contenido);
 		
 	}
 
