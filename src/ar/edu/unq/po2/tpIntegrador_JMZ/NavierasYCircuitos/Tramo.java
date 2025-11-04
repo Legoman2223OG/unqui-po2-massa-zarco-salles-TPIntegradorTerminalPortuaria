@@ -32,10 +32,10 @@ public class Tramo {
 
 	// Metodos propios
 	public Boolean iniciaEnPuertoDado(String puerto) {
-		return this.puertoOrigen==puerto;
+		return this.puertoOrigen.equalsIgnoreCase(puerto);
 	}
 	
 	public Boolean terminaEnPuertoDado(String puerto) {
-		return this.puertoDestino==puerto;
+		return this.puertoDestino.equalsIgnoreCase(puerto);
 	}
 }

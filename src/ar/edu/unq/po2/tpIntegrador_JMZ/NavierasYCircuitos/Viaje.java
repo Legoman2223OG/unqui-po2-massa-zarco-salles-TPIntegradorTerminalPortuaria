@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 public class Viaje {
-	private Circuito circuitoDelViaje;
+	private Circuito circuitoDelViaje; // Posiblemente no necesite el circuito completo, solamente la lista de tramos.
 	private String puertoInicio;
 	private ArrayList<Tramo> tramosARecorrer;
 	private LocalTime fechaSalida;

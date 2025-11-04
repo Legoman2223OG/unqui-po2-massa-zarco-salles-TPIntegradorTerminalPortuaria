@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -43,6 +44,30 @@ public class Circuito {
 		this.validarCircuitoCerrado(tramoActual.getPuertoDestino(), origenInicial);
 		
 		return listaOrdenada;
+	}
+	
+	public Viaje crearNuevoViaje(String puertoOrigen, String puertoDestino, LocalTime fechaSalida) {
+		return new Viaje(this,puertoOrigen,this.recorridoEntre_Y_(puertoOrigen, puertoDestino),fechaSalida);
+	}
+	
+	private ArrayList<Tramo> recorridoEntre_Y_(String puertoOrigen, String puertoDestino) {
+		ArrayList<Tramo> recorrido = new ArrayList<>();
+		String puertoActual = puertoOrigen;
+		
+		while(!puertoActual.equalsIgnoreCase(puertoDestino)) {
+			Tramo siguiente = tramoQueIniciaEn(puertoActual);
+			
+			recorrido.add(siguiente);
+			puertoActual = siguiente.getPuertoDestino();
+		}
+		
+		return recorrido;
+	}
+	
+	private Tramo tramoQueIniciaEn(String localidadPuerto) {
+		// (Ideado para "tramosEntre_Y_")
+		// PREC.: debe existir algún puerto cuya localidad de origen sea "localidadPuerto".
+		return this.getTramos().stream().filter(t -> t.iniciaEnPuertoDado(localidadPuerto)).findFirst().get();
 	}
 	
 	private void validarCircuitoCerrado(String destino, String origen) {
