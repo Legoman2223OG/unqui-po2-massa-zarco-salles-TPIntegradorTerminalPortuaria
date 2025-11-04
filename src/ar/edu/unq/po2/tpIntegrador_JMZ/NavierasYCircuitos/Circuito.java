@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -46,7 +46,7 @@ public class Circuito {
 		return listaOrdenada;
 	}
 	
-	public Viaje crearNuevoViaje(String puertoOrigen, String puertoDestino, LocalTime fechaSalida) {
+	public Viaje crearNuevoViaje(String puertoOrigen, String puertoDestino, LocalDateTime fechaSalida) {
 		return new Viaje(this,puertoOrigen,this.recorridoEntre_Y_(puertoOrigen, puertoDestino),fechaSalida);
 	}
 	
