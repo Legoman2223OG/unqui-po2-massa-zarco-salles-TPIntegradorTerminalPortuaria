@@ -1,19 +1,18 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
 
-import java.time.LocalTime;
 import java.time.Duration;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Viaje {
 	private Circuito circuitoDelViaje; // Posiblemente no necesite el circuito completo, solamente la lista de tramos.
 	private String puertoInicio;
 	private ArrayList<Tramo> tramosARecorrer;
-	private LocalTime fechaSalida;
+	private LocalDateTime fechaSalida;
 	
 	
 	// Constructor
-	public Viaje(Circuito circuitoDelViaje, String puertoInicio, ArrayList<Tramo> tramosARecorrer, LocalTime fechaSalida) {
+	public Viaje(Circuito circuitoDelViaje, String puertoInicio, ArrayList<Tramo> tramosARecorrer, LocalDateTime fechaSalida) {
 		this.circuitoDelViaje = circuitoDelViaje;
 		this.puertoInicio = puertoInicio;
 		this.tramosARecorrer = tramosARecorrer;
@@ -34,13 +33,13 @@ public class Viaje {
 		return tramosARecorrer;
 	}
 
-	public LocalTime getFechaSalida() {
+	public LocalDateTime getFechaSalida() {
 		return fechaSalida;
 	}
 
 	
 	// Metodos propios
-	public LocalTime fechaDeLlegada() {
+	public LocalDateTime fechaDeLlegada() {
 		return this.fechaSalida.plus(this.duracionDelViaje());
 	}
 	
