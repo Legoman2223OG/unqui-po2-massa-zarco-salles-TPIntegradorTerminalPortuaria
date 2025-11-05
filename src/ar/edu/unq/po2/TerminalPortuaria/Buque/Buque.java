@@ -1,5 +1,8 @@
 package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
+
 public class Buque {
 
 	private GPS gps;
@@ -22,7 +25,6 @@ public class Buque {
 	}
 
 	public TerminalPortuaria getDestino() {
-		// TODO Auto-generated method stub
 		return this.destino;
 	}
 	

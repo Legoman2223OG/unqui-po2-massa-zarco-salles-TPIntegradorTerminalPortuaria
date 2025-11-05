@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Tramo;
 
-class testNavierasYCircuitos {
+class NavierasYCircuitosTestCase {
 
 	Circuito circuitoTest;
 	Tramo tramo1;

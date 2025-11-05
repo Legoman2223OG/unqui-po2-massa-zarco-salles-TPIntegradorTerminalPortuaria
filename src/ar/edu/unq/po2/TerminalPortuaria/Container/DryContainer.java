@@ -2,7 +2,7 @@ package ar.edu.unq.po2.TerminalPortuaria.Container;
 
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 public class DryContainer extends Container {
 	
