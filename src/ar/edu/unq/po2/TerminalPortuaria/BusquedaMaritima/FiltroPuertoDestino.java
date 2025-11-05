@@ -22,7 +22,7 @@ public class FiltroPuertoDestino implements Busqueda{
 
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
-		return listaDeViajes.stream().filter(v -> v.getpuertoDestino() == this.puertoDestino).toList();
+		return listaDeViajes.stream().filter(v -> v.getPuertoInicio() == this.puertoDestino).toList();
 	}
 
 	
