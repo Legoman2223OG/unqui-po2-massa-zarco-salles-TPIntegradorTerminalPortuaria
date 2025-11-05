@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

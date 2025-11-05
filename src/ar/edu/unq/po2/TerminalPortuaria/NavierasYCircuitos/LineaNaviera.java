@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 
 import java.util.ArrayList;
 import java.util.HashMap;

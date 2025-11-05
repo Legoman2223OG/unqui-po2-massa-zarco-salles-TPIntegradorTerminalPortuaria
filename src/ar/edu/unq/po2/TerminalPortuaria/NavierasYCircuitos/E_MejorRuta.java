@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 
 public abstract class E_MejorRuta {
 	private LineaNaviera naviera;
