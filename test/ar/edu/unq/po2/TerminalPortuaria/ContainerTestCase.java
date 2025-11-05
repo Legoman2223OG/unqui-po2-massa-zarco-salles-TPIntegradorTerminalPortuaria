@@ -17,6 +17,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.Producto;
 import ar.edu.unq.po2.TerminalPortuaria.Container.ReeferContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 class ContainerTestCase {
 	//DOC

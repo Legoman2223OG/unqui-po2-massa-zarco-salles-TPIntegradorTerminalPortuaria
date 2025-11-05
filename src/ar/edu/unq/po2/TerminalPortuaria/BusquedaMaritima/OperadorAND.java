@@ -3,8 +3,7 @@ package ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
-
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 
 public class OperadorAND implements Busqueda{
 

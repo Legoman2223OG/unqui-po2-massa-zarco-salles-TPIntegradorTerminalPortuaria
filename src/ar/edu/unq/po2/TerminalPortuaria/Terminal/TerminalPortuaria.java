@@ -9,14 +9,26 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.E_MejorRuta;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+
+/**
+ * TODO: 
+ * #getCoordenadas().
+ * #proximoAArribar(Viaje)
+ * #partiendoAViaje(Viaje)
+ * #working(Buque). (Esto para hacer pasar a un buque a working)
+ * Falta la clase de Orden.
+ */
 
 public class TerminalPortuaria {
 
 
 	private String nombre;
-	private List<Naviera> misNavieras = new ArrayList<>();
+	private List<LineaNaviera> misNavieras = new ArrayList<>();
 	private Set<Orden> ordenes = new HashSet<>();
 	private E_MejorRuta estrategia;
 	private Busqueda busquedaMaritima;
@@ -33,7 +45,7 @@ public class TerminalPortuaria {
 
 
 
-	public List<Naviera> getMisNavieras()
+	public List<LineaNaviera> getMisNavieras()
 	{
 		return this.misNavieras;
 	}
@@ -168,6 +180,26 @@ public class TerminalPortuaria {
 	 public long tiempoHasta(Viaje viaje, TerminalPortuaria puertoDestino) {
          return viaje.tiempoDeViajeDesdeHasta(this, puertoDestino);
      }
+
+	 public void partiendoAViaje(Viaje viaje) {
+		// TODO Auto-generated method stub
+		
+	 }
+
+	 public Coordenada getCoordenadas() {
+		// TODO Auto-generated method stub
+		return null;
+	 }
+
+	 public void proximoAArribar(Viaje viaje) {
+		// TODO Auto-generated method stub
+		
+	 }
+
+	 public void working(Buque buque1) {
+		// TODO Auto-generated method stub
+		
+	 }
 
 	
 }
