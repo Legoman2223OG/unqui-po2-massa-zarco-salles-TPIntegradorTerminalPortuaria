@@ -19,14 +19,14 @@ public class FiltroFechaLlegada implements Busqueda{
 	
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
-		return listaDeViajes.stream().filter(v -> v.getFechaDeLlegada() == this.fechaLlegada).toList();
+		return listaDeViajes.stream().filter(v -> v.fechaDeLlegada() == this.fechaLlegada).toList();
 	}
 
 
 
-	public LocalDateTime getFechaLlegada() {
-		return fechaLlegada;
-	}
+//	public LocalDateTime getFechaLlegada() {
+//		return fechaLlegada;
+//	}
 
 
 }
