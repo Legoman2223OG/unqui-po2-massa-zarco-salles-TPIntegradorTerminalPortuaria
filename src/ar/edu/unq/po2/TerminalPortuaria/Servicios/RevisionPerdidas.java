@@ -1,8 +1,8 @@
 package ar.edu.unq.po2.TerminalPortuaria.Servicios;
 
-import ar.edu.unq.po2.TerminalPortuaria.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 public class RevisionPerdidas extends Servicio {
 

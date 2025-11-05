@@ -19,6 +19,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Servicios.Electricidad;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Lavado;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Pesado;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.RevisionPerdidas;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 class ServicioTestCase {
 	//DOC
