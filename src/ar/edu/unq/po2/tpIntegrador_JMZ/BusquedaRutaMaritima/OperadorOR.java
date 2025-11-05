@@ -1,22 +1,30 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.BusquedaRutaMaritima;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos.Viaje;
 
 public class OperadorOR implements ComponenteBusqueda {
-	ArrayList<ComponenteBusqueda> ramas;
+	List<ComponenteBusqueda> ramas;
 	String nombre;
 	
-	public OperadorOR(ArrayList<ComponenteBusqueda> ramas, String nombre) {
+	public OperadorOR(List<ComponenteBusqueda> ramas, String nombre) {
 		this.ramas = ramas;
 		this.nombre = nombre;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Viaje> filtrar(ArrayList<Viaje> listaViajes) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Viaje> filtrar(List<Viaje> listaViajes) {
+		HashSet<Viaje> resultado = new HashSet<>();
+		
+		for(ComponenteBusqueda comp : ramas) {
+			HashSet<Viaje> conjuntoViajes = (HashSet<Viaje>) comp.filtrar(listaViajes);
+			resultado.addAll(conjuntoViajes);
+		}
+		
+		return (List<Viaje>) resultado;
 	}
 
 }

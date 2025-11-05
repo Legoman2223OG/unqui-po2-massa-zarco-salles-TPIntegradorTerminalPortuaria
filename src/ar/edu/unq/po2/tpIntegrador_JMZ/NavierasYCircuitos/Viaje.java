@@ -64,4 +64,10 @@ public class Viaje {
 		
 		return total;
 	}
+	
+	public String puertoDeLlegada() {
+		int indexUltimoElemento = this.tramosARecorrer.size() - 1;
+		
+		return this.tramosARecorrer.get(indexUltimoElemento).getPuertoDestino();
+	}
 }

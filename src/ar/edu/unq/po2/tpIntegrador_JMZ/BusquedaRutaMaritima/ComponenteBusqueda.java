@@ -1,8 +1,8 @@
 package ar.edu.unq.po2.tpIntegrador_JMZ.BusquedaRutaMaritima;
 
-import java.util.ArrayList;
+import java.util.List;
 import ar.edu.unq.po2.tpIntegrador_JMZ.NavierasYCircuitos.*;
 
 public interface ComponenteBusqueda {
-	public ArrayList<Viaje> filtrar(ArrayList<Viaje> listaViajes);
+	public List<Viaje> filtrar (List<Viaje> listaViajes);
 }
