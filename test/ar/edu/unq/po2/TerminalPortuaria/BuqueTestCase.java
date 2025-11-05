@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.TerminalPortuaria;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 class BuqueTestCase {
 	//DOC
