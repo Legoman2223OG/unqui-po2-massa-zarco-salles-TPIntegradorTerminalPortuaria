@@ -52,7 +52,6 @@ public class TerminalTestCase {
         buqueReal.setStatus(statusMock);
         buqueSpy = spy(buqueReal);
   
-//        clienteMock = mock(Cliente.class);
     }
     
     @Test
