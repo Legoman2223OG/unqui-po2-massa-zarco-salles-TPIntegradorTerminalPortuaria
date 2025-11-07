@@ -3,7 +3,7 @@ package ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 
 
 public class FiltroFechaLlegada implements Busqueda{
@@ -19,14 +19,14 @@ public class FiltroFechaLlegada implements Busqueda{
 	
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
-		return listaDeViajes.stream().filter(v -> v.getFechaDeLlegada() == this.fechaLlegada).toList();
+		return listaDeViajes.stream().filter(v -> v.fechaDeLlegada() == this.fechaLlegada).toList();
 	}
 
 
 
-	public LocalDateTime getFechaLlegada() {
-		return fechaLlegada;
-	}
+//	public LocalDateTime getFechaLlegada() {
+//		return fechaLlegada;
+//	}
 
 
 }

@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.TerminalPortuaria;
+package ar.edu.unq.po2.TerminalPortuaria.Terminal;
 
 public class Cliente {
 
@@ -15,6 +15,7 @@ public class Cliente {
 	public String getNombre() {
 		return nombre;
 	}
+
 
 	
 }

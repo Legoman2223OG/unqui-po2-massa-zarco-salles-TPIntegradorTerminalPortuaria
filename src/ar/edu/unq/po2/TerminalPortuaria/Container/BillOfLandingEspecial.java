@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import ar.edu.unq.po2.TerminalPortuaria.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 /**
  * Representa un Bill Of Landing especial, el cual puede contener
