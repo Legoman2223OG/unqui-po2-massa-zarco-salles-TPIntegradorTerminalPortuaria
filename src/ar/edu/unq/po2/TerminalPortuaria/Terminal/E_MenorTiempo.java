@@ -1,8 +1,9 @@
-package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria.Terminal;
 
 import java.util.Comparator;
 
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 
 public class E_MenorTiempo extends E_MejorRuta {
 

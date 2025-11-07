@@ -1,11 +1,12 @@
-package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
+package ar.edu.unq.po2.TerminalPortuaria.Terminal;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 
 public abstract class E_MejorRuta {
 	private TerminalPortuaria terminalOrigen;

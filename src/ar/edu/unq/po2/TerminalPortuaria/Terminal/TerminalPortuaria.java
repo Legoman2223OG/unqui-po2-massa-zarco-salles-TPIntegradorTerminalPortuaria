@@ -12,7 +12,6 @@ import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;

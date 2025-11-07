@@ -3,18 +3,19 @@ package ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima;
 import java.util.List;
 
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 
 public class FiltroPuertoDestino implements Busqueda{
 
-	private String puertoDestino;
+	private TerminalPortuaria puertoDestino;
 
-	public FiltroPuertoDestino(String puertoDestino) {
+	public FiltroPuertoDestino(TerminalPortuaria puertoDestino) {
 		this.puertoDestino = puertoDestino;
 	}
 
 
-	public String getPuertoDestino()
+	public TerminalPortuaria getPuertoDestino()
 	{
 		return puertoDestino;
 	}
