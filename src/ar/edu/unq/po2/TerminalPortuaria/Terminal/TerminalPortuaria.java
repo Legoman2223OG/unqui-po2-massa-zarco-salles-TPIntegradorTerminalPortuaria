@@ -29,9 +29,6 @@ public class TerminalPortuaria {
 	private E_MejorRuta estrategia;
 	private Busqueda busquedaMaritima;
 
-
-	public TerminalPortuaria() {}
-
 	public TerminalPortuaria(String nombre)
 	{
 		this.nombre = nombre;
@@ -96,21 +93,21 @@ public class TerminalPortuaria {
 		this.ordenes.add(orden);
 	}
 
-//  
-//	public void registrarNuevaNaviera(LineaNaviera nav)
-//	{
-//		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
-//		{
-//			this.misNavieras.add(nav);
-//		}
-//	}
+
+	public void registrarNuevaNaviera(LineaNaviera nav)
+	{
+		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
+		{
+			this.misNavieras.add(nav);
+		}
+	}
 
 
-//	public boolean estoyEnUnCircuitoDeLaNaviera(LineaNaviera nav)
-//	{
-//		List<Circuito> circuitosNaviera = nav.getCircuitos();
-//		return circuitosNaviera.stream().anyMatch(cir->cir.validarSiTerminalExisteEnCircuito(this));
-//	}
+	public boolean estoyEnUnCircuitoDeLaNaviera(LineaNaviera nav)
+	{
+		List<Circuito> circuitosNaviera = nav.getCircuitos();
+		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
+	}
 
 	public void trabajoCargaYDescarga(Buque buque) throws Exception
 	{

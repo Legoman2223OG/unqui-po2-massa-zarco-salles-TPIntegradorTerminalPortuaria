@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,5 +24,11 @@ public class LineaNaviera {
 
 	public ArrayList<Circuito> getCircuitos() {
 		return circuitos;
+	}
+	
+	public ArrayList<Circuito> circuitosQuePasanPor(TerminalPortuaria terminal) {
+		return (ArrayList<Circuito>) this.circuitos.stream()
+							 			 .filter(circ -> circ.terminalExisteEnElCircuito(terminal))
+							 			 .toList();
 	}
 }
