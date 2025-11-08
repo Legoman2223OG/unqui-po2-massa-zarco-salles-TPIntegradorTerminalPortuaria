@@ -11,11 +11,12 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.*;
 
 public class EstrategiasTestCase {
 	// SUT
-	E_MejorRuta estrategia;
+	private E_MejorRuta estrategiaTest;
 	
 	// DOC
-	TerminalPortuaria terminalTest;
-	LineaNaviera lineaTest;
+	private TerminalPortuaria terminalOrigenTest;
+	private TerminalPortuaria terminalDestinoTest;
+	private LineaNaviera lineaTest;
 
 	@BeforeEach
 	void setUp() {

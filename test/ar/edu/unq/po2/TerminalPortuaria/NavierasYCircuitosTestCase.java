@@ -35,10 +35,10 @@ class NavierasYCircuitosTestCase {
 		terminal3 = mock(TerminalPortuaria.class);
 		terminal4 = mock(TerminalPortuaria.class);
 		
-		tramo1 = new Tramo(terminal1, terminal2, Duration.ofHours(1), 68.0);
-		tramo2 = new Tramo(terminal2, terminal3, Duration.ofMinutes(56), 90.0);
-		tramo3 = new Tramo(terminal3, terminal4, Duration.ofMinutes(35), 24.0);
-		tramo4 = new Tramo(terminal4, terminal1, Duration.ofMinutes(15), 52.0);
+		tramo1 = new Tramo(terminal1, terminal2, Duration.ZERO, 0.0);
+		tramo2 = new Tramo(terminal2, terminal3, Duration.ZERO, 0.0);
+		tramo3 = new Tramo(terminal3, terminal4, Duration.ZERO, 0.0);
+		tramo4 = new Tramo(terminal4, terminal1, Duration.ZERO, 0.0);
 	}
 	
 	@Test

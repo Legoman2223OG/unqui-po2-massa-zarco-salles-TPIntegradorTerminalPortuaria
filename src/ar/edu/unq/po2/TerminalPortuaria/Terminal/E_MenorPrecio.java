@@ -12,7 +12,7 @@ public class E_MenorPrecio extends E_MejorRuta {
 	}
 
 	@Override
-	public Circuito mejorRuta(TerminalPortuaria terminalDestino) {
+	public Circuito mejorCircuitoHacia(TerminalPortuaria terminalDestino) {
 		return viajesPorCadaCircuito(terminalDestino).get(
 				viajesDesdeOrigenHasta(terminalDestino).stream()
 											   	       .min(Comparator.comparing(Viaje::precioTotal))

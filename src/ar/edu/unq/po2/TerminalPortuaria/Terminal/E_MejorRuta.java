@@ -15,7 +15,7 @@ public abstract class E_MejorRuta {
 		this.terminalOrigen = terminalOrigen;
 	}
 	
-	public abstract Circuito mejorRuta(TerminalPortuaria terminalDestino);
+	public abstract Circuito mejorCircuitoHacia(TerminalPortuaria terminalDestino);
 	
 	protected ArrayList<Circuito> circuitosQueContienenDestino(TerminalPortuaria terminalDestino) {
 		return (ArrayList<Circuito>) this.terminalOrigen.getMisNavieras().stream()
