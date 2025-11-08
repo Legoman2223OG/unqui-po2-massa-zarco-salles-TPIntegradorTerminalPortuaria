@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.*;
 
 public class EstrategiasTestCase {
@@ -13,9 +14,12 @@ public class EstrategiasTestCase {
 	E_MejorRuta estrategia;
 	
 	// DOC
+	TerminalPortuaria terminalTest;
+	LineaNaviera lineaTest;
 
-	public EstrategiasTestCase() {
-		// TODO Auto-generated constructor stub
+	@BeforeEach
+	void setUp() {
+		
 	}
 
 }
