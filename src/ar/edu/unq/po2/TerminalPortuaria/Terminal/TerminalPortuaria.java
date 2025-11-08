@@ -76,7 +76,7 @@ public class TerminalPortuaria {
 	 }
 
 
-//
+
 //	public void darAvisoShippers( Viaje viaje )
 //	{
 //		List<Orden> ordenesExportacion = ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
@@ -84,11 +84,11 @@ public class TerminalPortuaria {
 //
 //		listaConsignees.stream().forEach( c -> c.recibirMail("Su carga está llegando") );
 //	}
-
+//
 //	public void darAvisoConsignees( Viaje viaje )
 //	{
 //		List<Orden> ordenesImportacion = ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
-//		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).toList();
+//		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).collect(Collectors.toList());
 //		listaConsignees.stream().forEach( c -> c.recibirMail("Su carga ha salido de la terminal") );
 //	}
 
@@ -136,7 +136,7 @@ public class TerminalPortuaria {
 		this.validarCamion(camion, orden);
 		this.validarChofer(chofer, orden);
 		this.validarHorarioDeEntrega(orden);
-		orden.registrarEntregaContainer();
+		this.registrarNuevaOrden(orden);
 	}
 
 
@@ -144,7 +144,7 @@ public class TerminalPortuaria {
 	{
 		this.validarCamion(camion, orden);
 		this.validarChofer(chofer, orden);
-		orden.registrarSalidaContainer();
+		this.registrarNuevaOrden(orden);
 	}
 
 

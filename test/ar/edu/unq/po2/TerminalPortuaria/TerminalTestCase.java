@@ -91,7 +91,10 @@ public class TerminalTestCase {
         LocalDateTime turno = LocalDateTime.now().minusHours(1);
         when(clienteMock.getTurno()).thenReturn(turno);
         terminal.entregaTerrestreExp(ordenMock, camionMock, choferMock);
-        verify(ordenMock, times(1)).registrarEntregaContainer();
+        assertTrue(
+                terminal.getOrdenes().contains(ordenMock),
+                "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
+            );
     }
     
     @Test
@@ -99,7 +102,10 @@ public class TerminalTestCase {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
         terminal.validarEntregaTerrestreImp(ordenMock, camionMock, choferMock);
-        verify(ordenMock, times(1)).registrarSalidaContainer();
+        assertTrue(
+                terminal.getOrdenes().contains(ordenMock),
+                "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
+            );
     }
     
     @Test
