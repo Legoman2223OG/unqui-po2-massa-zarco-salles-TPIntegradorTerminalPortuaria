@@ -2,17 +2,15 @@ package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineaNaviera {
-	private List<Buque> buques;
-	private List<Circuito> circuitos;
+	private List<Buque> buques = new ArrayList<>();
+	private List<Circuito> circuitos = new ArrayList<>();
 	
 	// Constructor
-	public LineaNaviera(List<Buque> buques, List<Circuito> circuitos) {
-		this.buques = buques;
-		this.circuitos = circuitos;
-	}
+	public LineaNaviera() {}
 
 	// Getters
 	public List<Buque> getBuques() {

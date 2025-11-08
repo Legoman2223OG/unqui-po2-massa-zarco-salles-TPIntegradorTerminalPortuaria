@@ -131,12 +131,9 @@ class NavierasYCircuitosTestCase {
 		tramosDeCircuito.add(tramo4);
 		circuitoTest = new Circuito(tramosDeCircuito);
 		Circuito segundoCircuito = new Circuito(tramosDeSegundoCircuito);
-		ArrayList<Circuito> listaCircuitos = new ArrayList<Circuito>();
-		listaCircuitos.add(circuitoTest);
-		listaCircuitos.add(segundoCircuito);
 		
 		// Exercise
-		LineaNaviera lineaTest = new LineaNaviera(new ArrayList<>(), listaCircuitos);
+		LineaNaviera lineaTest = new LineaNaviera(); lineaTest.addCircuito(circuitoTest); lineaTest.addCircuito(segundoCircuito);
 		
 		// Verify
 		Assertions.assertEquals(segundoCircuito, lineaTest.circuitosQuePasanPor(terminal5).get(0));

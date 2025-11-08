@@ -31,8 +31,6 @@ public class TerminalPortuaria {
 	public TerminalPortuaria(String nombre)
 	{
 		this.nombre = nombre;
-		this.misNavieras = new ArrayList<>();
-		this.ordenes = new HashSet<>();
 	}
 
 
@@ -60,8 +58,9 @@ public class TerminalPortuaria {
 	 }
 
 
-//	 public Circuito getMejorCircuito() {
-//	 }
+	 public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
+		 return estrategia.mejorCircuitoHacia(terminalDestino);
+	 }
 
 
 //
