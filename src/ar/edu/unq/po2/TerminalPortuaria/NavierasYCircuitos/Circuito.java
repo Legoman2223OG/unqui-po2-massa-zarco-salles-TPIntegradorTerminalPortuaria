@@ -11,7 +11,7 @@ public class Circuito {
 	private ArrayList<Tramo> tramos;
 	
 	// Constructor
-	public Circuito(ArrayList<Tramo> tramos) {
+	public Circuito(ArrayList<Tramo> tramos) throws Exception {
 		this.tramos = ordenarTramos(tramos);
 	}
 	
@@ -21,7 +21,7 @@ public class Circuito {
 	}
 	
 	// Metodos propios
-	private ArrayList<Tramo> ordenarTramos(ArrayList<Tramo> listaTramos) {
+	public ArrayList<Tramo> ordenarTramos(ArrayList<Tramo> listaTramos) throws Exception {
 		// Dada una lista de tramos, reordena sus elementos para que el circuito quede en orden y devuelve la lista ordenada.
 		if (listaTramos.isEmpty()) return new ArrayList<>();
 		
@@ -52,11 +52,11 @@ public class Circuito {
 		return new Viaje(puertoOrigen,this.recorridoEntre_Y_(puertoOrigen, puertoDestino),fechaSalida);
 	}
 	
-	private ArrayList<Tramo> recorridoEntre_Y_(TerminalPortuaria puertoOrigen, TerminalPortuaria puertoDestino) {
+	public ArrayList<Tramo> recorridoEntre_Y_(TerminalPortuaria puertoOrigen, TerminalPortuaria puertoDestino) {
 		ArrayList<Tramo> recorrido = new ArrayList<>();
 		TerminalPortuaria puertoActual = puertoOrigen;
 		
-		while(!(puertoActual == puertoDestino)) {
+		while(puertoActual != puertoDestino) {
 			Tramo siguiente = tramoQueIniciaEn(puertoActual);
 			
 			recorrido.add(siguiente);
@@ -72,11 +72,11 @@ public class Circuito {
 		return this.getTramos().stream().filter(t -> t.iniciaEnPuertoDado(localidadPuerto)).findFirst().get();
 	}
 	
-	private void validarCircuitoCerrado(TerminalPortuaria destino, TerminalPortuaria origen) {
+	private void validarCircuitoCerrado(TerminalPortuaria destino, TerminalPortuaria origen) throws Exception {
 		// (Pensado para el metodo "ordenarTramos".)
 		// Valida que el ultimo puerto conecta con el inicial.
 		if(!(destino == origen)) {
-			throw new IllegalArgumentException("Los tramos no forman un circuito cerrado.");
+			throw new Exception("Los tramos no forman un circuito cerrado.");
 		}
 	}
 	
