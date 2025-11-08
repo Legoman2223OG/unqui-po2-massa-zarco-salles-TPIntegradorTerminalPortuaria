@@ -24,26 +24,29 @@ public class TerminalPortuaria {
 
 
 	private String nombre;
+	private Coordenada coordenada;
 	private List<LineaNaviera> misNavieras = new ArrayList<>();
 	private Set<Orden> ordenes = new HashSet<>();
 	private E_MejorRuta estrategia;
 	private Busqueda busquedaMaritima;
 
 
-	public TerminalPortuaria() {}
-
-	public TerminalPortuaria(String nombre)
+	public TerminalPortuaria(String nombre, Coordenada coordenada)
 	{
+		this.coordenada = coordenada;
 		this.nombre = nombre;
 		this.misNavieras = new ArrayList<>();
 		this.ordenes = new HashSet<>();
 	}
 
 
-
 	public List<LineaNaviera> getMisNavieras()
 	{
 		return this.misNavieras;
+	}
+	
+	public Set<Orden> getOrdenes() {
+		return this.ordenes;
 	}
 
 
@@ -59,13 +62,18 @@ public class TerminalPortuaria {
 //		this.busquedaMaritima.filtrar(this.getMisViajes());
 //	}
 	
-	 public void setMejorCircuito( E_MejorRuta estrategia ) {
+	 public void setEstrategia( E_MejorRuta estrategia ) {
 	 	this.estrategia = estrategia;
+	 }
+	 
+	 public E_MejorRuta getEstrategia() {
+		 return this.estrategia;
 	 }
 
 
-//	 public Circuito getMejorCircuito() {
-//	 }
+	 public Circuito getMejorCircuito() {
+		 return this.estrategia.mejorRuta();
+	 }
 
 
 //
@@ -91,7 +99,7 @@ public class TerminalPortuaria {
 	}
 
 
-	public void registrasNuevaOrden(Orden orden)
+	public void registrarNuevaOrden(Orden orden)
 	{
 		this.ordenes.add(orden);
 	}
@@ -112,7 +120,7 @@ public class TerminalPortuaria {
 //		return circuitosNaviera.stream().anyMatch(cir->cir.validarSiTerminalExisteEnCircuito(this));
 //	}
 
-	public void trabajoCargaYDescarga(Buque buque) throws Exception
+	public void working(Buque buque) throws Exception
 	{
 		buque.working();
 	}
@@ -185,15 +193,10 @@ public class TerminalPortuaria {
 
 	 public Coordenada getCoordenadas() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.coordenada;
 	 }
 
 	 public void proximoAArribar(Viaje viaje) {
-		// TODO Auto-generated method stub
-		
-	 }
-
-	 public void working(Buque buque1) {
 		// TODO Auto-generated method stub
 		
 	 }
