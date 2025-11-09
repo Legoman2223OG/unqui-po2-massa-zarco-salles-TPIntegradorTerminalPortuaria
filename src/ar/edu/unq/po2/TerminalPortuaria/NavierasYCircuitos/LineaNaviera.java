@@ -31,7 +31,7 @@ public class LineaNaviera {
 	
 	public List<Circuito> circuitosQuePasanPor(TerminalPortuaria terminal) {
 		return this.circuitos.stream()
-							 			 .filter(circ -> circ.terminalExisteEnElCircuito(terminal))
-							 			 .toList();
+							 .filter(circ -> circ.terminalExisteEnElCircuito(terminal))
+							 .toList();
 	}
 }

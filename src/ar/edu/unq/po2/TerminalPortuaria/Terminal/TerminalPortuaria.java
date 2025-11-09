@@ -59,7 +59,7 @@ public class TerminalPortuaria {
 
 
 	 public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
-		 return estrategia.mejorCircuitoHacia(terminalDestino);
+		 return estrategia.mejorCircuitoHacia(this, terminalDestino);
 	 }
 
 

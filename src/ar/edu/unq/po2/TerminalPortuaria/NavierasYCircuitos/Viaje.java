@@ -49,7 +49,7 @@ public class Viaje {
 		Duration duracionTotal = Duration.ZERO;
 		
 		for (Tramo t : tramosARecorrer) {
-			duracionTotal.plus(t.getTiempoDeTranscurso());
+			duracionTotal = duracionTotal.plus(t.getTiempoDeTranscurso());
 		}
 		
 		return duracionTotal;
