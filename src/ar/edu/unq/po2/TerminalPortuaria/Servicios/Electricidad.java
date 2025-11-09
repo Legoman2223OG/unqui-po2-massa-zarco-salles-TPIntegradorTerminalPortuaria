@@ -1,8 +1,9 @@
 package ar.edu.unq.po2.TerminalPortuaria.Servicios;
 
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.Container.ReeferContainer;
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
+
 
 public class Electricidad extends Servicio {
 
