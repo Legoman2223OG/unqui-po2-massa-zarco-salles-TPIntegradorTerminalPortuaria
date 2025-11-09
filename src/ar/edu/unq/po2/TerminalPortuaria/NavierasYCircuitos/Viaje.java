@@ -4,29 +4,25 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
+
 public class Viaje {
-	private Circuito circuitoDelViaje; // Posiblemente no necesite el circuito completo, solamente la lista de tramos.
-	private String puertoInicio;
+	private TerminalPortuaria terminalInicio;
 	private ArrayList<Tramo> tramosARecorrer;
 	private LocalDateTime fechaSalida;
 	
 	
 	// Constructor
-	public Viaje(Circuito circuitoDelViaje, String puertoInicio, ArrayList<Tramo> tramosARecorrer, LocalDateTime fechaSalida) {
-		this.circuitoDelViaje = circuitoDelViaje;
-		this.puertoInicio = puertoInicio;
+	public Viaje(TerminalPortuaria terminalInicio, ArrayList<Tramo> tramosARecorrer, LocalDateTime fechaSalida) {
+		this.terminalInicio = terminalInicio;
 		this.tramosARecorrer = tramosARecorrer;
 		this.fechaSalida = fechaSalida;
 	}
 
 	
 	// Getters
-	public Circuito getCircuitoDelViaje() {
-		return circuitoDelViaje;
-	}
-
-	public String getPuertoInicio() {
-		return puertoInicio;
+	public TerminalPortuaria getPuertoInicio() {
+		return terminalInicio;
 	}
 
 	public ArrayList<Tramo> getTramosARecorrer() {
@@ -43,7 +39,12 @@ public class Viaje {
 		return this.fechaSalida.plus(this.duracionDelViaje());
 	}
 	
-	private Duration duracionDelViaje() {
+	public int numeroDeTerminalesEntreOrigenYDestino() {
+		// El numero de terminales que hay entre dos terminales cualesquiera siempre va a ser igual al numero de tramos, menos uno.
+		return tramosARecorrer.size() - 1;
+	}
+	
+	public Duration duracionDelViaje() {
 		// Indica la cantidad de tiempo que va a durar el viaje.
 		Duration duracionTotal = Duration.ZERO;
 		
@@ -65,7 +66,7 @@ public class Viaje {
 		return total;
 	}
 	
-	public String puertoDeLlegada() {
+	public TerminalPortuaria puertoDeLlegada() {
 		int indexUltimoElemento = this.tramosARecorrer.size() - 1;
 		
 		return this.tramosARecorrer.get(indexUltimoElemento).getPuertoDestino();

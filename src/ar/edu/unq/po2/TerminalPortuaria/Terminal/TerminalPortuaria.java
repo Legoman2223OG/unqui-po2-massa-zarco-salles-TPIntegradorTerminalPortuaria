@@ -12,7 +12,6 @@ import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
@@ -31,12 +30,10 @@ public class TerminalPortuaria {
 	private Busqueda busquedaMaritima;
 
 
-	public TerminalPortuaria(String nombre, Coordenada coordenada)
+	public TerminalPortuaria(String nombre)
 	{
 		this.coordenada = coordenada;
 		this.nombre = nombre;
-		this.misNavieras = new ArrayList<>();
-		this.ordenes = new HashSet<>();
 	}
 
 
@@ -71,10 +68,9 @@ public class TerminalPortuaria {
 	 }
 
 
-	 public Circuito getMejorCircuito() {
-		 return this.estrategia.mejorRuta();
+	 public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
+		 return estrategia.mejorCircuitoHacia(terminalDestino);
 	 }
-
 
 
 //	public void darAvisoShippers( Viaje viaje )
@@ -104,21 +100,21 @@ public class TerminalPortuaria {
 		this.ordenes.add(orden);
 	}
 
-//  
-//	public void registrarNuevaNaviera(LineaNaviera nav)
-//	{
-//		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
-//		{
-//			this.misNavieras.add(nav);
-//		}
-//	}
+
+	public void registrarNuevaNaviera(LineaNaviera nav)
+	{
+		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
+		{
+			this.misNavieras.add(nav);
+		}
+	}
 
 
-//	public boolean estoyEnUnCircuitoDeLaNaviera(LineaNaviera nav)
-//	{
-//		List<Circuito> circuitosNaviera = nav.getCircuitos();
-//		return circuitosNaviera.stream().anyMatch(cir->cir.validarSiTerminalExisteEnCircuito(this));
-//	}
+	public boolean estoyEnUnCircuitoDeLaNaviera(LineaNaviera nav)
+	{
+		List<Circuito> circuitosNaviera = nav.getCircuitos();
+		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
+	}
 
 	public void working(Buque buque) throws Exception
 	{

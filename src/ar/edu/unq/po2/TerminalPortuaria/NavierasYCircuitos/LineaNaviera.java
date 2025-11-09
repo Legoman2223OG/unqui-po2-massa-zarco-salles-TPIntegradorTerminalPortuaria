@@ -1,27 +1,37 @@
 package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class LineaNaviera {
-	private ArrayList<Buque> buques;
-	private ArrayList<Circuito> circuitos;
-	private Map<Buque, ArrayList<Viaje>> recorridos = new HashMap<>();
+	private List<Buque> buques = new ArrayList<>();
+	private List<Circuito> circuitos = new ArrayList<>();
 	
 	// Constructor
-	public LineaNaviera(ArrayList<Buque> buques, ArrayList<Circuito> circuitos) {
-		this.buques = buques;
-		this.circuitos = circuitos;
-	}
+	public LineaNaviera() {}
 
 	// Getters
-	public ArrayList<Buque> getBuques() {
+	public List<Buque> getBuques() {
 		return buques;
 	}
+	
+	public void addBuque(Buque buque) {
+		buques.add(buque);
+	}
+	
+	public void addCircuito(Circuito circuito) {
+		circuitos.add(circuito);
+	}
 
-	public ArrayList<Circuito> getCircuitos() {
+	public List<Circuito> getCircuitos() {
 		return circuitos;
+	}
+	
+	public List<Circuito> circuitosQuePasanPor(TerminalPortuaria terminal) {
+		return this.circuitos.stream()
+							 			 .filter(circ -> circ.terminalExisteEnElCircuito(terminal))
+							 			 .toList();
 	}
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+
 
 /**
  * Representa un Bill Of Landing común, el cual contiene
