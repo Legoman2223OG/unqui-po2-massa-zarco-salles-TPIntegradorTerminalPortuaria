@@ -2,26 +2,28 @@ package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 
 import java.time.Duration;
 
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
+
 public class Tramo {
-	private final String puertoOrigen;
-	private final String puertoDestino;
+	private final TerminalPortuaria terminalOrigen;
+	private final TerminalPortuaria terminalDestino;
 	private final Duration tiempoDeTranscurso;
 	private Double precio;
 	
 	// Constructor
-	public Tramo(String puertoOrigen, String puertoDestino, Duration tiempoDeTranscurso, Double precio) {
-		this.puertoOrigen = puertoOrigen;
-		this.puertoDestino = puertoDestino;
+	public Tramo(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino, Duration tiempoDeTranscurso, Double precio) {
+		this.terminalOrigen = terminalOrigen;
+		this.terminalDestino = terminalDestino;
 		this.tiempoDeTranscurso = tiempoDeTranscurso;
 		this.precio = precio;
 	}
 	
 	// Getters
-	public String getPuertoOrigen() {
-		return puertoOrigen;
+	public TerminalPortuaria getPuertoOrigen() {
+		return terminalOrigen;
 	}
-	public String getPuertoDestino() {
-		return puertoDestino;
+	public TerminalPortuaria getPuertoDestino() {
+		return terminalDestino;
 	}
 	public Duration getTiempoDeTranscurso() {
 		return tiempoDeTranscurso;
@@ -31,11 +33,11 @@ public class Tramo {
 	}
 
 	// Metodos propios
-	public Boolean iniciaEnPuertoDado(String puerto) {
-		return this.puertoOrigen.equalsIgnoreCase(puerto);
+	public Boolean iniciaEnPuertoDado(TerminalPortuaria puerto) {
+		return this.terminalOrigen == puerto;
 	}
 	
-	public Boolean terminaEnPuertoDado(String puerto) {
-		return this.puertoDestino.equalsIgnoreCase(puerto);
+	public Boolean terminaEnPuertoDado(TerminalPortuaria puerto) {
+		return this.terminalDestino == puerto;
 	}
 }
