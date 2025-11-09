@@ -30,7 +30,7 @@ public class TerminalPortuaria {
 	private Busqueda busquedaMaritima;
 
 
-	public TerminalPortuaria(String nombre, Coordenada coordenada)
+	public TerminalPortuaria(String nombre)
 	{
 		this.coordenada = coordenada;
 		this.nombre = nombre;
