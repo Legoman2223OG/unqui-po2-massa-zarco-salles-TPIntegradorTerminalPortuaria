@@ -41,17 +41,17 @@ public class TerminalPortuaria {
 	}
 
 
-//	public List<Viaje> getMisViajes()
-//	{
-//	    return this.misNavieras.stream()
-//	            .flatMap(n -> n.getViajes().stream()) // Convierte los sets de viajes de todas las navieras en un solo stream
-//	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
-//	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
-//	}
+	public List<Viaje> getMisViajes()
+	{
+	    return this.misNavieras.stream()
+	            .flatMap(n -> n.getViajes().stream()) // Convierte los sets de viajes de todas las navieras en un solo stream
+	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
+	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
+	}
 	
-//	public List<Viaje> busquedaViaje() {
-//		this.busquedaMaritima.filtrar(this.getMisViajes());
-//	}
+	public List<Viaje> busquedaViaje() {
+		return this.busquedaMaritima.filtrar(this.getMisViajes());
+	}
 	
 	 public void setMejorCircuito( E_MejorRuta estrategia ) {
 	 	this.estrategia = estrategia;

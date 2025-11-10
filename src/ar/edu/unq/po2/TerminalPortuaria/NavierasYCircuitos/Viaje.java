@@ -3,6 +3,8 @@ package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -66,9 +68,25 @@ public class Viaje {
 		return total;
 	}
 	
+	public Set<TerminalPortuaria> todasLasTerminalesDentroDelViaje() {
+		// Devuelve un conjunto con todas las terminales que forman parte del viaje.
+		Set<TerminalPortuaria> conjuntoPuertos = new HashSet<TerminalPortuaria>();
+		
+		for(Tramo tramoActual : tramosARecorrer) {
+			conjuntoPuertos.add(tramoActual.getPuertoOrigen());
+			conjuntoPuertos.add(tramoActual.getPuertoDestino());
+		}
+		
+		return conjuntoPuertos;
+	}
+	
 	public TerminalPortuaria puertoDeLlegada() {
 		int indexUltimoElemento = this.tramosARecorrer.size() - 1;
 		
 		return this.tramosARecorrer.get(indexUltimoElemento).getPuertoDestino();
+	}
+	
+	public boolean validarSiTerminalExisteEnViaje(TerminalPortuaria terminal) {
+		return this.todasLasTerminalesDentroDelViaje().contains(terminal);
 	}
 }

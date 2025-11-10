@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
-class NavierasYCircuitosTestCase {
+class CircuitosTestCase {
 	// SUT
 	private Circuito circuitoTest;
 	private LineaNaviera navieraTest;
