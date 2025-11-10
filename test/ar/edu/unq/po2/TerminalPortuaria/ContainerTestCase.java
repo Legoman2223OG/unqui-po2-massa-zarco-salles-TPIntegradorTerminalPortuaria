@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLandingEspecial;
 import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.Producto;
 import ar.edu.unq.po2.TerminalPortuaria.Container.ReeferContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
 
 class ContainerTestCase {
 	//DOC

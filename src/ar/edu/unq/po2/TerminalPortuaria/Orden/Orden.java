@@ -7,38 +7,40 @@ import java.util.UUID;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
+import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.EmpresaTransportista;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Servicio;
 
 
-public class Orden {
+public abstract class Orden {
 
 	protected Cliente cliente;
 	protected Viaje viaje;
-	protected Container container;
+	protected IBillOfLanding bill;
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
 	protected boolean servicioLavado;
-	protected LocalDateTime entregaContainer;
-	protected LocalDateTime salidaContainer;
     public UUID codigoUnico;
+    public LocalDateTime fechaTurno;
 
     public Orden() {}
 
-	public Orden(Cliente cliente, Viaje viaje, Container container, boolean servicioLavado)
+	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, boolean servicioLavado, LocalDateTime turno)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
-		this.container = container;
-//		this.transporteAsignado = empresa.asignarTransporte(this);
+		this.bill = bill;
+		this.transporteAsignado = TAsignado;
+		this.fechaTurno = turno;
 		this.codigoUnico = UUID.randomUUID();
 	}
 
-//	public abstract boolean esOrdenImportacion();
-//	public abstract boolean esOrdenExportacion();
+	public abstract boolean esOrdenImportacion();
+	public abstract boolean esOrdenExportacion();
 
 	public Chofer getChoferAsignado() {
 		return this.transporteAsignado.getChoferAsignado();
@@ -50,47 +52,29 @@ public class Orden {
 
 	public Viaje getViaje()
 	{
-		return viaje;
+		return this.viaje;
 	}
 
-	public Container getContainer()
+	public IBillOfLanding getBill()
 	{
-		return container;
+		return this.bill;
 	}
 
 	public Cliente getCliente()
 	{
-		return cliente;
+		return this.cliente;
 	}
 
-	public LocalDateTime getFechaDeSalidaCarga()
+	public LocalDateTime getFechaSaludaDeCarga()
 	{
+		
 		return viaje.getFechaSalida();
 	}
+	
 
 	public LocalDateTime getFechaDeLlegadaCarga()
 	{
 		return viaje.fechaDeLlegada();
-	}
-
-	public void registrarEntregaContainer()
-	{
-		this.entregaContainer = LocalDateTime.now();
-	}
-
-	public void registrarSalidaContainer()
-	{
-		this.salidaContainer = LocalDateTime.now();
-	}
-
-	public LocalDateTime getEntregaContainer()
-	{
-		return entregaContainer;
-	}
-
-	public LocalDateTime getSalidaContainer()
-	{
-		return salidaContainer;
 	}
 
 

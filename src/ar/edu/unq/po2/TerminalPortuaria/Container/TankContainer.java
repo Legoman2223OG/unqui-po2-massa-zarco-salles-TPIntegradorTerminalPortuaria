@@ -2,7 +2,8 @@ package ar.edu.unq.po2.TerminalPortuaria.Container;
 
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+
 
 public class TankContainer extends Container {
 
