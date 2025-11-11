@@ -8,7 +8,7 @@ import java.util.List;
 public class LineaNaviera {
 	private List<Buque> buques = new ArrayList<>();
 	private List<Circuito> circuitos = new ArrayList<>();
-	private List<WrapperViaje> listaRecorridos = new ArrayList<>();
+	private List<WrapperRecorrido> listaRecorridos = new ArrayList<>();
 	
 	// Constructor
 	public LineaNaviera() {}
@@ -45,7 +45,7 @@ public class LineaNaviera {
 	
 	public void registrarNuevoRecorrido(Buque buque, ArrayList<Viaje> listaViajes) throws Exception {
 		this.verificarExistenciaDeBuque(buque);
-		this.listaRecorridos.add(new WrapperViaje(buque, listaViajes));
+		this.listaRecorridos.add(new WrapperRecorrido(buque, listaViajes));
 	}
 	
 	public void verificarExistenciaDeBuque(Buque buque) throws Exception {
@@ -56,5 +56,13 @@ public class LineaNaviera {
 	
 	public boolean buqueExisteEnEstaNaviera(Buque buque) {
 		return this.buques.contains(buque);
+	}
+	
+	public Buque buscarBuquePorViaje(Viaje viaje) {
+	    for (WrapperRecorrido w : listaRecorridos) {
+	        Buque b = w.getBuqueDeViaje(viaje);
+	        if (b != null) return b;
+	    }
+	    return null;
 	}
 }

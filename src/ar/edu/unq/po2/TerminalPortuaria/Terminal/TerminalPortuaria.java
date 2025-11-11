@@ -15,11 +15,13 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
 
 
-public class TerminalPortuaria {
+public class TerminalPortuaria implements ElementoVisitable {
 
 
 	private String nombre;
@@ -30,7 +32,7 @@ public class TerminalPortuaria {
 	private Busqueda busquedaMaritima;
 
 
-	public TerminalPortuaria(String nombre)
+	public TerminalPortuaria(String nombre, Coordenada coordenada)
 	{
 		this.coordenada = coordenada;
 		this.nombre = nombre;
@@ -195,6 +197,16 @@ public class TerminalPortuaria {
 	 public void proximoAArribar(Viaje viaje) {
 		// TODO Auto-generated method stub
 		
+	 }
+
+
+	 @Override
+	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitar(this, buque);
+		
+		for (Orden orden : ordenes) {
+            orden.aceptar(visitor, buque);
+        }
 	 }
 
 	

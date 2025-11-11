@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 
-public class WrapperViaje {
-	private Buque buque;
+public class WrapperRecorrido {
+	private final Buque buque;
 	private ArrayList<Viaje> listaViajes;
 
 	// Constructor
-	public WrapperViaje(Buque buque, ArrayList<Viaje> listaViajes) {
+	public WrapperRecorrido(Buque buque, ArrayList<Viaje> listaViajes) {
 		this.buque = buque;
 		this.listaViajes = listaViajes;
 	}
@@ -26,5 +26,9 @@ public class WrapperViaje {
 	// Metodos propios
 	public void agregarViaje(Viaje viaje) {
 		this.listaViajes.add(viaje);
+	}
+	
+	public Buque getBuqueDeViaje(Viaje viaje) {
+	    return listaViajes.contains(viaje) ? buque : null;
 	}
 }
