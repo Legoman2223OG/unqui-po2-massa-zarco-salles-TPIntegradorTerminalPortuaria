@@ -209,5 +209,8 @@ public class TerminalPortuaria implements ElementoVisitable {
         }
 	 }
 
-	
+	public String generarReporteDeBuque(ReporteVisitor visitor, Buque buque) {
+		this.aceptar(visitor, buque);
+		return visitor.generarReporte();
+	}
 }

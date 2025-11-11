@@ -32,7 +32,7 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
             .append("</item>\n");
     }
 
-    public String generarXML() {
+    public String generarReporte() {
         xml.append("</export>\n</report>");
         return xml.toString();
     }

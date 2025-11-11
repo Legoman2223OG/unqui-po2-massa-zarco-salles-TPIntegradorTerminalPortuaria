@@ -3,8 +3,6 @@ package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;

@@ -10,4 +10,5 @@ public interface ReporteVisitor {
 	void visitar(TerminalPortuaria terminal, Buque buque);
     void visitar(OrdenImportacion orden, Buque buque);
     void visitar(OrdenExportacion orden, Buque buque);
+    String generarReporte();
 }

@@ -30,7 +30,7 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
             .append("</li>");
     }
 
-    public String generarHTML() {
+    public String generarReporte() {
         html.append("</ul></body></html>");
         return html.toString();
     }
