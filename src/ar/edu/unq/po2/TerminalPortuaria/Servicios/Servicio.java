@@ -7,7 +7,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 public abstract class Servicio {
 	protected Container container;
 	protected double precioFijo;
-	
+
 	/**
 	 * Crea un servicio con su respectivo container y un precio fijo.
 	 * @param container, Container, el contenedor que revisara el servicio.
@@ -17,7 +17,7 @@ public abstract class Servicio {
 		this.container = container;
 		this.precioFijo = precioFijo;
 	}
-	
+
 	/**
 	 * Crea un servicio con su respectivo container.
 	 * @param container, Container, el contenedor que revisara el servicio. No puede ser nulo.
@@ -25,26 +25,26 @@ public abstract class Servicio {
 	public Servicio(Container container) {
 		this.container = container;
 	}
-	
+
 	/**
 	 * Calcula el precio según como lo define el servicio.
 	 * @return double, El precio calculado.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract double calcularPrecio() throws Exception;
-	
+
 	/**
 	 * Describe el BillOfLanding perteneciente al cliente indicado (Solo para Desconsolidado).
 	 * @param cl, Cliente, el Cliente especificado, no puede ser nulo.
 	 * @return BillOfLanding, el BL del cliente especificado.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract BillOfLanding billOfLandingDelCliente(Cliente cl) throws Exception;
-	
+
 	/**
 	 * Afirma que el container sufre de perdidas de gas o liquido (Solo para RevisionPerdidas).
 	 * @return boolean, true, indicando que hay una perdida en el container.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract boolean contienePerdidas() throws Exception;
 }

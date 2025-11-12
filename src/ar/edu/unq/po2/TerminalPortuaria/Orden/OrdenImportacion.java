@@ -2,12 +2,14 @@ package ar.edu.unq.po2.TerminalPortuaria.Orden;
 
 import java.time.LocalDateTime;
 
-public class OrdenImportacion extends Orden{
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
+
+public class OrdenImportacion extends Orden implements ElementoVisitable {
 
 	protected LocalDateTime entregaContainer;
-	
-	
-	
+
 	public OrdenImportacion(LocalDateTime entregaContainer) {
 		super();
 		this.entregaContainer = entregaContainer;
@@ -23,6 +25,11 @@ public class OrdenImportacion extends Orden{
 	public boolean esOrdenExportacion() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitar(this, buque);
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 
@@ -16,7 +15,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 public class BillOfLandingEspecial implements IBillOfLanding{
 	private List<Cliente> duenios;
 	private List<BillOfLanding> bls;
-	
+
 	/**
 	 * Crea un Bill Of Landing Especial a partir de una lista de bls
 	 * @param bls, BillOfLanding[], una lista de Bill of Landings, no pueden ser nulos.
@@ -25,17 +24,20 @@ public class BillOfLandingEspecial implements IBillOfLanding{
 		//Lo convertimos a List para hacer operaciones con stream.
 		List<BillOfLanding> blsAsList = Arrays.asList(bls);
 		this.duenios = (List<Cliente>) blsAsList.stream().map(BillOfLanding::getDuenios);
-		this.bls = new ArrayList<BillOfLanding>(blsAsList);
+		this.bls = new ArrayList<>(blsAsList);
 	}
-	
+
+	@Override
 	public List<Cliente> getDuenios() {
 		return this.duenios;
 	}
 
+	@Override
 	public List<Producto> getProductos() {
 		return bls.stream().flatMap(bl -> bl.getProductos().stream()).collect(Collectors.toList());
 	}
-	
+
+	@Override
 	public double getPeso() {
 		return this.bls.stream().mapToDouble(bl -> bl.getPeso()).sum();
 	}

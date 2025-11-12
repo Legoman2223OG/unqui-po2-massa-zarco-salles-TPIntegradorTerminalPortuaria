@@ -16,7 +16,7 @@ public class FiltroFechaLlegada implements Busqueda{
 	}
 
 	//FILTRA VIAJES CON FECHA DADO POR fechaLlegada
-	
+
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
 		return listaDeViajes.stream().filter(v -> v.fechaDeLlegada() == this.fechaLlegada).toList();
