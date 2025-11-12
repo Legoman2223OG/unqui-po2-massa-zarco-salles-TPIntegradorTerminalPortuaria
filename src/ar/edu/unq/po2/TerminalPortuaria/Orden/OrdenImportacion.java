@@ -31,5 +31,17 @@ public class OrdenImportacion extends Orden implements ElementoVisitable {
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitar(this, buque);
 	}
+	
+	@Override
+	public double calcularCostoTotal() {
+	    double costoServicios = super.calcularCostoTotal();
+
+	    double costoViaje = this.viaje.getTramosARecorrer()
+	            .stream()
+	            .mapToDouble(t -> t.getPrecio())
+	            .sum();
+
+	    return costoServicios + costoViaje;
+	}
 
 }

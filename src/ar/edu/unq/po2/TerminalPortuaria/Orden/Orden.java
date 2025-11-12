@@ -10,6 +10,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
+import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Servicio;
@@ -40,6 +41,14 @@ public abstract class Orden implements ElementoVisitable {
 
 	public abstract boolean esOrdenImportacion();
 	public abstract boolean esOrdenExportacion();
+	
+	public Set<Servicio> getServicios() {
+		return this.servicios;
+	}
+	
+	public LocalDateTime getTurno() {
+		return this.fechaTurno;
+	}
 
 	public Chofer getChoferAsignado() {
 		return this.transporteAsignado.getChoferAsignado();
@@ -82,7 +91,35 @@ public abstract class Orden implements ElementoVisitable {
 		return codigoUnico;
 	}
 
-	public void enviarFacturaPorMail(){
-
+	public Factura generarFactura(Orden orden) throws Exception
+	{
+		return new Factura(this);
 	}
+	
+	
+	public void enviarFacturaPorMail() throws Exception{
+		Factura factura = this.generarFactura(this);
+		this.cliente.recibirFactura(factura);
+	}
+	
+	public double costoServicios() {
+		double costoServicios = this.servicios.stream()
+	            .mapToDouble(servicio -> {
+	                try {
+	                    return servicio.calcularPrecio();
+	                } catch (Exception e) {
+	                    return 0;
+	                }
+	            })
+	            .sum();
+
+	    return costoServicios;
+	}
+	
+	public double calcularCostoTotal() {
+	    return this.costoServicios();
+	}
+	
+
+
 }

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
@@ -38,6 +39,9 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.nombre = nombre;
 	}
 
+	public void setCoordenada(Coordenada coord) {
+		this.coordenada = coord;
+	}
 
 	public List<LineaNaviera> getMisNavieras()
 	{
@@ -75,25 +79,32 @@ public class TerminalPortuaria implements ElementoVisitable {
 	 }
 
 
-//	public void darAvisoShippers( Viaje viaje )
-//	{
-//		List<Orden> ordenesExportacion = ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
-//		List<Cliente> listaConsignees = ordenesExportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).toList();
-//
-//		listaConsignees.stream().forEach( c -> c.recibirMail("Su carga está llegando") );
-//	}
-//
-//	public void darAvisoConsignees( Viaje viaje )
-//	{
-//		List<Orden> ordenesImportacion = ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
-//		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).collect(Collectors.toList());
-//		listaConsignees.stream().forEach( c -> c.recibirMail("Su carga ha salido de la terminal") );
-//	}
+	public void darAvisoShippers( Viaje viaje )
+	{
+		List<Orden> ordenesExportacion = ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
+		List<Cliente> listaShippers = ordenesExportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).toList();
+
+		listaShippers.stream().forEach( c -> c.recibirAviso("Su carga está llegando") );
+	}
+
+	public void darAvisoConsignees( Viaje viaje )
+	{
+		List<Orden> ordenesImportacion = ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
+		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).collect(Collectors.toList());
+		listaConsignees.stream().forEach( c -> c.recibirAviso("Su carga ha salido de la terminal") );
+	}
 
 	public void enviarFacturaOrden( Viaje viaje )
 	{
 		List<Orden> ordenesVinculadasAlViaje = this.ordenes.stream().filter( o -> o.getViaje() == viaje ).toList();
-		ordenesVinculadasAlViaje.forEach( o -> o.enviarFacturaPorMail() );
+		ordenesVinculadasAlViaje.forEach( o -> {
+			try {
+				o.enviarFacturaPorMail();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 	}
 
 
@@ -148,7 +159,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 
 	public void validarHorarioDeEntrega(Orden orden) throws Exception
 	{
-		if (ChronoUnit.HOURS.between(orden.getCliente().getTurno(), LocalDateTime.now()) > 3)
+		if (ChronoUnit.HOURS.between(orden.getTurno(), LocalDateTime.now()) > 3)
 		//if ( Math.abs (orden.getCliente().getTurno().getHour() - LocalDateTime.now().getHour()) > 3 )
 			// Está mal que el cliente tenga el horario de entrega. Debería tenerlo la propia orden porque un cliente puede tener multiples ordenes.
 		{

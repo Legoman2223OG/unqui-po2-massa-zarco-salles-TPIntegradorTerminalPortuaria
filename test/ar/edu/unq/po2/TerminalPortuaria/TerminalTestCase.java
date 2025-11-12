@@ -93,9 +93,8 @@ public class TerminalTestCase {
     public void testEntregaTerrestreExp() throws Exception {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
         LocalDateTime turno = LocalDateTime.now().minusHours(1);
-        when(clienteMock.getTurno()).thenReturn(turno);
+        when(ordenMock.getTurno()).thenReturn(turno);
         terminal.entregaTerrestreExp(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
@@ -149,8 +148,7 @@ public class TerminalTestCase {
     @Test
     public void testValidarHorarioDeEntrega_EntregaATiempo() throws Exception {
         LocalDateTime turnoReciente = LocalDateTime.now().minusHours(2);
-		when(clienteMock.getTurno()).thenReturn(turnoReciente);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
+		when(ordenMock.getTurno()).thenReturn(turnoReciente);
         assertDoesNotThrow(() -> terminal.validarHorarioDeEntrega(ordenMock));
     }
 
@@ -171,8 +169,7 @@ public class TerminalTestCase {
         // Turno de hace 5 horas → debería fallar
         LocalDateTime turnoTest = LocalDateTime.now().minusHours(5);
 
-        when(clienteMock.getTurno()).thenReturn(turnoTest);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
+        when(ordenMock.getTurno()).thenReturn(turnoTest);
 
         Exception ex = assertThrows(Exception.class,
                 () -> terminal.validarHorarioDeEntrega(ordenMock));
@@ -207,7 +204,7 @@ public class TerminalTestCase {
 	}
 
     @Test
-    public void testEnviarFacturaOrden() {
+    public void testEnviarFacturaOrden() throws Exception {
     	//Mock de viajes para test
         Viaje viajeTarget = mock(Viaje.class);
         Viaje otroViaje = mock(Viaje.class);
