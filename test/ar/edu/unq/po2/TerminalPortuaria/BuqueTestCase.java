@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.*;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -111,6 +110,7 @@ class BuqueTestCase {
 		//Pasamos a Arrived
 		buque1.moverA(new Coordenada(0,0));
 		buque1.working();
+		//Verfy
 		verify(docT).proximoAArribar(docV);
 		verify(docT, times(1)).getCoordenadas();
 	}
@@ -122,6 +122,7 @@ class BuqueTestCase {
 	void test06_BuqueDescribeSuTerminalDeDestino() {
 		//Exercise
 		TerminalPortuaria terminalDestino = buque1.getDestino();
+		//Verfy
 		Assertions.assertEquals(docT, terminalDestino);
 	}
 	
@@ -132,6 +133,7 @@ class BuqueTestCase {
 	void test07_BuqueDescribeSuTerminalDeOrigen() {
 		//Exercise
 		TerminalPortuaria terminalOrigen = buque1.getOrigen();
+		//Verfy
 		Assertions.assertEquals(docT, terminalOrigen);
 	}
 	
@@ -142,7 +144,186 @@ class BuqueTestCase {
 	void test08_CoordenadasDelBuque() {
 		//Exercise
 		Coordenada coords = buque1.getCoordenadas();
+		//Verfy
 		Assertions.assertEquals(new Coordenada(60,60), coords);
+	}
+	
+	/**
+	 * Indica que un buque cambio sus coordenadas porque se movio.
+	 * @throws Exception 
+	 */
+	@Test
+	void test09_UnBuqueSeMueve() throws Exception {
+		//Exercise
+		buque1.moverA(new Coordenada(62,62));
+		Coordenada coords = buque1.getCoordenadas();
+		//Verfy
+		Assertions.assertEquals(new Coordenada(62,62), coords);
+	}
+	
+	/**
+	 * Describe el nombre del buque.
+	 */
+	@Test
+	void test10_UnBuqueConsultaSuNombre() {
+		//Exercise
+		String nombre = buque1.getNombre();
+		//Verify
+		Assertions.assertEquals("Test",nombre);
+	}
+	
+	/**
+	 * Indica que el buque sin haberlo movido, su gps indica que esta en la coordenada 60,60.
+	 */
+	@Test
+	void test11_GPSDeUnBuque() {
+		//Exercise
+		Coordenada coords = buque1.getGps().getCoordenadas();
+		//Verify
+		Assertions.assertEquals(new Coordenada(60,60), coords);
+	}
+	
+	/**
+	 * Describe el viaje actual del buque.
+	 */
+	@Test
+	void test12_ViajeDeUnBuque() {
+		//Exercise
+		Viaje viaje = buque1.getViaje();
+		//Verify
+		Assertions.assertEquals(docV, viaje);
+	}
+	
+	/**
+	 * Un buque cambia su viaje por otro viaje.
+	 */
+	@Test
+	void test13_BuqueCambiaDeViaje() {
+		//DOC
+		Viaje docV2 = mock(Viaje.class);
+		//Exercise
+		buque1.setViaje(docV2);
+		Viaje viaje = buque1.getViaje();
+		//Verify
+		Assertions.assertEquals(docV2, viaje);
+	}
+	
+	/**
+	 * Un buque que estaba a outbound y pasa a inbound, settea su estado a outbound de vuelta y luego de moverse de nuevo,
+	 * deberia de haberle mandado 2 mensajes a la terminal de destino.
+	 * @throws Exception 
+	 */
+	@Test
+	void test14_BuqueSetteaSuEstado() throws Exception {
+		//Exercise
+		buque1.moverA(new Coordenada(40,40));
+		buque1.setStatus(new Outbound());
+		buque1.moverA(new Coordenada(40,40));
+		//Verify
+		verify(docT, times(2)).proximoAArribar(docV);
+	}
+	
+	/**
+	 * Cuando el buque esta en el estado Outbound, no puede llamar a los siguientes mensajes:
+	 * #working()
+	 * #depart()
+	 */
+	@Test
+	void test15_BuqueEnEstadoOutboundNoPuedeLlamarA() {
+		//Exercise
+		Exception workingException = Assertions.assertThrows(Exception.class, 
+				() -> buque1.working(),
+				"Aun no se encuentra operable en este estado");
+		Exception departException = Assertions.assertThrows(Exception.class, 
+				() -> buque1.depart(),
+				"Aun no se encuentra operable en este estado");
+		//Verify
+		Assertions.assertEquals("Aun no se encuentra operable en este estado", workingException.getMessage());
+		Assertions.assertEquals("Aun no se encuentra operable en este estado", departException.getMessage());
+	}
+	
+	/**
+	 * Cuando el buque esta en el estado Inbound, no puede llamar a los siguientes mensajes:
+	 * #working()
+	 * #depart()
+	 * @throws Exception 
+	 */
+	@Test
+	void test16_BuqueEnEstadoInboundNoPuedeLlamarA() throws Exception {
+		//Exercise
+		//Lo llevamos a estado Inbound
+		buque1.moverA(new Coordenada(30,30));
+		Exception workingException = Assertions.assertThrows(Exception.class, 
+					() -> buque1.working(),
+					"Aun no se encuentra operable en este estado");
+		Exception departException = Assertions.assertThrows(Exception.class, 
+					() -> buque1.depart(),
+					"Aun no se encuentra operable en este estado");
+		//Verify
+		Assertions.assertEquals("Aun no se encuentra operable en este estado", workingException.getMessage());
+		Assertions.assertEquals("Aun no se encuentra operable en este estado", departException.getMessage());
+	}
+	
+	/**
+	 * Cuando el buque esta en el estado Arrived, no puede llamar a los siguientes mensajes:
+	 * #working()
+	 * #moverA(Coordenada coordenada, Buque buque)
+	 * @throws Exception 
+	 */
+	@Test
+	void test17_BuqueEnEstadoArrivedNoPuedeLlamarA() throws Exception {
+		//Exercise
+		//Lo llevamos a estado Arrived
+		buque1.moverA(new Coordenada(0,0));
+		Exception departException = Assertions.assertThrows(Exception.class, 
+					() -> buque1.depart(),
+					"No se puede partir en este estado");
+		Exception moverAException = Assertions.assertThrows(Exception.class, 
+					() -> buque1.moverA(new Coordenada(10,10)),
+					"No se puede mover en este estado");
+		//Verify
+		Assertions.assertEquals("No se puede partir en este estado", departException.getMessage());
+		Assertions.assertEquals("No se puede mover en este estado", moverAException.getMessage());
+	}
+	
+	/**
+	 * Cuando el buque se encuentra en estado Working(), no puede llamar a los siguientes mensajes:
+	 * #moverA(Coordenada coordenada, Buque buque)
+	 * @throws Exception 
+	 */
+	@Test
+	void test18_BuqueEnEstadoWorkingNoPuedeLlamarA() throws Exception {
+		//Exercise
+		//Lo llevamos a estado Arrived
+		buque1.moverA(new Coordenada(0,0));
+		//Lo llevamos a Working
+		buque1.working();
+		Exception moverAException = Assertions.assertThrows(Exception.class, 
+				() -> buque1.moverA(new Coordenada(10,10)),
+				"No se puede mover en este estado");
+		//Verify
+		Assertions.assertEquals("No se puede mover en este estado", moverAException.getMessage());
+	}
+	
+	/**
+	 * Cuando el buque se encuentra en estado Depart, no puede llamar a los siguientes mensajes:
+	 * #working()
+	 * @throws Exception 
+	 */
+	@Test
+	void test19_BuqueEnEstadoDepartNoPuedeLlamarA() throws Exception{
+		//Exercise
+		//Lo llevamos a estado Arrived
+		buque1.moverA(new Coordenada(0,0));
+		//Lo llevamos a Working
+		buque1.working();
+		//Lo llevamos a Depart
+		buque1.depart();
+		Exception workingException = Assertions.assertThrows(Exception.class, 
+				() -> buque1.working(),
+				"Aun no se encuentra operable en este estado");
+		//Verify
+		Assertions.assertEquals("No se puede cambiar a este estado", workingException.getMessage());
 	}
 }
 

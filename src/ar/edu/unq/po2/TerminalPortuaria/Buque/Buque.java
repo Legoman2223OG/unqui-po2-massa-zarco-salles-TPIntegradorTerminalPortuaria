@@ -92,14 +92,6 @@ public class Buque {
 	}
 
 	/**
-	 * Cambia las coordenadas del barco según su GPS.
-	 * @param coordenda, Coordenada, la nueva coordenada del buque, no puede ser nula.
-	 */
-	public void setCoordenadas(Coordenada coordenda) {
-		this.gps.setCoordenadas(coordenda);
-	}
-
-	/**
 	 * Mueve el buque a una coordenada nueva.
 	 * @param coordenada, Coordenada, una nueva coordenada, no puede ser nula.
 	 * @throws Exception, depende del estado, este mensaje podria no estar disponible para llamarlo.
@@ -119,6 +111,10 @@ public class Buque {
 	public void setViaje(Viaje viaje) {
 		this.status = new Outbound();
 		this.viaje = viaje;
+	}
+
+	public GPS getGps() {
+		return gps;
 	}
 
 	public String getNombre() {
