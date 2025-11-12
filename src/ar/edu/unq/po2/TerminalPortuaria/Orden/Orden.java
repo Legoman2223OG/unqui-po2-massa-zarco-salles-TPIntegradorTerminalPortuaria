@@ -6,17 +6,16 @@ import java.util.Set;
 import java.util.UUID;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
-import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
-import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.EmpresaTransportista;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Servicio;
 
 
-public abstract class Orden {
+public abstract class Orden implements ElementoVisitable {
 
 	protected Cliente cliente;
 	protected Viaje viaje;
@@ -86,6 +85,4 @@ public abstract class Orden {
 	public void enviarFacturaPorMail(){
 		
 	}
-
-
 }
