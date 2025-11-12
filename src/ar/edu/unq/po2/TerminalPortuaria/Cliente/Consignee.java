@@ -27,7 +27,7 @@ public class Consignee extends Cliente{
 	@Override
 	public String recibirAviso(String m) {
 		// TODO Auto-generated method stub
-		return null;
+		return m;
 	}
 
 }

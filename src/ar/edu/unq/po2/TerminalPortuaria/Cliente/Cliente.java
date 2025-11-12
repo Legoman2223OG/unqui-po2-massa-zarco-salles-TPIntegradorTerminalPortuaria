@@ -8,7 +8,6 @@ public abstract class Cliente {
 
 	protected String nombre;
 	protected int codigoCliente;
-	protected LocalDateTime turno;
 
 
 	public Cliente(String nombre, int codigoCliente)
@@ -28,15 +27,7 @@ public abstract class Cliente {
 		return codigoCliente;
 	}
 
-	public LocalDateTime getTurno()
-	{
-		return turno;
-	}
 
-	public void setTurno(LocalDateTime turno)
-	{
-		this.turno = turno;
-	}
 
 	public abstract String recibirFactura(Factura factura);
 	public abstract String recibirAviso(String m);
