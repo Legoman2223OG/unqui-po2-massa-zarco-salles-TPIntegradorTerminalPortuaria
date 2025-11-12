@@ -5,6 +5,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class Buque {
 
+	private String nombreBuque;
 	private GPS gps;
 	private BuqueStatus status;
 	private TerminalPortuaria destino;
@@ -17,7 +18,8 @@ public class Buque {
 	 * @param destino, TerminalPortuaria, la terminal portuaria de destino del barco, no puede ser nula.
 	 * @param viaje, Viaje, el viaje que tiene que hacer el barco, no puede ser nulo.
 	 */
-	public Buque(Coordenada coordenada, TerminalPortuaria destino, Viaje viaje) {
+	public Buque(String nombreBuque, Coordenada coordenada, TerminalPortuaria destino, Viaje viaje) {
+		this.nombreBuque = nombreBuque;
 		this.destino = destino;
 		this.viaje = viaje;
 		this.gps = new GPS(coordenada,this);
@@ -83,6 +85,10 @@ public class Buque {
 
 	public Viaje getViaje() {
 		return this.viaje;
+	}
+
+	public String getNombreBuque() {
+		return nombreBuque;
 	}
 }
 
