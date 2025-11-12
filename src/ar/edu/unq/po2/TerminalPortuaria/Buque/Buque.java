@@ -6,27 +6,32 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 public class Buque {
 
 	private GPS gps;
+	private String nombre;
 	private BuqueStatus status;
 	private Viaje viaje;
 	
 	/**
 	 * Instancia un buque en una coordenada especifica en conjunto a un viaje que debe de realizar. (Inicia en Outbound).
+	 * @param nombre, String, el nombre del buque, no puede ser nulo o vacio con espacios o sin espacios.
 	 * @param coordenada, Coordenada, una coordenada que indica donde se posiciona el barco actualmente, no puede ser nula.
 	 * @param viaje, Viaje, el viaje que tiene que hacer el barco, no puede ser nulo.
 	 */
-	public Buque(Coordenada coordenada, Viaje viaje) {
-		gps = new GPS(coordenada,this);
-		viaje = viaje;
-		status = new Outbound();
+	public Buque(String nombre,Coordenada coordenada, Viaje viaje) {
+		this.nombre = nombre;
+		this.gps = new GPS(coordenada,this);
+		this.viaje = viaje;
+		this.status = new Outbound();
 	}
 
 	/**
 	 * Instancia un buque sin ningun viaje determinado y en una coordenada especifica.
+	 * @param nombre, String, el nombre del buque, no puede ser nulo o vacio con espacios o sin espacios.
 	 * @param coordenada, Coordenada, Una coordenada donde se situa el buque, no puede ser nula.
 	 */
-	public Buque(Coordenada coordenada) {
-		gps = new GPS(coordenada,this);
-		status = new Outbound();
+	public Buque(String nombre, Coordenada coordenada) {
+		this.nombre = nombre;
+		this.gps = new GPS(coordenada,this);
+		this.status = new Outbound();
 	}
 	
 	/**
@@ -114,6 +119,10 @@ public class Buque {
 	public void setViaje(Viaje viaje) {
 		this.status = new Outbound();
 		this.viaje = viaje;
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 	
 }

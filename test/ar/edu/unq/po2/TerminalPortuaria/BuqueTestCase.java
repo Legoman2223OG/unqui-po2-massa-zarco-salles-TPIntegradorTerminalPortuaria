@@ -26,7 +26,9 @@ class BuqueTestCase {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		buque1 = new Buque(new Coordenada(60,60),docT, docV);
+		buque1 = new Buque(new Coordenada(60,60), docV);
+		when(docV.puertoDeLlegada()).thenReturn(docT);
+		when(docV.getPuertoInicio()).thenReturn(docT);
 		//DOC
 		when(docT.getCoordenadas()).thenReturn(new Coordenada(0,0));
 	}

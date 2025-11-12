@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.*;
 
@@ -44,8 +45,8 @@ public class EstrategiasTestCase {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		terminalOrigenTest = new TerminalPortuaria("Localidad de Terminal Test");
-		terminalDestinoTest = new TerminalPortuaria("Localidad de Destino Test");
+		terminalOrigenTest = new TerminalPortuaria("Localidad de Terminal Test", new Coordenada(60,60));
+		terminalDestinoTest = new TerminalPortuaria("Localidad de Destino Test", new Coordenada(60,60));
 		
 		terminalIntermedia1 = mock(TerminalPortuaria.class);
 		terminalIntermedia2 = mock(TerminalPortuaria.class);

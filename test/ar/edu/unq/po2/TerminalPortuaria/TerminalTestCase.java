@@ -63,7 +63,7 @@ public class TerminalTestCase {
 //        E_MejorRuta strategyReal = new E_MejorRuta();
 //        strategySpy = spy(strategyReal);
         terminal.setEstrategia(estrategy);
-        Buque buqueReal = new Buque(coordenadaDummy, terminal, viajeDummy);
+        Buque buqueReal = new Buque(coordenadaDummy, viajeDummy);
         buqueReal.setStatus(statusMock);
         buqueSpy = spy(buqueReal);
   
