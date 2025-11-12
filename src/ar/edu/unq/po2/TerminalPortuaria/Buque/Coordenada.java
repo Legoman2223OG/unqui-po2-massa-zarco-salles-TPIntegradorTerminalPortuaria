@@ -1,5 +1,7 @@
 package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
+import java.util.Objects;
+
 /**
  * Un Value Object que representa una Coordenada en el plano del sistema.
  */
@@ -22,5 +24,19 @@ public class Coordenada {
 
 	public int getY() {
 		return y;
+	}
+
+	@Override
+	public int hashCode() {
+		return x + y;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof  Coordenada)) {
+			return false;
+		}
+		Coordenada other = (Coordenada) obj;
+		return x == other.x && y == other.y;
 	}
 }

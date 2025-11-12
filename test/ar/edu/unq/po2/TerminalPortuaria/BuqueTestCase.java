@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,10 +59,8 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(49,49));
 		//Pasamos a Arrived
 		buque1.moverA(new Coordenada(0,0));
-		docT.working(buque1);
 		//Verify
 		verify(docT, times(2)).getCoordenadas();
-		verify(docT, times(1)).working(buque1);
 	}
 
 	/**
@@ -76,10 +75,8 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(49,49));
 		//Pasamos a Arrived
 		buque1.moverA(new Coordenada(0,0));
-		docT.working(buque1);
 		buque1.working();
 		//Pasamos a Depart
-		docT.depart(buque1);
 		buque1.depart();
 		//Finalmente nos movemos y volvemos a Outbound.
 		buque1.moverA(new Coordenada(20,20));
@@ -103,4 +100,49 @@ class BuqueTestCase {
 		//Verify
 		verify(docT,times(2)).proximoAArribar(docV);
 	}
+	
+	/**
+	 * Indica que el buque tras actualizar sus coordenadas a iguales a la de la terminal de destino, pasa a arrived y luego a working.
+	 * @throws Exception
+	 */
+	@Test
+	void test05_ElBuquePasaDeOutboundAArrivedYLuegoAWorking() throws Exception{
+		//Exercise
+		//Pasamos a Arrived
+		buque1.moverA(new Coordenada(0,0));
+		buque1.working();
+		verify(docT).proximoAArribar(docV);
+		verify(docT, times(1)).getCoordenadas();
+	}
+	
+	/**
+	 * Indica que el buque describe su terminal de destino.
+	 */
+	@Test
+	void test06_BuqueDescribeSuTerminalDeDestino() {
+		//Exercise
+		TerminalPortuaria terminalDestino = buque1.getDestino();
+		Assertions.assertEquals(docT, terminalDestino);
+	}
+	
+	/**
+	 * Indica que el buque describe su terminal de origen.
+	 */
+	@Test
+	void test07_BuqueDescribeSuTerminalDeOrigen() {
+		//Exercise
+		TerminalPortuaria terminalOrigen = buque1.getOrigen();
+		Assertions.assertEquals(docT, terminalOrigen);
+	}
+	
+	/**
+	 * Describe las coordenadas del buque.
+	 */
+	@Test
+	void test08_CoordenadasDelBuque() {
+		//Exercise
+		Coordenada coords = buque1.getCoordenadas();
+		Assertions.assertEquals(new Coordenada(60,60), coords);
+	}
 }
+
