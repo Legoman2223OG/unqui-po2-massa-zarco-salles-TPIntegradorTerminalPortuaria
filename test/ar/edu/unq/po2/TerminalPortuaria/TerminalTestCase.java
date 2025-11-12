@@ -26,6 +26,8 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -63,7 +65,7 @@ public class TerminalTestCase {
 //        E_MejorRuta strategyReal = new E_MejorRuta();
 //        strategySpy = spy(strategyReal);
         terminal.setEstrategia(estrategy);
-        Buque buqueReal = new Buque(coordenadaDummy, terminal, viajeDummy);
+        Buque buqueReal = new Buque("Buque test", coordenadaDummy, terminal, viajeDummy);
         buqueReal.setStatus(statusMock);
         buqueSpy = spy(buqueReal);
   
@@ -231,6 +233,9 @@ public class TerminalTestCase {
     }
 
     void testVisitorEsLlamadoPorCadaOrden() {
+    	OrdenImportacion ordenImportMock = mock(OrdenImportacion.class);
+    	OrdenExportacion ordenExportMock = mock(OrdenExportacion.class);
+    	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
         terminal.aceptar(visitorMock, buqueMock);
         
