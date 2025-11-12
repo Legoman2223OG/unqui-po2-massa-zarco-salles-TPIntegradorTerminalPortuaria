@@ -37,6 +37,11 @@ public abstract class Container {
 		this.bl = bl;
 	}
 
+	/**
+	 * Aserta que el numero ingresado sea positivo ya sea para el ancho, largo o altura del container.
+	 * @param numero, double, numero que se elige para el ancho, altura o largo del container.
+	 * @throws Exception, Si es que el numero ingresado es negativo o 0.
+	 */
 	private void asertarNumeroPositivo(double numero) throws Exception {
 		if(numero <= 0)
 			throw new Exception("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0");

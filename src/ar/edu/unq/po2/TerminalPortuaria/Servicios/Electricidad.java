@@ -11,8 +11,9 @@ public class Electricidad extends Servicio {
 	 * Ingresa un servicio de Electricidad, en donde contiene un Reefer y un precio fijo establecido por la terminal por cada Kilowatt/Hora consumido.
 	 * @param container, ReeferContainer, Reefer al que esta vinculado con este servicio, no puede ser nulo.
 	 * @param precioFijo, double, un precio fijo de consumo de electricidad fijado por la terminal. Debe ser >= 0.
+	 * @throws Exception 
 	 */
-	public Electricidad(ReeferContainer container, double precioFijo) {
+	public Electricidad(ReeferContainer container, double precioFijo) throws Exception {
 		super(container, precioFijo);
 	}
 
@@ -23,12 +24,12 @@ public class Electricidad extends Servicio {
 
 	@Override
 	public BillOfLanding billOfLandingDelCliente(Cliente cl) throws Exception {
-		throw new Exception("El servicio no se encarga de esta operacion");
+		throw new Exception("Este servicio no se encarga de esta operacion");
 	}
 
 	@Override
 	public boolean contienePerdidas() throws Exception {
-		throw new Exception("El servicio no se encarga de esta operacion");
+		throw new Exception("Este servicio no se encarga de esta operacion");
 	}
 
 }

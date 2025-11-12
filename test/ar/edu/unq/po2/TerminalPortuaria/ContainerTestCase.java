@@ -411,4 +411,15 @@ class ContainerTestCase {
 		Assertions.assertEquals("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0", dryException2.getMessage());
 		Assertions.assertEquals("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0", dryException3.getMessage());
 	}
+	
+	/**
+	 * Un reefer container no puede tener un consumo de electricidad negativo o igual a 0.
+	 */
+	@Test
+	void test20_UnReeferNoPuedeTenerConsumoElectricoNegativo() {
+		//Exercise
+		Exception reeferException = Assertions.assertThrows(Exception.class, () -> new ReeferContainer(3,3,-3,"BELE3020302",docbl, -2));
+		//Verify
+		Assertions.assertEquals("No se puede ingresar un numero negativo para consumo electrico", reeferException.getMessage());
+	}
 }

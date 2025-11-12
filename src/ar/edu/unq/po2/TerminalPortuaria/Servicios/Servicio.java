@@ -12,10 +12,22 @@ public abstract class Servicio {
 	 * Crea un servicio con su respectivo container y un precio fijo.
 	 * @param container, Container, el contenedor que revisara el servicio.
 	 * @param precioFijo, double, Un precio fijo definido por una terminal. Debe ser >= 0.
+	 * @throws Exception 
 	 */
-	public Servicio(Container container, double precioFijo) {
+	public Servicio(Container container, double precioFijo) throws Exception {
+		asertarNumeroPositivo(precioFijo);
 		this.container = container;
 		this.precioFijo = precioFijo;
+	}
+
+	/**
+	 * Aserta que el numero indicado sea positivo o 0.
+	 * @param precioFijo2, double, un numero ingresado
+	 * @throws Exception, si el numero es negativo.
+	 */
+	private void asertarNumeroPositivo(double precio) throws Exception {
+		if(precio < 0)
+			throw new Exception("El numero ingresado no es positivo");
 	}
 
 	/**
