@@ -15,6 +15,10 @@ public class Outbound extends BuqueStatus {
 			buque.setStatus(new Inbound());
 			buque.getDestino().proximoAArribar(buque.getViaje());
 		}
+		else if(distancia == 0) {
+			buque.setStatus(new Arrived());
+			buque.getDestino().proximoAArribar(buque.getViaje());
+		}
 	}
 
 	@Override
