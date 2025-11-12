@@ -24,9 +24,9 @@ public class GPS {
 	 * @return double, la distancia entre el gps y la otra coordenada.
 	 */
 	private double calcularDistancia(Coordenada coordenada2) {
-		double x = Math.pow(coordenada2.getX() - this.coordenada.getX(),2);
-		double y = Math.pow(coordenada2.getY() - this.coordenada.getY(), 2);
-		return (int) Math.sqrt(x + y);
+		double deltaX = coordenada2.getX() - this.coordenada.getX();
+        double deltaY = coordenada2.getY() - this.coordenada.getY();
+        return Math.hypot(deltaX, deltaY);
 	}
 
 	/**

@@ -59,7 +59,7 @@ public class Buque {
 	public void actualizarEstado(double distancia) {
 		//Si no hay viaje, no es necesario chequear coordenadas.
 		if(viaje != null) {
-			status.actualizarEstado(distancia, this);
+			this.status.actualizarEstado(distancia, this);
 		}
 	}
 
@@ -114,11 +114,11 @@ public class Buque {
 	}
 
 	public GPS getGps() {
-		return gps;
+		return this.gps;
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 }
