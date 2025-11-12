@@ -26,12 +26,20 @@ public abstract class Container {
 	 * @throws Exception
 	 */
 	public Container(double ancho, double largo, double altura, String identificador, IBillOfLanding bl) throws Exception {
+		asertarNumeroPositivo(ancho);
+		asertarNumeroPositivo(largo);
+		asertarNumeroPositivo(altura);
 		this.ancho = ancho;
 		this.largo = largo;
 		this.altura = altura;
 		asertarIdentificadorCorrecto(identificador);
 		this.identificador = identificador;
 		this.bl = bl;
+	}
+
+	private void asertarNumeroPositivo(double numero) throws Exception {
+		if(numero <= 0)
+			throw new Exception("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0");
 	}
 
 	/**
@@ -41,7 +49,7 @@ public abstract class Container {
 	 * @throws Exception, Si, las primeras 4 letras no son letras y los 7 ultimos caracteres no son digitos.
 	 */
 	private void asertarIdentificadorCorrecto(String identificador) throws Exception {
-		if(identificador.length() < 11) {
+		if(identificador.length() != 11) {
 			throw new Exception("El identificador no es de 11 caracteres");
 		}
 		//Los primeros 4 caracteres deben ser letras.
