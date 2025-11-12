@@ -162,4 +162,37 @@ class ContainerTestCase {
 		verify(docbl3, times(1)).getDuenios();
 		verify(docbl3, times(1)).getBillOfLandings();
 	}
+	
+	/**
+	 * Describe el ancho de un container
+	 */
+	@Test
+	void test05_anchoDeUnContainer() {
+		//Exercise
+		double ancho = dry.getAncho();
+		//Verify
+		Assertions.assertEquals(3, ancho);
+	}
+	
+	/**
+	 * Describe el alto de un container
+	 */
+	@Test
+	void test06_alturaDeUnContainer() {
+		//Exercise
+		double altura = dry.getAltura();
+		//Verify
+		Assertions.assertEquals(3, altura);
+	}
+	
+	/**
+	 * Describe el largo de un container
+	 */
+	@Test
+	void test07_largoDeUnContainer() {
+		//Exercise
+		double largo = dry.getLargo();
+		//Verify
+		Assertions.assertEquals(3, largo);
+	}
 }
