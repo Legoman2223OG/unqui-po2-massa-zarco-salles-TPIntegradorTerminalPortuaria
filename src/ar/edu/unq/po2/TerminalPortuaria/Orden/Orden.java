@@ -44,10 +44,10 @@ public abstract class Orden implements ElementoVisitable {
 	public Chofer getChoferAsignado() {
 		return this.transporteAsignado.getChoferAsignado();
 	}
-	
+
 	public Camion getCamionAsignado() {
 		return this.transporteAsignado.getCamionAsignado();
-	}	
+	}
 
 	public Viaje getViaje()
 	{
@@ -66,10 +66,10 @@ public abstract class Orden implements ElementoVisitable {
 
 	public LocalDateTime getFechaSaludaDeCarga()
 	{
-		
+
 		return viaje.getFechaSalida();
 	}
-	
+
 
 	public LocalDateTime getFechaDeLlegadaCarga()
 	{
@@ -81,8 +81,8 @@ public abstract class Orden implements ElementoVisitable {
 	{
 		return codigoUnico;
 	}
-	
+
 	public void enviarFacturaPorMail(){
-		
+
 	}
 }

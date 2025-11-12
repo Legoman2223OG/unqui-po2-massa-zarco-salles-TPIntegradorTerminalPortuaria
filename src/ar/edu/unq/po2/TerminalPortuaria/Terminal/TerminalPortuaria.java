@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
-import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
-import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
 
 
 public class TerminalPortuaria implements ElementoVisitable {
@@ -43,7 +43,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 	{
 		return this.misNavieras;
 	}
-	
+
 	public Set<Orden> getOrdenes() {
 		return this.ordenes;
 	}
@@ -56,15 +56,15 @@ public class TerminalPortuaria implements ElementoVisitable {
 	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
 	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
 	}
-	
+
 	public List<Viaje> busquedaViaje() {
 		return this.busquedaMaritima.filtrar(this.getMisViajes());
 	}
-	
+
 	 public void setEstrategia( E_MejorRuta estrategia ) {
 	 	this.estrategia = estrategia;
 	 }
-	 
+
 	 public E_MejorRuta getEstrategia() {
 		 return this.estrategia;
 	 }
@@ -178,15 +178,15 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 
 
-	 
+
 //	 Necesito pasar esta terminal por parametro para que me diga la duracion del viaje
 //	 public Duration duracionDelViaje() {
-//		 
+//
 //	 }
 
 	 public void partiendoAViaje(Viaje viaje) {
 		// TODO Auto-generated method stub
-		
+
 	 }
 
 	 public Coordenada getCoordenadas() {
@@ -196,14 +196,14 @@ public class TerminalPortuaria implements ElementoVisitable {
 
 	 public void proximoAArribar(Viaje viaje) {
 		// TODO Auto-generated method stub
-		
+
 	 }
 
 
 	 @Override
 	 public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitar(this, buque);
-		
+
 		for (Orden orden : ordenes) {
             orden.aceptar(visitor, buque);
         }

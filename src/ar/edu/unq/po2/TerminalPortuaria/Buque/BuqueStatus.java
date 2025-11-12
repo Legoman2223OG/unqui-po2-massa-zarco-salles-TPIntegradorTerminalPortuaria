@@ -14,14 +14,14 @@ public abstract class BuqueStatus {
 	/**
 	 * Empieza la fase de carga y descarga de contenedores en el buque.
 	 * @param buque, Buque, el buque al cual pertenece este estado, no puede ser nulo.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract void working(Buque buque) throws Exception;
 
 	/**
 	 * Empieza la fase de partida de una terminal de origen.
 	 * @param buque, Buque, el buque al cual pertenece este estado, no puede ser nulo.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract void depart(Buque buque) throws Exception;
 

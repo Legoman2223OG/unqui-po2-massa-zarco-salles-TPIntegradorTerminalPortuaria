@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 public class ViajesTestCase {
 	// SUT
 	private Viaje viajeTest;
-	
+
 	// DOC
 	private TerminalPortuaria terminalDeInicio;
 	private TerminalPortuaria terminal2;
@@ -29,7 +29,7 @@ public class ViajesTestCase {
 	private Tramo tramo2;
 	private Tramo tramo3;
 	private ArrayList<Tramo> tramosDelViaje = new ArrayList<>();
-	
+
 	// Cambio
 
 	@BeforeEach
@@ -38,12 +38,12 @@ public class ViajesTestCase {
 		terminal2        = mock(TerminalPortuaria.class);
 		terminal3        = mock(TerminalPortuaria.class);
 		terminal4        = mock(TerminalPortuaria.class);
-		
+
 		tramo1 = new Tramo(terminalDeInicio,terminal2,Duration.ofMinutes(28),62.8);
 		tramo2 = new Tramo(terminal2,       terminal3,Duration.ofHours(1),   128.0);
 		tramo3 = new Tramo(terminal3,       terminal4,Duration.ofMinutes(32),78.2);
 		tramosDelViaje.add(tramo1); tramosDelViaje.add(tramo2); tramosDelViaje.add(tramo3);
-		
+
 		viajeTest = new Viaje(terminalDeInicio,tramosDelViaje,LocalDateTime.of(2025, 11, 10, 13, 50));
 	}
 
@@ -56,21 +56,21 @@ public class ViajesTestCase {
 		Assertions.assertEquals(269.0, viajeTest.precioTotal());
 		Assertions.assertEquals(terminal4, viajeTest.puertoDeLlegada());
 	}
-	
+
 	@Test
 	void testTerminalesDelViaje() {
 		Set<TerminalPortuaria> listaTerminales = new HashSet<>();
 		listaTerminales.add(terminalDeInicio); listaTerminales.add(terminal2); listaTerminales.add(terminal3); listaTerminales.add(terminal4);
-		
+
 		// Verify
 		Assertions.assertEquals(listaTerminales, viajeTest.todasLasTerminalesDentroDelViaje());
 	}
-	
+
 	@Test
 	void testTerminalQueNoEstaEnElViaje() {
 		// DOC
 		TerminalPortuaria terminal5 = mock(TerminalPortuaria.class);
-		
+
 		// Verify
 		Assertions.assertEquals(false, viajeTest.validarSiTerminalExisteEnViaje(terminal5));
 	}

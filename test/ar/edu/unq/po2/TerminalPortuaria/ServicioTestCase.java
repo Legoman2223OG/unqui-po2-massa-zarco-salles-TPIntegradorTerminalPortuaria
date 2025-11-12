@@ -1,7 +1,10 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 
@@ -35,7 +38,7 @@ class ServicioTestCase {
 	private AlmacenamientoExcediente almacenamientoExcediente;
 	private Desconsolidado desconsolidadoService;
 	private RevisionPerdidas revisionPerdidasService;
-	
+
 	/**
 	 * Crea un escenario donde cada servicio tiene vinculado un respectivo container.
 	 * @throws Exception
@@ -75,11 +78,11 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(1000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de electricidad con un reefer con consumo de 120 kw/h y con 1500$ de precio fijo por el consumo
 	 * cobra 180.000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test03_PrecioDeUnServicioDeElectricidadConPrecioFijo1500() throws Exception {
@@ -90,11 +93,11 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(180000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de Pesado con un precio fijo de 1300$ por peso, pesa un container de 40 de peso
 	 * y cobra 52.000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test04_PrecioDeUnServicioDePesadoConPrecioFijo1300() throws Exception {
@@ -105,10 +108,10 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(52000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de almacenamiento excediente con precio fijo de 2000$ cobra 2000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test05_PrecioDeUnServicioDeAlmacenamientoExcedienteConPrecioFijo2000() throws Exception {
@@ -118,7 +121,7 @@ class ServicioTestCase {
 		Assertions.assertEquals(2000.0, precio);
 		verifyNoInteractions(dc);
 	}
-	
+
 	/**
 	 * Indica que un servicio de Desconsolidación obtiene el BillOfLanding de un cliente en un Dry Container Compuesto.
 	 */
@@ -143,7 +146,7 @@ class ServicioTestCase {
 		verify(bl2, times(1)).getDuenios();
 		verify(bl3, times(1)).getDuenios();
 	}
-	
+
 	/**
 	 * Indica que un servicio de Revision de Perdidas asegura que hay una perdida en un Tank Container.
 	 */

@@ -26,6 +26,6 @@ public class FiltroFechaSalida implements Busqueda{
 	public LocalDateTime getFechaDestino() {
 		return fechaDeSalida;
 	}
-	
-	
+
+
 }

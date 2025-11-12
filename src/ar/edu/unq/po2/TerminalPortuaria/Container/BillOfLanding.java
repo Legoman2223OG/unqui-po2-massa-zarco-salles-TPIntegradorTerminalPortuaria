@@ -23,21 +23,24 @@ public class BillOfLanding implements IBillOfLanding{
 	 */
 	public BillOfLanding(Cliente duenio, Producto...productos ){
 		this.duenio = duenio;
-		this.productos = new ArrayList<Producto>(Arrays.asList(productos));
+		this.productos = new ArrayList<>(Arrays.asList(productos));
 	}
 
+	@Override
 	public List<Cliente> getDuenios() {
 		return Arrays.asList(duenio);
 	}
 
+	@Override
 	public List<Producto> getProductos() {
 		return this.productos;
 	}
-	
+
 	/**
 	 * Describe el peso total registrado por el bill of landing.
 	 * @return double, el peso total de todos los productos incluidos en el bill of landing.
 	 */
+	@Override
 	public double getPeso() {
 		return this.productos.stream().mapToDouble(p -> p.getPeso()).sum();
 	}

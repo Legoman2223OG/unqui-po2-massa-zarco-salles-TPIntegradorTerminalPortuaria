@@ -7,9 +7,9 @@ import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 
 
 public class DryContainer extends Container {
-	
+
 	/**
-	 * Crea un Dry Container con su ancho, largo, altura, identificador 
+	 * Crea un Dry Container con su ancho, largo, altura, identificador
 	 * @param ancho, double, el ancho del contenedor, debe ser > 0.
 	 * @param largo, double, el largo del contenedor, debe ser > 0.
 	 * @param altura, double, la altura del contenedor, debe ser > 0.
@@ -18,7 +18,7 @@ public class DryContainer extends Container {
 	 */
 	public DryContainer(double ancho, double largo, double altura, IBillOfLanding contenido) throws Exception {
 		super(ancho, largo, altura, crearIdentificadorAleatorio(), contenido);
-		
+
 	}
 
 	private static String crearIdentificadorAleatorio() {
@@ -45,7 +45,8 @@ public class DryContainer extends Container {
 	public double getPeso() {
 		return this.bl.getPeso();
 	}
-	
+
+	@Override
 	public void agregarBillOfLanding(BillOfLanding bl) throws Exception {
 		this.bl.agregarBillOfLanding(bl);
 	}

@@ -19,14 +19,15 @@ public class Desconsolidado extends Servicio {
 	public double calcularPrecio() throws Exception {
 		throw new Exception("Este servicio no se encarga de calcular un precio");
 	}
-	
+
 	/**
 	 * Obtiene el bill of landing del cliente especificado.
 	 * @param cl, Cliente, el Cliente especificado, no puede ser nulo.
 	 * @return BillOfLanding, el BL del cliente especificado.
 	 */
+	@Override
 	public BillOfLanding billOfLandingDelCliente(Cliente cl) {
-		return (BillOfLanding) this.container.getBillsOfLanding().stream().filter(bl -> bl.getDuenios().stream().anyMatch(duenio -> duenio == cl)).findFirst().orElse(null);
+		return this.container.getBillsOfLanding().stream().filter(bl -> bl.getDuenios().stream().anyMatch(duenio -> duenio == cl)).findFirst().orElse(null);
 	}
 
 	@Override
