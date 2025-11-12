@@ -16,7 +16,7 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
     @Override
     public void visitar(TerminalPortuaria terminal, Buque buque) {
         reporte.append("=== Reporte Muelle ===\n");
-        reporte.append("Buque: ").append(buque.getNombreBuque()).append("\n");
+        reporte.append("Buque: ").append(buque.getNombre()).append("\n");
         arribo = buque.getViaje().getFechaSalida();  // o como corresponda
         partida = buque.getViaje().fechaDeLlegada();
     }

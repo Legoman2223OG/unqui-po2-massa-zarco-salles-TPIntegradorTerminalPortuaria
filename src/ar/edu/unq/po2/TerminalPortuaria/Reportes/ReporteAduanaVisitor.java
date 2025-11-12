@@ -12,7 +12,7 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
     public void visitar(TerminalPortuaria terminal, Buque buque) {
         html.append("<html><body>");
         html.append("<h2>Reporte de Aduana</h2>");
-        html.append("<p>Buque: ").append(buque.getNombreBuque()).append("</p>");
+        html.append("<p>Buque: ").append(buque.getNombre()).append("</p>");
         html.append("<ul>");
     }
 
