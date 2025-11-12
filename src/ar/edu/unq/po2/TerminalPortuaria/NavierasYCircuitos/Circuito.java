@@ -21,7 +21,7 @@ public class Circuito {
 	}
 	
 	// Metodos propios
-	public ArrayList<Tramo> ordenarTramos(ArrayList<Tramo> listaTramos) throws Exception {
+	private ArrayList<Tramo> ordenarTramos(ArrayList<Tramo> listaTramos) throws Exception {
 		// Dada una lista de tramos, reordena sus elementos para que el circuito quede en orden y devuelve la lista ordenada.
 		if (listaTramos.isEmpty()) return new ArrayList<>();
 		

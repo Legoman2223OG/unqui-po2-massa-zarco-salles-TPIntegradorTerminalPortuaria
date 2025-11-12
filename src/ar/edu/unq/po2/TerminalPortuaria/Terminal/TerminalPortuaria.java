@@ -15,11 +15,13 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
 
 
-public class TerminalPortuaria {
+public class TerminalPortuaria implements ElementoVisitable {
 
 
 	private String nombre;
@@ -30,7 +32,7 @@ public class TerminalPortuaria {
 	private Busqueda busquedaMaritima;
 
 
-	public TerminalPortuaria(String nombre)
+	public TerminalPortuaria(String nombre, Coordenada coordenada)
 	{
 		this.coordenada = coordenada;
 		this.nombre = nombre;
@@ -47,17 +49,17 @@ public class TerminalPortuaria {
 	}
 
 
-//	public List<Viaje> getMisViajes()
-//	{
-//	    return this.misNavieras.stream()
-//	            .flatMap(n -> n.getViajes().stream()) // Convierte los sets de viajes de todas las navieras en un solo stream
-//	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
-//	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
-//	}
+	public List<Viaje> getMisViajes()
+	{
+	    return this.misNavieras.stream()
+	            .flatMap(n -> n.getViajes().stream()) // Convierte los sets de viajes de todas las navieras en un solo stream
+	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
+	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
+	}
 	
-//	public List<Viaje> busquedaViaje() {
-//		this.busquedaMaritima.filtrar(this.getMisViajes());
-//	}
+	public List<Viaje> busquedaViaje() {
+		return this.busquedaMaritima.filtrar(this.getMisViajes());
+	}
 	
 	 public void setEstrategia( E_MejorRuta estrategia ) {
 	 	this.estrategia = estrategia;
@@ -69,7 +71,7 @@ public class TerminalPortuaria {
 
 
 	 public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
-		 return estrategia.mejorCircuitoHacia(terminalDestino);
+		 return estrategia.mejorCircuitoHacia(this, terminalDestino);
 	 }
 
 
@@ -197,5 +199,18 @@ public class TerminalPortuaria {
 		
 	 }
 
-	
+
+	 @Override
+	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitar(this, buque);
+		
+		for (Orden orden : ordenes) {
+            orden.aceptar(visitor, buque);
+        }
+	 }
+
+	public String generarReporteDeBuque(ReporteVisitor visitor, Buque buque) {
+		this.aceptar(visitor, buque);
+		return visitor.generarReporte();
+	}
 }
