@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Producto {
 	private String nombre;
 	private double peso;
-	
+
 	/**
 	 * Crea un producto con su nombre y peso.
 	 * @param nombre, String, El nombre del producto, no puede ser un string vacio o nulo.
@@ -34,15 +34,15 @@ public class Producto {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Producto other = (Producto) obj;
 		return Objects.equals(nombre, other.nombre)
 				&& Double.doubleToLongBits(peso) == Double.doubleToLongBits(other.peso);
 	}
-	
+
 }

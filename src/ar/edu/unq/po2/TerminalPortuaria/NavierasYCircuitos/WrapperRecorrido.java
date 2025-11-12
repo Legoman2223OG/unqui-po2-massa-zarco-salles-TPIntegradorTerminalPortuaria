@@ -13,7 +13,7 @@ public class WrapperRecorrido {
 		this.buque = buque;
 		this.listaViajes = listaViajes;
 	}
-	
+
 	// Getter
 	public Buque getBuque() {
 		return buque;
@@ -27,7 +27,7 @@ public class WrapperRecorrido {
 	public void agregarViaje(Viaje viaje) {
 		this.listaViajes.add(viaje);
 	}
-	
+
 	public Buque getBuqueDeViaje(Viaje viaje) {
 	    return listaViajes.contains(viaje) ? buque : null;
 	}

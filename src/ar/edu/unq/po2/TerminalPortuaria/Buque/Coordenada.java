@@ -1,11 +1,11 @@
 package ar.edu.unq.po2.TerminalPortuaria.Buque;
 
 /**
- * Un Value Object que representa una Coordenada en el plano del sistema. 
+ * Un Value Object que representa una Coordenada en el plano del sistema.
  */
 public class Coordenada {
 	private int x, y;
-	
+
 	/**
 	 * Crea una coordenada segun una posicion x e y.
 	 * @param x, int, la coordenada x

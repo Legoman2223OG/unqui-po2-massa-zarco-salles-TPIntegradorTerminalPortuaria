@@ -31,7 +31,8 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
         contenedoresOperados++;
     }
 
-    public String generarReporte() {
+    @Override
+	public String generarReporte() {
         reporte.append("Fecha arribo: ").append(arribo).append("\n");
         reporte.append("Fecha partida: ").append(partida).append("\n");
         reporte.append("Contenedores operados: ").append(contenedoresOperados).append("\n");

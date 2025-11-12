@@ -11,7 +11,7 @@ public class Working extends BuqueStatus {
 	 */
 	@Override
 	public void actualizarEstado(double distancia, Buque buque) {
-		
+
 	}
 
 	/**

@@ -26,6 +26,6 @@ public class FiltroPuertoDestino implements Busqueda{
 		return listaDeViajes.stream().filter(v -> v.getPuertoInicio() == this.puertoDestino).toList();
 	}
 
-	
-	
+
+
 }

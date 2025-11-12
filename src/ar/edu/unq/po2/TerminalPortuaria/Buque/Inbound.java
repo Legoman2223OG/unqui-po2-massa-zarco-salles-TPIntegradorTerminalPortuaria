@@ -12,10 +12,11 @@ public class Inbound extends BuqueStatus {
 	 */
 	@Override
 	public void actualizarEstado(double distancia, Buque buque) {
-		if(distancia == 0)
+		if(distancia == 0) {
 			buque.setStatus(new Arrived());
-		else if(distancia >= 50)
+		} else if(distancia >= 50) {
 			buque.setStatus(new Outbound());
+		}
 	}
 
 	@Override

@@ -1,7 +1,9 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ class BuqueTestCase {
 	private Viaje docV = mock(Viaje.class);
 	//SUT
 	private Buque buque1;
-	
+
 	/**
 	 * Crea un escenario donde un buque se encuentra alejado a mas de 50km de una terminal destino.
 	 * @throws Exception
@@ -35,7 +37,7 @@ class BuqueTestCase {
 
 	/**
 	 * Indica que el buque pasa a inbound y le manda un mensaje de aviso a la terminal.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test01_ElBuquePasaAInbound() throws Exception {
@@ -61,11 +63,11 @@ class BuqueTestCase {
 		verify(docT, times(2)).getCoordenadas();
 		verify(docT, times(1)).working(buque1);
 	}
-	
+
 	/**
 	 * Indica que el buque pasa de Working, a Depart y luego a Outbound de vuelta, mandandole un mensaje de vuelta a la
 	 * terminal.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test03_ElBuquePasaDeWorkingADepartYLuegoOutbound() throws Exception {
@@ -84,7 +86,7 @@ class BuqueTestCase {
 		//Verify
 		verify(docT).partiendoAViaje(docV);
 	}
-	
+
 	/**
 	 * Indica que el buque que estaba en inbound vuelve a estar en outbound, debido a problemas ambientales que desviaron
 	 * su curso.

@@ -5,8 +5,8 @@ public class Camion {
 
 //	private Orden ordenAsignada;
 	private String patente;
-	
-	
+
+
 	public String getPatente() {
 		// TODO Auto-generated method stub
 		return this.patente;
@@ -21,10 +21,10 @@ public class Camion {
 //
 //	public void setOrdenAsignada(Orden orden) {
 //		// TODO Auto-generated method stub
-//		
+//
 //	}
 
 
 
-	
+
 }

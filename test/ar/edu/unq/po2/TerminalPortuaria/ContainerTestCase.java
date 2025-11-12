@@ -1,11 +1,13 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +35,7 @@ class ContainerTestCase {
 	private DryContainer dryCompuesto;
 	private TankContainer tank;
 	private ReeferContainer reefer;
-	
+
 	@BeforeEach
 	void setUp() throws Exception{
 		dry = new DryContainer(3,3,3,docbl);
@@ -68,13 +70,13 @@ class ContainerTestCase {
 		verify(docbl, times(1)).getDuenios();
 		verify(docbl, times(1)).getBillOfLandings();
 	}
-	
+
 	/**
 	 * Indica que los datos de un dry container con varios duenios son los siguientes:
 	 * -Dueños: Cliente: "Juan", Cliente: "Pedro", Cliente: "Maria".
 	 * -Productos: Juan: (Detergente (20 peso), Jabon (10 peso)), Pedro: (Mesa (50 peso)), Maria: (Taladro (40 peso), Silla (30 peso))
 	 * -Peso total: 150.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test02_DatosDeUnDryContainerCompuesto() throws Exception {
@@ -131,7 +133,7 @@ class ContainerTestCase {
 		verify(docbl2, times(1)).getDuenios();
 		verify(docbl2, times(1)).getBillOfLandings();
 	}
-	
+
 	/**
 	 * Indica que los datos de un Reefer Container son:
 	 * -Dueño: Cliente "Maria".

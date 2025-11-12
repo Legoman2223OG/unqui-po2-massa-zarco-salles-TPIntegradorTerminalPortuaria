@@ -14,10 +14,11 @@ public class Lavado extends Servicio {
 
 	@Override
 	public double calcularPrecio() {
-		if(this.container.getCapacidad() > 70)
+		if(this.container.getCapacidad() > 70) {
 			return 2000.0;
-		else
+		} else {
 			return 1000.0;
+		}
 	}
 
 	@Override

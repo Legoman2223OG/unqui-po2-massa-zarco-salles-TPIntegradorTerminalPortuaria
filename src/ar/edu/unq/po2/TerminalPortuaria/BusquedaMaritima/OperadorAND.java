@@ -25,7 +25,7 @@ public class OperadorAND implements Busqueda{
 	}
 
 
-	
+
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
 	    List<Viaje> viajesFiltrados = new ArrayList<>(listaDeViajes);
@@ -37,6 +37,6 @@ public class OperadorAND implements Busqueda{
 
 	public List<Busqueda> getViajes() {
 		return this.viajes;
-	}	
-	
+	}
+
 }
