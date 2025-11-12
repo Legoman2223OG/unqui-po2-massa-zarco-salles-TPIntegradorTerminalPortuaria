@@ -44,8 +44,8 @@ public class EstrategiasTestCase {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		terminalOrigenTest = new TerminalPortuaria("Localidad de Terminal Test");
-		terminalDestinoTest = new TerminalPortuaria("Localidad de Destino Test");
+		terminalOrigenTest = new TerminalPortuaria("Localidad de Terminal Test", null);
+		terminalDestinoTest = new TerminalPortuaria("Localidad de Destino Test", null);
 		
 		terminalIntermedia1 = mock(TerminalPortuaria.class);
 		terminalIntermedia2 = mock(TerminalPortuaria.class);
@@ -85,7 +85,7 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorTiempo() {
 		// Exercise
 		estrategiaTest = new E_MenorTiempo();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
+		terminalOrigenTest.setEstrategia(estrategiaTest);
 		
 		// Verify
 		Assertions.assertEquals(circuitoTest1,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
@@ -95,7 +95,7 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorPrecio() {
 		// Exercise
 		estrategiaTest = new E_MenorPrecio();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
+		terminalOrigenTest.setEstrategia(estrategiaTest);
 		
 		// Verify
 		Assertions.assertEquals(circuitoTest2,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
@@ -105,7 +105,7 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorCantidadDeTerminalesIntermedias() {
 		// Exercise
 		estrategiaTest = new E_TerminalesIntermedias();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
+		terminalOrigenTest.setEstrategia(estrategiaTest);
 		
 		// Verify
 		Assertions.assertEquals(circuitoTest2,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
