@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.EmpresaTransportista;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 
 public class TransporteAsignadoTestCase {
@@ -22,6 +23,12 @@ public class TransporteAsignadoTestCase {
 
         assertEquals(chofer, transporte.getChoferAsignado());
         assertEquals(camion, transporte.getCamionAsignado());
+    }
+    
+    @Test
+    public void testEmpresaTransportistaInstanciable() {
+        EmpresaTransportista empresa = new EmpresaTransportista();
+        assertNotNull(empresa);  // Solo verifica que se puede instanciar
     }
     
     @Test

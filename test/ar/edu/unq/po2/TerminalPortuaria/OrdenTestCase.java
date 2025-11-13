@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
 import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.*;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.*;
 
 import java.time.LocalDateTime;
@@ -56,11 +58,11 @@ public class OrdenTestCase {
         when(clienteMock.recibirFactura(any(Factura.class))).thenReturn(null);
 
      // Instancia de OrdenExportacion
-        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101, fechaC);
+        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101);
         ordenExp.getServicios().add(servicioMock);
 
         // Instancia de OrdenImportacion
-        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101, fechaTurno);
+        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101);
         ordenImp.getServicios().add(servicioMock);
     }
 
@@ -80,6 +82,22 @@ public class OrdenTestCase {
     }
     
     @Test
+	public void aceptarVisitorExp() {
+        ReporteVisitor visitorT = mock(ReporteVisitor.class);
+        Buque buqueT = mock(Buque.class);
+        ordenExp.aceptar(visitorT, buqueT);
+        verify(visitorT, times(1)).visitar(ordenExp, buqueT);
+	}
+    
+    @Test
+	public void aceptarVisitorImp() {
+        ReporteVisitor visitorT = mock(ReporteVisitor.class);
+        Buque buqueT = mock(Buque.class);
+        ordenImp.aceptar(visitorT, buqueT);
+        verify(visitorT, times(1)).visitar(ordenImp, buqueT);
+	}
+    
+    @Test
     public void testGettersOrden() {
 
         // Verificamos getters de OrdenExportacion
@@ -87,7 +105,6 @@ public class OrdenTestCase {
         assertEquals(viajeMock, ordenExp.getViaje());
         assertEquals(chofer, ordenExp.getChoferAsignado());
         assertEquals(camion, ordenExp.getCamionAsignado());
-        assertEquals(fechaC, ordenExp.getSalidaContainer());
         assertEquals(101, ordenExp.getNumFactura());
         assertEquals(null, ordenExp.getBill());
         assertTrue(ordenExp.esOrdenExportacion());
@@ -98,7 +115,6 @@ public class OrdenTestCase {
         assertEquals(viajeMock, ordenImp.getViaje());
         assertEquals(chofer, ordenImp.getChoferAsignado());
         assertEquals(camion, ordenImp.getCamionAsignado());
-        assertEquals(fechaTurno, ordenImp.getEntregaContainer());
         assertEquals(fechaTurno, ordenImp.getTurno());
         assertEquals(101, ordenImp.getNumFactura());
         assertEquals(null, ordenImp.getBill());

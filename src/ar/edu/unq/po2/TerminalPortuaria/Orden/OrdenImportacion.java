@@ -12,24 +12,11 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 public class OrdenImportacion extends Orden implements ElementoVisitable {
 
-	protected LocalDateTime entregaContainer;
-
-	public OrdenImportacion(
-            Cliente cliente,
-            Viaje viaje,
-            IBillOfLanding bill,
-            TransporteAsignado transporte,
-            boolean servicioLavado,
-            LocalDateTime turno,
-            int numFactura,
-            LocalDateTime salidaContainer
-    ) {
-		super(cliente, viaje, bill, transporte, servicioLavado, turno, numFactura);
-		this.entregaContainer = salidaContainer;
-	}
 	
-	public LocalDateTime getEntregaContainer() {
-		return this.entregaContainer;
+
+	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado,
+			boolean servicioLavado, LocalDateTime turno, int num) {
+		super(cliente, viaje, bill, TAsignado, servicioLavado, turno, num);
 	}
 
 	@Override
