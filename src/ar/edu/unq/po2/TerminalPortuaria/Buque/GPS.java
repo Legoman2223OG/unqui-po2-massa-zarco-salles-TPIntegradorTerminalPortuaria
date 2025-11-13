@@ -31,9 +31,12 @@ public class GPS {
 
 	/**
 	 * Avisa al barco para actualizar su estado según la coordenada en la que esta posicionado.
+	 * Si es que tiene un viaje vinculado.
 	 */
 	private void actualizarEstadoDelBuque(){
-		buque.actualizarEstado(calcularDistancia(buque.getDestino().getCoordenadas()));
+		if(buque.getViaje() != null) {
+			buque.actualizarEstado(calcularDistancia(buque.getDestino().getCoordenadas()));
+		}
 	}
 
 	public Coordenada getCoordenadas() {

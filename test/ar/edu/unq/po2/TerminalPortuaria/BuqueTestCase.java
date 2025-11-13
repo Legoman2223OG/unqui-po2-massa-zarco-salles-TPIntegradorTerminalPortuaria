@@ -345,5 +345,19 @@ class BuqueTestCase {
 		verifyNoMoreInteractions(docT);
 		verify(docT2).proximoAArribar(docV2);
 	}
+	
+	/**
+	 * Un buque cuando deja de tener un viaje vigente, deja de enviar avisos a la terminal a la que tenia en el
+	 * viaje anterior.
+	 * @throws Exception 
+	 */
+	@Test
+	void test21_BuqueDejaDeTenerUnViajeVinculado() throws Exception {
+		//Exercise
+		buque1.setViaje(null);
+		buque1.moverA(new Coordenada(3,3));
+		//Verify
+		verifyNoMoreInteractions(docT);
+	}
 }
 

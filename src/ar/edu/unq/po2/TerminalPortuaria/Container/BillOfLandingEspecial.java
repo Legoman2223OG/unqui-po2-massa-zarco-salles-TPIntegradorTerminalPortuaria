@@ -23,7 +23,7 @@ public class BillOfLandingEspecial implements IBillOfLanding{
 	public BillOfLandingEspecial(BillOfLanding...bls) {
 		//Lo convertimos a List para hacer operaciones con stream.
 		List<BillOfLanding> blsAsList = Arrays.asList(bls);
-		this.duenios = (List<Cliente>) blsAsList.stream().map(BillOfLanding::getDuenios);
+		this.duenios = blsAsList.stream().flatMap(bl -> bl.getDuenios().stream()).collect(Collectors.toList());
 		this.bls = new ArrayList<>(blsAsList);
 	}
 
@@ -51,5 +51,6 @@ public class BillOfLandingEspecial implements IBillOfLanding{
 	@Override
 	public void agregarBillOfLanding(BillOfLanding bl) throws Exception {
 		this.bls.add(bl);
+		this.duenios.add(bl.getDuenios().getFirst());
 	}
 }

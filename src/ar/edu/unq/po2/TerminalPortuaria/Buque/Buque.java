@@ -105,7 +105,8 @@ public class Buque {
 	}
 
 	/**
-	 * Si es necesario cambiar de viaje, con este mensaje se podra cambiarlo.
+	 * Si es necesario cambiar de viaje, con este mensaje se podra cambiarlo. Si ya no necesita seguir un viaje,
+	 * puede quedarse en null.
 	 * @param viaje, Viaje, un nuevo viaje que debe hacer el buque.
 	 */
 	public void setViaje(Viaje viaje) {
