@@ -18,16 +18,12 @@ public class LineaNaviera {
 		return buques;
 	}
 
-	public void addBuque(Buque buque) {
-		buques.add(buque);
-	}
-
-	public void addCircuito(Circuito circuito) {
-		circuitos.add(circuito);
-	}
-
 	public List<Circuito> getCircuitos() {
 		return circuitos;
+	}
+	
+	public List<WrapperRecorrido> getListaRecorridos() {
+		return listaRecorridos;
 	}
 
 	// Metodos propios
@@ -36,19 +32,26 @@ public class LineaNaviera {
 							 .filter(circ -> circ.terminalExisteEnElCircuito(terminal))
 							 .toList();
 	}
-
+	
+	public void addBuque(Buque buque) {
+		buques.add(buque);
+	}
+	
+	public void addCircuito(Circuito circuito) {
+		circuitos.add(circuito);
+	}
 	public List<Viaje> getViajes() {
 		return this.listaRecorridos.stream()
 								   .flatMap(r -> r.getListaViajes().stream())
 								   .toList();
 	}
-
-	public void registrarNuevoRecorrido(Buque buque, ArrayList<Viaje> listaViajes) throws Exception {
+	
+	public void registrarNuevoRecorrido(Buque buque, List<Viaje> listaViajes) throws Exception {
 		this.verificarExistenciaDeBuque(buque);
 		this.listaRecorridos.add(new WrapperRecorrido(buque, listaViajes));
 	}
-
-	public void verificarExistenciaDeBuque(Buque buque) throws Exception {
+	
+	private void verificarExistenciaDeBuque(Buque buque) throws Exception {
 		if(!this.buqueExisteEnEstaNaviera(buque)) {
 			throw new Exception("Este buque no trabaja para esta linea naviera.");
 		}
