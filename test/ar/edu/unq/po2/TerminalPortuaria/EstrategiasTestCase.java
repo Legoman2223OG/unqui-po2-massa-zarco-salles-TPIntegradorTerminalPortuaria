@@ -92,8 +92,8 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorTiempo() {
 		// Exercise
 		estrategiaTest = new E_MenorTiempo();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
-
+		terminalOrigenTest.setEstrategia(estrategiaTest);
+		
 		// Verify
 		Assertions.assertEquals(circuitoTest1,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
 	}
@@ -102,8 +102,8 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorPrecio() {
 		// Exercise
 		estrategiaTest = new E_MenorPrecio();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
-
+		terminalOrigenTest.setEstrategia(estrategiaTest);
+		
 		// Verify
 		Assertions.assertEquals(circuitoTest2,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
 	}
@@ -112,8 +112,8 @@ public class EstrategiasTestCase {
 	void testEstrategiaMenorCantidadDeTerminalesIntermedias() {
 		// Exercise
 		estrategiaTest = new E_TerminalesIntermedias();
-		terminalOrigenTest.setMejorCircuito(estrategiaTest);
-
+		terminalOrigenTest.setEstrategia(estrategiaTest);
+		
 		// Verify
 		Assertions.assertEquals(circuitoTest2,terminalOrigenTest.getMejorCircuito(terminalDestinoTest));
 	}

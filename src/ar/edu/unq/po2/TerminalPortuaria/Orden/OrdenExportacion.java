@@ -7,10 +7,8 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 public class OrdenExportacion extends Orden implements ElementoVisitable {
-
 	protected LocalDateTime salidaContainer;
-
-
+	
 	public OrdenExportacion(LocalDateTime salidaContainer) {
 		super();
 		this.salidaContainer = salidaContainer;
@@ -32,5 +30,4 @@ public class OrdenExportacion extends Orden implements ElementoVisitable {
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitar(this, buque);
 	}
-
 }

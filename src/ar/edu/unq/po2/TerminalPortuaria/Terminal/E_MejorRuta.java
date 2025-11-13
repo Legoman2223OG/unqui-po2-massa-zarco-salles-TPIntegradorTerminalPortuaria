@@ -10,9 +10,17 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 
 public abstract class E_MejorRuta {
 	public E_MejorRuta() {}
+	
+	public Circuito mejorCircuitoHacia(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino) {
+		final HashMap<Viaje,Circuito> mapa = viajesPorCadaCircuito(terminalOrigen, terminalDestino);
 
-	public abstract Circuito mejorCircuitoHacia(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino);
+	    var viajeOptimo = this.criterioDeSeleccion(mapa.keySet());
 
+	    return mapa.get(viajeOptimo);
+	}
+	
+	protected abstract Viaje criterioDeSeleccion(Set<Viaje> mapa);
+	
 	protected List<Circuito> circuitosQueContienen(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino) {
 		return terminalOrigen.getMisNavieras().stream()
 											  .flatMap(nav -> nav.circuitosQuePasanPor(terminalDestino).stream())
