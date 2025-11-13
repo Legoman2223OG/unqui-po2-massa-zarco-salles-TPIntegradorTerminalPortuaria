@@ -13,14 +13,12 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
     }
 
     @Override
-    public void visitar(TerminalPortuaria terminal, Buque buque) {
-        // No hace nada en particular con la terminal
-    }
+    public void visitar(TerminalPortuaria terminal, Buque buque) {} // Nada en particular con la terminal
 
     @Override
     public void visitar(OrdenImportacion orden, Buque buque) {
         xml.append("<item>")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode()) // placeholder de ID
+            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</item>\n");
     }
 
@@ -28,7 +26,7 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
     public void visitar(OrdenExportacion orden, Buque buque) {
         xml.append("</import>\n<export>\n");
         xml.append("<item>")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode()) // placeholder de ID
+            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</item>\n");
     }
 

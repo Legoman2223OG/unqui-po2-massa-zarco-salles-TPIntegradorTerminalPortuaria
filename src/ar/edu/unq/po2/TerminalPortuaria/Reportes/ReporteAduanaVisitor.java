@@ -19,14 +19,14 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
     @Override
     public void visitar(OrdenImportacion orden, Buque buque) {
         html.append("<li>Container tipo: IMPORTACIÓN - ID: ")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode()) // placeholder de ID
+            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</li>");
     }
 
     @Override
     public void visitar(OrdenExportacion orden, Buque buque) {
         html.append("<li>Container tipo: EXPORTACIÓN - ID: ")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode()) // placeholder de ID
+            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</li>");
     }
 
