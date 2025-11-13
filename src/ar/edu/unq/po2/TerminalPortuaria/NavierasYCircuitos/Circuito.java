@@ -14,7 +14,7 @@ public class Circuito {
 	public Circuito(ArrayList<Tramo> tramos) throws Exception {
 		this.tramos = ordenarTramos(tramos);
 	}
-	
+
 	// Getter
 	public ArrayList<Tramo> getTramos() {
 		return this.tramos;

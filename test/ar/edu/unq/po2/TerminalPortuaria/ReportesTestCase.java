@@ -20,8 +20,6 @@ public class ReportesTestCase {
 	// SUT
     private TerminalPortuaria terminalTest;
     private ReporteMuelleVisitor visitorMuelleTest;
-    private ReporteBuqueVisitor visitorBuqueTest;
-    private ReporteAduanaVisitor visitorAduanaTest;
     
     // DOC
     private Buque buqueMock;
@@ -43,8 +41,6 @@ public class ReportesTestCase {
         terminalTest.registrarNuevaOrden(ordenExportTest);
         
         visitorMuelleTest = new ReporteMuelleVisitor();
-        visitorAduanaTest = new ReporteAduanaVisitor();
-        visitorBuqueTest = new ReporteBuqueVisitor();
 
         // Stubs
         when(buqueMock.getNombreBuque()).thenReturn("Buque Test");

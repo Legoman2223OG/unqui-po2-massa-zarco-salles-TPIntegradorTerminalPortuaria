@@ -14,20 +14,20 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
     private LocalDateTime partida;
 
     @Override
-    public void visitar(TerminalPortuaria terminal, Buque buque) {
+    public void visitarTerminal(TerminalPortuaria terminal, Buque buque) {
         reporte.append("=== Reporte Muelle ===\n");
         reporte.append("Buque: ").append(buque.getNombreBuque()).append("\n");
-        arribo = buque.getViaje().getFechaSalida();  // o como corresponda
+        arribo = buque.getViaje().getFechaSalida();
         partida = buque.getViaje().fechaDeLlegada();
     }
 
     @Override
-    public void visitar(OrdenImportacion orden, Buque buque) {
+    public void visitarOrden(OrdenImportacion orden, Buque buque) {
         contenedoresOperados += 1;
     }
 
     @Override
-    public void visitar(OrdenExportacion orden, Buque buque) {
+    public void visitarOrden(OrdenExportacion orden, Buque buque) {
         contenedoresOperados += 1;
     }
 

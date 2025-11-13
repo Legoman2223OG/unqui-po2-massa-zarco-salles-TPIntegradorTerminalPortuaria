@@ -1,15 +1,16 @@
 package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 
 public class WrapperRecorrido {
 	private final Buque buque;
-	private ArrayList<Viaje> listaViajes;
+	private List<Viaje> listaViajes;
 
 	// Constructor
-	public WrapperRecorrido(Buque buque, ArrayList<Viaje> listaViajes) {
+	public WrapperRecorrido(Buque buque, List<Viaje> listaViajes) {
 		this.buque = buque;
 		this.listaViajes = listaViajes;
 	}
@@ -19,7 +20,7 @@ public class WrapperRecorrido {
 		return buque;
 	}
 
-	public ArrayList<Viaje> getListaViajes() {
+	public List<Viaje> getListaViajes() {
 		return listaViajes;
 	}
 

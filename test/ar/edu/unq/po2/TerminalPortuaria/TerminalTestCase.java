@@ -239,8 +239,8 @@ public class TerminalTestCase {
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
         terminal.aceptar(visitorMock, buqueMock);
         
-        verify(visitorMock, times(1)).visitar(terminal, buqueMock);
-        verify(visitorMock, times(1)).visitar(ordenImportMock, buqueMock);
-        verify(visitorMock, times(1)).visitar(ordenExportMock, buqueMock);
+        verify(visitorMock, times(1)).visitarTerminal(terminal, buqueMock);
+        verify(visitorMock, times(1)).visitarOrden(ordenImportMock, buqueMock);
+        verify(visitorMock, times(1)).visitarOrden(ordenExportMock, buqueMock);
     }
 }
