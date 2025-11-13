@@ -15,7 +15,6 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 class CircuitosTestCase {
 	// SUT
 	private Circuito circuitoTest;
-	private LineaNaviera navieraTest;
 	
 	// DOC
 	private TerminalPortuaria terminal1;
