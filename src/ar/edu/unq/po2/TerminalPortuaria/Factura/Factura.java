@@ -14,13 +14,18 @@ public class Factura {
 	
 	public Factura( Orden ordenFacturada ) throws Exception
 	{
+		this.ordenFacturada = ordenFacturada;
 		conceptos = new HashSet<>();
 		this.conceptos.add( new Concepto( "Monto total a pagar:", LocalDateTime.now(), ordenFacturada.calcularCostoTotal() ) );
 		this.agregarCostoCircuito();
 		this.agregarConceptosServicios();
 	}
 	
-	public void agregarCostoCircuito()
+	public Set<Concepto> getConceptos() {
+		return this.conceptos;
+	}
+	
+	private void agregarCostoCircuito()
 	{
 		if( this.ordenFacturada.esOrdenImportacion() )
 		{
@@ -36,14 +41,14 @@ public class Factura {
 		}
 	}
 	
-	public String toString()
-	{
-		String mensajeFactura = "Aquí está la factura de su orden N°: " + this.ordenFacturada.codigoUnico.toString();
-			for( Concepto c: this.conceptos )
-			{
-				mensajeFactura += c.toString() + "/n";
-			}
-		return mensajeFactura;
+	public String toString() {
+	    StringBuilder mensaje = new StringBuilder(
+	        "Aquí está la factura de su orden N°: " + this.ordenFacturada.getNumFactura() + "\n"
+	    );
+	    for (Concepto c : this.conceptos) {
+	        mensaje.append(c.toString()).append("\n");
+	    }
+	    return mensaje.toString();
 	}
 	
 }

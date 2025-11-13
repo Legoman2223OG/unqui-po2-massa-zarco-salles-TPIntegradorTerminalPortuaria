@@ -3,28 +3,24 @@ package ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
 
 public class OperadorAND implements Busqueda{
 
 	List<Busqueda> viajes = new ArrayList<>();
 
-	public OperadorAND() {
-    }
-
-
-	public void Agregar(Busqueda componente) {
-		// TODO Auto-generated method stub
-		viajes.add(componente);
+	
+	@Override
+	public void agregar(Busqueda componente) {
+		this.viajes.add(componente);
+		
 	}
 
-
-	public void Remover(Busqueda componente) {
-		// TODO Auto-generated method stub
-		viajes.remove(componente);
+	@Override
+	public void remover(Busqueda componente) {
+		this.viajes.remove(componente);
 	}
-
-
+		
 
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {

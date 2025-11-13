@@ -11,7 +11,6 @@ public class Concepto {
 	
 	
 	public Concepto(String nombre, LocalDateTime fecha, double monto) {
-		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.monto = monto;

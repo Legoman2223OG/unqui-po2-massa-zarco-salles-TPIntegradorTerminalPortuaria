@@ -3,7 +3,6 @@ package ar.edu.unq.po2.TerminalPortuaria.Orden;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
@@ -24,19 +23,18 @@ public abstract class Orden implements ElementoVisitable {
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
 	protected boolean servicioLavado;
-    public UUID codigoUnico;
-    public LocalDateTime fechaTurno;
+    private int numFactura;
+    private LocalDateTime fechaTurno;
 
-    public Orden() {}
 
-	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, boolean servicioLavado, LocalDateTime turno)
+	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, boolean servicioLavado, LocalDateTime turno, int num)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
 		this.bill = bill;
 		this.transporteAsignado = TAsignado;
 		this.fechaTurno = turno;
-		this.codigoUnico = UUID.randomUUID();
+		this.numFactura = num;
 	}
 
 	public abstract boolean esOrdenImportacion();
@@ -73,22 +71,10 @@ public abstract class Orden implements ElementoVisitable {
 		return this.cliente;
 	}
 
-	public LocalDateTime getFechaSaludaDeCarga()
+
+	public int getNumFactura()
 	{
-
-		return viaje.getFechaSalida();
-	}
-
-
-	public LocalDateTime getFechaDeLlegadaCarga()
-	{
-		return viaje.fechaDeLlegada();
-	}
-
-
-	public UUID getCodigoUnico()
-	{
-		return codigoUnico;
+		return this.numFactura;
 	}
 
 	public Factura generarFactura(Orden orden) throws Exception
