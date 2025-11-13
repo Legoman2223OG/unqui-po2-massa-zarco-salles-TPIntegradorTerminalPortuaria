@@ -48,10 +48,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 	{
 		return this.misNavieras;
 	}
-	
-	public void agregarNaviera(LineaNaviera naviera) {
-		this.misNavieras.add(naviera);
-	}
+
 
 	public Set<Orden> getOrdenes() {
 		return this.ordenes;
@@ -202,33 +199,27 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 
 
-	
-//	 Necesito pasar esta terminal por parametro para que me diga la duracion del viaje
-//	 public Duration duracionDelViaje() {
-//
-//	 }
-
-	 public void partiendoAViaje(Viaje viaje) {
+	public void partiendoAViaje(Viaje viaje) {
 		 this.darAvisoShippers(viaje);
-	 }
+	}
 
-	 public void proximoAArribar(Viaje viaje) {
+	public void proximoAArribar(Viaje viaje) {
 		 this.darAvisoConsignees(viaje);
-	 }
+	}
 	 
-	 public LocalDateTime fechaSalidaBuque(Buque buque) {
+	public LocalDateTime fechaSalidaBuque(Buque buque) {
 		 return buque.getViaje().getFechaSalida();
-	 }
+	}
 
 
-	 @Override
-	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+	@Override
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitar(this, buque);
 
 		for (Orden orden : ordenes) {
-            orden.aceptar(visitor, buque);
+           orden.aceptar(visitor, buque);
         }
-	 }
+	}
 
 	public String generarReporteDeBuque(ReporteVisitor visitor, Buque buque) {
 		this.aceptar(visitor, buque);

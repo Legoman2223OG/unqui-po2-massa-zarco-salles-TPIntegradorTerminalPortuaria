@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -194,7 +195,7 @@ public class TerminalTestCase {
 
     @Test
     public void testValidarHorarioDeEntregaFueraDeTiempo() {
-        // Turno de hace 5 horas → debería fallar
+
         LocalDateTime turnoTest = LocalDateTime.now().minusHours(5);
 
         when(ordenMock.getTurno()).thenReturn(turnoTest);
@@ -233,28 +234,24 @@ public class TerminalTestCase {
 
     @Test
     public void testEnviarFacturaOrden() throws Exception {
-    	//Mock de viajes para test
+
         Viaje viajeTarget = mock(Viaje.class);
         Viaje otroViaje = mock(Viaje.class);
-        //Mock de ordenes para test
+
         Orden orden1 = mock(Orden.class);
         Orden orden2 = mock(Orden.class);
         Orden ordenQueNoCorresponde = mock(Orden.class);
 
-        //Preparo los return para ordenes
         when(orden1.getViaje()).thenReturn(viajeTarget);
         when(orden2.getViaje()).thenReturn(viajeTarget);
         when(ordenQueNoCorresponde.getViaje()).thenReturn(otroViaje);
 
-        //agrego las ordenes para test
         terminal.getOrdenes().add(orden1);
         terminal.getOrdenes().add(orden2);
         terminal.getOrdenes().add(ordenQueNoCorresponde);
 
-        //Ejecuto Metodo
         terminal.enviarFacturaOrden(viajeTarget);
 
-        //Verifico que se envie correctamente
         verify(orden1, times(1)).enviarFacturaPorMail();
         verify(orden2, times(1)).enviarFacturaPorMail();
         verify(ordenQueNoCorresponde, never()).enviarFacturaPorMail();
@@ -271,18 +268,21 @@ public class TerminalTestCase {
     
     @Test
     public void testGetViajes() {
-    	List<Viaje> viajesPrueba = new ArrayList<>();
-    	viajesPrueba.add(viaje1);
-    	viajesPrueba.add(viaje2);
-    	when(naviera.getViajes()).thenReturn(viajesPrueba);
-    	
-    	terminal.agregarNaviera(naviera);
-    	
-    	when(viaje1.validarSiTerminalExisteEnViaje(terminal)).thenReturn(true);
-        when(viaje2.validarSiTerminalExisteEnViaje(terminal)).thenReturn(false);
-        
-        List<Viaje> viajesTest = terminal.getMisViajes();
-        
+    	TerminalPortuaria terminalT = spy(new TerminalPortuaria(null, coordenadaDummy));
+        List<Viaje> viajesPrueba = new ArrayList<>();
+        viajesPrueba.add(viaje1);
+        viajesPrueba.add(viaje2);
+
+        when(naviera.getViajes()).thenReturn(viajesPrueba);
+        doReturn(true).when(terminalT).estoyEnUnCircuitoDeLaNaviera(naviera);
+
+        terminalT.registrarNuevaNaviera(naviera);
+
+        when(viaje1.validarSiTerminalExisteEnViaje(terminalT)).thenReturn(true);
+        when(viaje2.validarSiTerminalExisteEnViaje(terminalT)).thenReturn(false);
+
+        List<Viaje> viajesTest = terminalT.getMisViajes();
+
         assertEquals(1, viajesTest.size());
         assertTrue(viajesTest.contains(viaje1));
         assertFalse(viajesTest.contains(viaje2));
@@ -330,7 +330,7 @@ public class TerminalTestCase {
     }
     
     @Test
-    public void testProximaSalidaHacia_DevuelveLaFechaMasProxima() {
+    public void testProximaSalidaHaciaFechaMasProxima() {
         TerminalPortuaria destino = mock(TerminalPortuaria.class);
 
         when(viaje1.getPuertoInicio()).thenReturn(terminal);
@@ -372,7 +372,7 @@ public class TerminalTestCase {
     }
     
     @Test
-    public void testProximoAArribar_LlamaDarAvisoConsignees() {
+    public void testProximoAArribaConsignees() {
         TerminalPortuaria terminalSpy = spy(terminal);
 
         terminalSpy.proximoAArribar(viaje1);
@@ -393,10 +393,9 @@ public class TerminalTestCase {
     }
     
     @Test
-    public void testAceptar_LlamaVisitarYOrdenesAceptar() {
+    public void testAceptarLlamaVisitarYOrdenesAceptar() {
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 
-        // Suponemos que terminal tiene una lista interna de órdenes
         terminal.getOrdenes().add(ordenMock);
         terminal.getOrdenes().add(ordenTest);
 
@@ -408,7 +407,7 @@ public class TerminalTestCase {
     }
     
     @Test
-    public void testGenerarReporteDeBuque_DevuelveStringReporte() {
+    public void testGenerarReporteDeBuque() {
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
         TerminalPortuaria terminalSpy = spy(terminal);
 
