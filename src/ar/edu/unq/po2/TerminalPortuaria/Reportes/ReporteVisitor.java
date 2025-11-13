@@ -6,8 +6,8 @@ import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public interface ReporteVisitor {
-	void visitar(TerminalPortuaria terminal, Buque buque);
-    void visitar(OrdenImportacion orden, Buque buque);
-    void visitar(OrdenExportacion orden, Buque buque);
+	void visitarTerminal(TerminalPortuaria terminal, Buque buque);
+    void visitarOrden(OrdenImportacion orden, Buque buque);
+    void visitarOrden(OrdenExportacion orden, Buque buque);
     String generarReporte();
 }

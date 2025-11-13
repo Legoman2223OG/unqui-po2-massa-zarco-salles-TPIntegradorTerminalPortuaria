@@ -34,6 +34,6 @@ public class OrdenExportacion extends Orden implements ElementoVisitable {
 
 	@Override
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
-		visitor.visitar(this, buque);
+		visitor.visitarOrden(this, buque);
 	}
 }

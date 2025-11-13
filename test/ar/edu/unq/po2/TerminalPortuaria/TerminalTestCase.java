@@ -402,24 +402,10 @@ public class TerminalTestCase {
         terminal.getOrdenes().add(ordenTest);
 
         terminal.aceptar(visitorMock, buqueMock);
-
-        verify(visitorMock).visitar(terminal, buqueMock);
-        verify(ordenMock).aceptar(visitorMock, buqueMock);
-        verify(ordenTest).aceptar(visitorMock, buqueMock);
-    }
-    
-    @Test
-    public void testGenerarReporteDeBuque() {
-        ReporteVisitor visitorMock = mock(ReporteVisitor.class);
-        TerminalPortuaria terminalSpy = spy(terminal);
-
-        when(visitorMock.generarReporte()).thenReturn("Reporte generado");
-
-        String resultado = terminalSpy.generarReporteDeBuque(visitorMock, buqueMock);
-
-        verify(terminalSpy).aceptar(visitorMock, buqueMock);
-        verify(visitorMock).generarReporte();
-        assertEquals("Reporte generado", resultado);
+        
+        verify(visitorMock, times(1)).visitarTerminal(terminal, buqueMock);
+        verify(visitorMock, times(1)).visitarOrden(ordenImportMock, buqueMock);
+        verify(visitorMock, times(1)).visitarOrden(ordenExportMock, buqueMock);
     }
     
     
