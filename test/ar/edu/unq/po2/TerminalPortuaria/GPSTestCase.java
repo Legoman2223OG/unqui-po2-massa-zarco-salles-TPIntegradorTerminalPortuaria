@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.GPS;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 class GPSTestCase {
@@ -44,14 +45,16 @@ class GPSTestCase {
 	void test02_GPSActualizaSusCoordenadasYAvisaAlBuque() {
 		//DOC
 		TerminalPortuaria docT = mock(TerminalPortuaria.class);
+		Viaje docV = mock(Viaje.class);
 		when(docT.getCoordenadas()).thenReturn(new Coordenada(0,0));
+		when(docB.getViaje()).thenReturn(docV);
 		when(docB.getDestino()).thenReturn(docT);
 		//Exercise
 		gps.setCoordenadas(new Coordenada(9,9));
 		//Verify
-		verify(docB, times(1)).getDestino();
-		verify(docT, times(1)).getCoordenadas();
-		verify(docB, times(1)).actualizarEstado(12.727922061357855d);
+		verify(docB).getDestino();
+		verify(docT).getCoordenadas();
+		verify(docB).actualizarEstado(12.727922061357855d);
 	}
 
 }
