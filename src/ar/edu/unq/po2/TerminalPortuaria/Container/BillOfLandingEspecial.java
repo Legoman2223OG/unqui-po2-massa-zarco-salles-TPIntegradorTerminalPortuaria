@@ -10,7 +10,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 
 /**
  * Representa un Bill Of Landing especial, el cual puede contener
- * multiples bill of landings de diferentes importadores.
+ * multiples bill of landings de diferentes clientes.
  */
 public class BillOfLandingEspecial implements IBillOfLanding{
 	private List<Cliente> duenios;

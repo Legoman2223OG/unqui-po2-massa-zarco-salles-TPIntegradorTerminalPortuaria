@@ -52,9 +52,10 @@ class ContainerTestCase {
 	 * -Dueño: Cliente: "Juan"
 	 * -Productos: 2, Detergente (Peso 20), Jabon (Peso 10).
 	 * -Peso total: 30.
+	 * @throws Exception 
 	 */
 	@Test
-	void test01_DatosDeUnDryContainerDeUnSoloDuenio() {
+	void test01_DatosDeUnDryContainerDeUnSoloDuenio() throws Exception {
 		when(docbl.getPeso()).thenReturn(30.0);
 		when(docbl.getDuenios()).thenReturn(Arrays.asList(docCliente));
 		when(docbl.getProductos()).thenReturn(Arrays.asList(new Producto("Detergente",20), new Producto("Jabon",10)));
@@ -114,9 +115,10 @@ class ContainerTestCase {
 	 * -Dueño: Cliente "Pedro".
 	 * -Productos: 2, Gas (20 de peso), Agua (100 de peso).
 	 * -Peso total: 120.
+	 * @throws Exception 
 	 */
 	@Test
-	void test03_DatosDeUnTankContainer() {
+	void test03_DatosDeUnTankContainer() throws Exception {
 		//DOC
 		when(docbl2.getDuenios()).thenReturn(Arrays.asList(docCliente1));
 		when(docbl2.getPeso()).thenReturn(120.0);
@@ -141,9 +143,10 @@ class ContainerTestCase {
 	 * -Productos: 3, Carne (50 de peso), Leche (30 de peso), Bidon (30 de peso).
 	 * -Peso total: 110.
 	 * -Consumo De Electricidad: 100.
+	 * @throws Exception 
 	 */
 	@Test
-	void test04_DatosDeUnReeferContainer() {
+	void test04_DatosDeUnReeferContainer() throws Exception {
 		//DOC
 		when(docbl3.getDuenios()).thenReturn(Arrays.asList(docCliente2));
 		when(docbl3.getPeso()).thenReturn(110.0);
