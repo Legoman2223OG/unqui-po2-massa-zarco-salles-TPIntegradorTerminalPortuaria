@@ -1,10 +1,13 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -27,6 +30,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
@@ -43,6 +47,8 @@ public class TerminalTestCase {
     private Buque buqueMock;
     private Orden ordenMock;
     private Orden ordenTest;
+    private Orden ordenImportMock;
+    private Orden ordenExportMock;
     private Camion camionMock;
     private Camion camionMock2;
     private Chofer choferMock;
@@ -51,9 +57,17 @@ public class TerminalTestCase {
     private E_MejorRuta strategySpy;
     private BuqueStatus statusMock;
     private Cliente clienteMock;
+    private Cliente clienteMockS;
+    private Cliente clienteMockC;
     private E_MejorRuta estrategy;
+    private LineaNaviera naviera;
+    private LineaNaviera naviera1;
+    private Circuito circuito;
+    private Circuito circuito1;
     Coordenada coordenadaDummy = new Coordenada(0, 0);
     Viaje viajeDummy = mock(Viaje.class);
+    private Viaje viaje1;
+    private Viaje viaje2;
 
     @BeforeEach
     public void setUp() {
@@ -61,18 +75,33 @@ public class TerminalTestCase {
         buqueMock = mock(Buque.class);
         ordenMock = mock(Orden.class);
         ordenTest = mock(Orden.class);
+        ordenImportMock = mock(Orden.class);
+        ordenExportMock = mock(Orden.class);
         camionMock = mock(Camion.class);
         camionMock2 = mock(Camion.class);
         choferMock = mock(Chofer.class);
         statusMock = mock(BuqueStatus.class);
         clienteMock = mock(Cliente.class);
         estrategy = mock(E_MejorRuta.class);
-//        E_MejorRuta strategyReal = new E_MejorRuta();
+        naviera = mock(LineaNaviera.class);
+        naviera1 = mock(LineaNaviera.class);
+        clienteMockS = mock(Cliente.class);
+        clienteMockC = mock(Cliente.class);
 //        strategySpy = spy(strategyReal);
         terminal.setEstrategia(estrategy);
         Buque buqueReal = new Buque("Test",coordenadaDummy, viajeDummy);
         buqueReal.setStatus(statusMock);
         buqueSpy = spy(buqueReal);
+        viaje1 = mock(Viaje.class);
+        viaje2 = mock(Viaje.class);
+        circuito = mock(Circuito.class);
+        circuito1= mock(Circuito.class);
+    	when(ordenImportMock.esOrdenImportacion()).thenReturn(true);
+        when(ordenImportMock.getViaje()).thenReturn(viaje1);
+        when(ordenImportMock.getCliente()).thenReturn(clienteMockC);
+        when(ordenExportMock.esOrdenExportacion()).thenReturn(true);
+        when(ordenExportMock.getViaje()).thenReturn(viaje2);
+        when(ordenExportMock.getCliente()).thenReturn(clienteMockS);
 
     }
 
@@ -95,9 +124,8 @@ public class TerminalTestCase {
     public void testEntregaTerrestreExp() throws Exception {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
         LocalDateTime turno = LocalDateTime.now().minusHours(1);
-        when(clienteMock.getTurno()).thenReturn(turno);
+        when(ordenMock.getTurno()).thenReturn(turno);
         terminal.entregaTerrestreExp(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
@@ -151,8 +179,7 @@ public class TerminalTestCase {
     @Test
     public void testValidarHorarioDeEntrega_EntregaATiempo() throws Exception {
         LocalDateTime turnoReciente = LocalDateTime.now().minusHours(2);
-		when(clienteMock.getTurno()).thenReturn(turnoReciente);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
+		when(ordenMock.getTurno()).thenReturn(turnoReciente);
         assertDoesNotThrow(() -> terminal.validarHorarioDeEntrega(ordenMock));
     }
 
@@ -170,11 +197,10 @@ public class TerminalTestCase {
 
     @Test
     public void testValidarHorarioDeEntregaFueraDeTiempo() {
-        // Turno de hace 5 horas → debería fallar
+
         LocalDateTime turnoTest = LocalDateTime.now().minusHours(5);
 
-        when(clienteMock.getTurno()).thenReturn(turnoTest);
-        when(ordenMock.getCliente()).thenReturn(clienteMock);
+        when(ordenMock.getTurno()).thenReturn(turnoTest);
 
         Exception ex = assertThrows(Exception.class,
                 () -> terminal.validarHorarioDeEntrega(ordenMock));
@@ -209,43 +235,192 @@ public class TerminalTestCase {
 	}
 
     @Test
-    public void testEnviarFacturaOrden() {
-    	//Mock de viajes para test
+    public void testEnviarFacturaOrden() throws Exception {
+
         Viaje viajeTarget = mock(Viaje.class);
         Viaje otroViaje = mock(Viaje.class);
-        //Mock de ordenes para test
+
         Orden orden1 = mock(Orden.class);
         Orden orden2 = mock(Orden.class);
         Orden ordenQueNoCorresponde = mock(Orden.class);
 
-        //Preparo los return para ordenes
         when(orden1.getViaje()).thenReturn(viajeTarget);
         when(orden2.getViaje()).thenReturn(viajeTarget);
         when(ordenQueNoCorresponde.getViaje()).thenReturn(otroViaje);
 
-        //agrego las ordenes para test
         terminal.getOrdenes().add(orden1);
         terminal.getOrdenes().add(orden2);
         terminal.getOrdenes().add(ordenQueNoCorresponde);
 
-        //Ejecuto Metodo
         terminal.enviarFacturaOrden(viajeTarget);
 
-        //Verifico que se envie correctamente
         verify(orden1, times(1)).enviarFacturaPorMail();
         verify(orden2, times(1)).enviarFacturaPorMail();
         verify(ordenQueNoCorresponde, never()).enviarFacturaPorMail();
     }
 
-    void testVisitorEsLlamadoPorCadaOrden() {
-    	OrdenImportacion ordenImportMock = mock(OrdenImportacion.class);
-    	OrdenExportacion ordenExportMock = mock(OrdenExportacion.class);
+//    void testVisitorEsLlamadoPorCadaOrden() {
+//        ReporteVisitor visitorMock = mock(ReporteVisitor.class);
+//        terminal.aceptar(visitorMock, buqueMock);
+//
+//        verify(visitorMock, times(1)).visitar(terminal, buqueMock);
+//        verify(visitorMock, times(1)).visitar(ordenImportMock, buqueMock);
+//        verify(visitorMock, times(1)).visitar(ordenExportMock, buqueMock);
+//    }
+    
+    @Test
+    public void testGetViajes() {
+    	TerminalPortuaria terminalT = spy(new TerminalPortuaria(null, coordenadaDummy));
+        List<Viaje> viajesPrueba = new ArrayList<>();
+        viajesPrueba.add(viaje1);
+        viajesPrueba.add(viaje2);
+
+        when(naviera.getViajes()).thenReturn(viajesPrueba);
+        doReturn(true).when(terminalT).estoyEnUnCircuitoDeLaNaviera(naviera);
+
+        terminalT.registrarNuevaNaviera(naviera);
+
+        when(viaje1.validarSiTerminalExisteEnViaje(terminalT)).thenReturn(true);
+        when(viaje2.validarSiTerminalExisteEnViaje(terminalT)).thenReturn(false);
+
+        List<Viaje> viajesTest = terminalT.getMisViajes();
+
+        assertEquals(1, viajesTest.size());
+        assertTrue(viajesTest.contains(viaje1));
+        assertFalse(viajesTest.contains(viaje2));
+    }
+    
+    @Test
+    public void testMejorCircuito() {
     	
+    	when(estrategy.mejorCircuitoHacia(terminal, terminal)).thenReturn(circuito);
+    	Circuito circuitoT = terminal.getMejorCircuito(terminal);
+    	assertEquals(circuito, circuitoT);
+    }
+    
+    @Test
+    public void testDarAvisoShippers() {
+    	terminal.registrarNuevaOrden(ordenExportMock);
+    	terminal.darAvisoShippers(viaje2);
+    	verify(clienteMockS, times(1)).recibirAviso("Su carga ha salido de la terminal");
+    	
+    }
+    
+    @Test
+    public void testDarAvisoConsignee() {
+    	terminal.registrarNuevaOrden(ordenImportMock);
+    	terminal.darAvisoConsignees(viaje1);
+    	verify(clienteMockC, times(1)).recibirAviso("Su carga está llegando");
+    	
+    }
+    
+    @Test
+    public void testRegistrarNuevaNavieraConYSinCircuito() {
+
+        when(naviera.getCircuitos()).thenReturn(List.of(circuito));
+        when(circuito.terminalExisteEnElCircuito(terminal)).thenReturn(true);
+        
+        terminal.registrarNuevaNaviera(naviera);
+        
+        assertTrue(terminal.getMisNavieras().contains(naviera));
+        
+        when(naviera1.getCircuitos()).thenReturn(List.of(circuito1));
+        when(circuito1.terminalExisteEnElCircuito(terminal)).thenReturn(false);
+        
+        terminal.registrarNuevaNaviera(naviera1);
+        assertFalse(terminal.getMisNavieras().contains(naviera1));
+    }
+    
+    @Test
+    public void testProximaSalidaHaciaFechaMasProxima() {
+        TerminalPortuaria destino = mock(TerminalPortuaria.class);
+
+        when(viaje1.getPuertoInicio()).thenReturn(terminal);
+        when(viaje1.puertoDeLlegada()).thenReturn(destino);
+        when(viaje1.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 10, 10, 0));
+
+        when(viaje2.getPuertoInicio()).thenReturn(terminal);
+        when(viaje2.puertoDeLlegada()).thenReturn(destino);
+        when(viaje2.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 8, 10, 0));
+
+        when(naviera.getViajes()).thenReturn(List.of(viaje1, viaje2));
+        terminal.getMisNavieras().add(naviera);
+
+        LocalDateTime fecha = terminal.proximaSalidaHacia(destino);
+
+        assertEquals(LocalDateTime.of(2025, 11, 8, 10, 0), fecha);
+        when(naviera1.getViajes()).thenReturn(List.of());
+        terminal.getMisNavieras().remove(naviera);
+        terminal.getMisNavieras().add(naviera1);
+        assertNull(terminal.proximaSalidaHacia(destino));
+    }
+    
+    @Test
+    public void testEstoyEnUnCircuitoDeLaNaviera() {
+        when(naviera.getCircuitos()).thenReturn(List.of(circuito));
+        when(circuito.terminalExisteEnElCircuito(terminal)).thenReturn(true);
+
+        assertTrue(terminal.estoyEnUnCircuitoDeLaNaviera(naviera));
+    }
+    
+    @Test
+    public void testPartiendoAViaje() {
+        TerminalPortuaria terminalSpy = spy(terminal);
+
+        terminalSpy.partiendoAViaje(viaje1);
+
+        verify(terminalSpy, times(1)).darAvisoShippers(viaje1);
+        
+    }
+    
+    @Test
+    public void testProximoAArribaConsignees() {
+        TerminalPortuaria terminalSpy = spy(terminal);
+
+        terminalSpy.proximoAArribar(viaje1);
+
+        verify(terminalSpy, times(1)).darAvisoConsignees(viaje1);
+    }
+    
+    @Test
+    public void testFechaSalidaBuque() {
+        LocalDateTime fechaEsperada = LocalDateTime.of(2025, 11, 15, 12, 0);
+
+        when(buqueMock.getViaje()).thenReturn(viaje1);
+        when(viaje1.getFechaSalida()).thenReturn(fechaEsperada);
+
+        LocalDateTime resultado = terminal.fechaSalidaBuque(buqueMock);
+
+        assertEquals(fechaEsperada, resultado);
+    }
+    
+    @Test
+    public void testAceptarLlamaVisitarYOrdenesAceptar() {
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
+
+        terminal.getOrdenes().add(ordenMock);
+        terminal.getOrdenes().add(ordenTest);
+
         terminal.aceptar(visitorMock, buqueMock);
 
-        verify(visitorMock, times(1)).visitar(terminal, buqueMock);
-        verify(visitorMock, times(1)).visitar(ordenImportMock, buqueMock);
-        verify(visitorMock, times(1)).visitar(ordenExportMock, buqueMock);
+        verify(visitorMock).visitar(terminal, buqueMock);
+        verify(ordenMock).aceptar(visitorMock, buqueMock);
+        verify(ordenTest).aceptar(visitorMock, buqueMock);
     }
+    
+    @Test
+    public void testGenerarReporteDeBuque() {
+        ReporteVisitor visitorMock = mock(ReporteVisitor.class);
+        TerminalPortuaria terminalSpy = spy(terminal);
+
+        when(visitorMock.generarReporte()).thenReturn("Reporte generado");
+
+        String resultado = terminalSpy.generarReporteDeBuque(visitorMock, buqueMock);
+
+        verify(terminalSpy).aceptar(visitorMock, buqueMock);
+        verify(visitorMock).generarReporte();
+        assertEquals("Reporte generado", resultado);
+    }
+    
+    
 }
