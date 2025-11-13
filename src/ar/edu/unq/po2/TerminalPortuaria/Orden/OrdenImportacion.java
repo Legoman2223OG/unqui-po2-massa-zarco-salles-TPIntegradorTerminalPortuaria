@@ -3,16 +3,19 @@ package ar.edu.unq.po2.TerminalPortuaria.Orden;
 import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 public class OrdenImportacion extends Orden implements ElementoVisitable {
 
-	protected LocalDateTime entregaContainer;
+	
 
-	public OrdenImportacion(LocalDateTime entregaContainer) {
-		super();
-		this.entregaContainer = entregaContainer;
+	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado, LocalDateTime turno, int num) {
+		super(cliente, viaje, bill, TAsignado, turno, num);
 	}
 
 	@Override
@@ -30,6 +33,14 @@ public class OrdenImportacion extends Orden implements ElementoVisitable {
 	@Override
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitar(this, buque);
+	}
+	
+	@Override
+	public double calcularCostoTotal() {
+	    double costoServicios = super.calcularCostoTotal();
+	    double costoViaje = this.viaje.precioTotal();
+
+	    return costoServicios + costoViaje;
 	}
 
 }

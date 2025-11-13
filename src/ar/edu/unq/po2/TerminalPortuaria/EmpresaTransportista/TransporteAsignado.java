@@ -8,7 +8,6 @@ public class TransporteAsignado {
 
 
 	public TransporteAsignado(Chofer choferAsignado, Camion camionAsignado) {
-		super();
 		this.choferAsignado = choferAsignado;
 		this.camionAsignado = camionAsignado;
 	}

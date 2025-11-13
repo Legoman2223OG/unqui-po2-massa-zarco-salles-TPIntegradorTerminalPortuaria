@@ -6,23 +6,16 @@ public class Chofer {
 	protected String nombre;
 //	private Orden ordenAsignada;
 
-
+	public Chofer(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
 	public String getNombre() {
 		// TODO Auto-generated method stub
 		return this.nombre;
 	}
 
-
-//	public boolean tieneOrdenAsignada() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-
-
-//	public void setOrdenAsignada(Orden orden) {
-//		// TODO Auto-generated method stub
-//
-//	}
 
 
 
