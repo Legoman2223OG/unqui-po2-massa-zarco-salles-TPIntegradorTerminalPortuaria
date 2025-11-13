@@ -35,5 +35,5 @@ public class OperadorOR implements Busqueda {
 
 	public List<Busqueda> getViajes() {
 		return this.viajes;
-	}	
+	}
 }

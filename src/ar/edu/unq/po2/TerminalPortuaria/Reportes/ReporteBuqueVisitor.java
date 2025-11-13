@@ -30,7 +30,8 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
             .append("</item>\n");
     }
 
-    public String generarReporte() {
+    @Override
+	public String generarReporte() {
         xml.append("</export>\n</report>");
         return xml.toString();
     }

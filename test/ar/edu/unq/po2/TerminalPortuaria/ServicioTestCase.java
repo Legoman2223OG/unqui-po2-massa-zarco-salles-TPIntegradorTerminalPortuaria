@@ -1,7 +1,10 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 
@@ -35,14 +38,14 @@ class ServicioTestCase {
 	private AlmacenamientoExcediente almacenamientoExcediente;
 	private Desconsolidado desconsolidadoService;
 	private RevisionPerdidas revisionPerdidasService;
-	
+
 	/**
 	 * Crea un escenario donde cada servicio tiene vinculado un respectivo container.
 	 * @throws Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		lavadoService = new Lavado(dc);
+		lavadoService = new Lavado(dc,2000.0,1000.0);
 		electricidadService = new Electricidad(rc, 1500);
 		pesadoService = new Pesado(dcc, 1300);
 		almacenamientoExcediente = new AlmacenamientoExcediente(dc, 2000);
@@ -75,11 +78,11 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(1000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de electricidad con un reefer con consumo de 120 kw/h y con 1500$ de precio fijo por el consumo
 	 * cobra 180.000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test03_PrecioDeUnServicioDeElectricidadConPrecioFijo1500() throws Exception {
@@ -90,11 +93,11 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(180000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de Pesado con un precio fijo de 1300$ por peso, pesa un container de 40 de peso
 	 * y cobra 52.000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test04_PrecioDeUnServicioDePesadoConPrecioFijo1300() throws Exception {
@@ -105,10 +108,10 @@ class ServicioTestCase {
 		//Verify
 		Assertions.assertEquals(52000.0, precio);
 	}
-	
+
 	/**
 	 * Indica que un servicio de almacenamiento excediente con precio fijo de 2000$ cobra 2000$
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Test
 	void test05_PrecioDeUnServicioDeAlmacenamientoExcedienteConPrecioFijo2000() throws Exception {
@@ -118,7 +121,7 @@ class ServicioTestCase {
 		Assertions.assertEquals(2000.0, precio);
 		verifyNoInteractions(dc);
 	}
-	
+
 	/**
 	 * Indica que un servicio de Desconsolidación obtiene el BillOfLanding de un cliente en un Dry Container Compuesto.
 	 */
@@ -143,12 +146,87 @@ class ServicioTestCase {
 		verify(bl2, times(1)).getDuenios();
 		verify(bl3, times(1)).getDuenios();
 	}
-	
+
 	/**
 	 * Indica que un servicio de Revision de Perdidas asegura que hay una perdida en un Tank Container.
 	 */
 	@Test
 	void test07_ServicioDeRevisionDePerdidasAseguraUnaPerdida() {
 		Assertions.assertTrue(revisionPerdidasService.contienePerdidas());
+	}
+	
+	/**
+	 * Un servicio no puede tener un precio fijo negativo.
+	 */
+	@Test
+	void test08_UnServicioNoPuedeTenerPrecioFijoNegativo() {
+		//Exercise
+		Exception almExcException = Assertions.assertThrows(Exception.class, () -> new AlmacenamientoExcediente(dc, -2000));
+		Exception elecException = Assertions.assertThrows(Exception.class, () -> new Electricidad(rc, -1500));
+		Exception pesadoException = Assertions.assertThrows(Exception.class, () -> new Pesado(dcc, -1300));
+		Exception lavadoException = Assertions.assertThrows(Exception.class, () -> new Lavado(dc, -2000,1000));
+		Exception lavadoException2 = Assertions.assertThrows(Exception.class, () -> new Lavado(dc, 2000,-1000));
+		//Verify
+		Assertions.assertEquals("El numero ingresado no es positivo", almExcException.getMessage());
+		Assertions.assertEquals("El numero ingresado no es positivo", elecException.getMessage());
+		Assertions.assertEquals("El numero ingresado no es positivo", pesadoException.getMessage());
+		Assertions.assertEquals("No se puede ingresar un precio negativo", lavadoException.getMessage());
+		Assertions.assertEquals("No se puede ingresar un precio negativo", lavadoException2.getMessage());
+	}
+	
+	/**
+	 * Un servicio que no calcula precio no puede darte un precio.
+	 * Entre ellos estan:
+	 * - Desconsolidado
+	 * - RevisionPerdidas
+	 */
+	@Test
+	void test09_UnServicioQueNoCalculaPrecioNoPuedeCalcularPrecio() {
+		//Exercise
+		Exception descException = Assertions.assertThrows(Exception.class, () -> desconsolidadoService.calcularPrecio());
+		Exception revPerException = Assertions.assertThrows(Exception.class, () -> revisionPerdidasService.calcularPrecio());
+		//Verify
+		Assertions.assertEquals("Este servicio no se encarga de calcular un precio", descException.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de calcular un precio", revPerException.getMessage());
+	}
+	
+	/**
+	 * Un servicio que no sea el de desconsolidado, no puede buscar el bill of landing de un cliente.
+	 */
+	@Test
+	void test10_UnServicioDiferenteADesconolidadoNoPuedeBuscarBL() {
+		//DOC
+		Cliente cl1 = mock(Cliente.class);
+		//Exercise
+		Exception lavExc = Assertions.assertThrows(Exception.class, () -> lavadoService.billOfLandingDelCliente(cl1));
+		Exception elecExc = Assertions.assertThrows(Exception.class, () -> electricidadService.billOfLandingDelCliente(cl1));
+		Exception pesExc = Assertions.assertThrows(Exception.class, () -> pesadoService.billOfLandingDelCliente(cl1));
+		Exception revPerExc = Assertions.assertThrows(Exception.class, () -> revisionPerdidasService.billOfLandingDelCliente(cl1));
+		Exception almExcedExc = Assertions.assertThrows(Exception.class, () -> almacenamientoExcediente.billOfLandingDelCliente(cl1));
+		//Verify
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", lavExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", elecExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", pesExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", revPerExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", almExcedExc.getMessage());
+	}
+	
+	/**
+	 * Un servicio que no sea el de revision de perdidas, no puede revisar perdidas en un contenedor.
+	 */
+	@Test
+	void test11_UnServicioQueNoSeEncargaDeLasPerdidasNoPuedeRevisarPerdidas() {
+		//Exercise
+		Exception lavExc = Assertions.assertThrows(Exception.class, () -> lavadoService.contienePerdidas());
+		Exception elecExc = Assertions.assertThrows(Exception.class, () -> electricidadService.contienePerdidas());
+		Exception pesExc = Assertions.assertThrows(Exception.class, () -> pesadoService.contienePerdidas());
+		Exception descExc = Assertions.assertThrows(Exception.class, () -> desconsolidadoService.contienePerdidas());
+		Exception almExcedExc = Assertions.assertThrows(Exception.class, () -> almacenamientoExcediente.contienePerdidas());
+		//Verify
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", lavExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", elecExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", pesExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", descExc.getMessage());
+		Assertions.assertEquals("Este servicio no se encarga de esta operacion", almExcedExc.getMessage());
 	}
 }

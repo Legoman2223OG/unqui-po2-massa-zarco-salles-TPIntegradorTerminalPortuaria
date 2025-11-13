@@ -5,8 +5,8 @@ public class Chofer {
 
 	protected String nombre;
 //	private Orden ordenAsignada;
-	
-	
+
+
 	public String getNombre() {
 		// TODO Auto-generated method stub
 		return this.nombre;
@@ -21,9 +21,9 @@ public class Chofer {
 
 //	public void setOrdenAsignada(Orden orden) {
 //		// TODO Auto-generated method stub
-//		
+//
 //	}
 
 
-	
+
 }

@@ -36,5 +36,5 @@ public class Cliente {
 		this.turno = turno;
 	}
 
-	public void recibirMail( String mensaje ) {} // método para poder recibir avisos de la terminal gestionada.	
+	public void recibirMail( String mensaje ) {} // método para poder recibir avisos de la terminal gestionada.
 }

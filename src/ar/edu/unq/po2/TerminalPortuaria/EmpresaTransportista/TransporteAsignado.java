@@ -5,8 +5,8 @@ public class TransporteAsignado {
 
 	protected Chofer choferAsignado;
 	protected Camion camionAsignado;
-	
-	
+
+
 	public TransporteAsignado(Chofer choferAsignado, Camion camionAsignado) {
 		super();
 		this.choferAsignado = choferAsignado;
@@ -16,12 +16,12 @@ public class TransporteAsignado {
 
 	public Chofer getChoferAsignado() {
 		return this.choferAsignado;
-		
+
 	}
 
 	public Camion getCamionAsignado() {
 		return this.camionAsignado;
-		
+
 	}
 
 }

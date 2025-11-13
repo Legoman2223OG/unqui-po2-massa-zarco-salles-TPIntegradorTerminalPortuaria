@@ -11,10 +11,15 @@ public class Outbound extends BuqueStatus {
 	 */
 	@Override
 	public void actualizarEstado(double distancia, Buque buque) {
-		if(distancia > 50) {
+		if(distancia == 0) {
+			buque.setStatus(new Arrived());
+			buque.getDestino().proximoAArribar(buque.getViaje());
+		}
+		else if(distancia < 50) {
 			buque.setStatus(new Inbound());
 			buque.getDestino().proximoAArribar(buque.getViaje());
 		}
+		
 	}
 
 	@Override
@@ -29,6 +34,6 @@ public class Outbound extends BuqueStatus {
 
 	@Override
 	public void moverA(Coordenada coordenada, Buque buque) throws Exception {
-		buque.setCoordenadas(coordenada);
+		buque.getGps().setCoordenadas(coordenada);
 	}
 }
