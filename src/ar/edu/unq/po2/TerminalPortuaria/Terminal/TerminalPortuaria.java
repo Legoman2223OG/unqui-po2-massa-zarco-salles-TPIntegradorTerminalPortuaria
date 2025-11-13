@@ -26,11 +26,10 @@ public class TerminalPortuaria implements ElementoVisitable {
 
 
 	private String nombre;
-	private Coordenada coordenada;
+	private Coordenada coordenada = new Coordenada (0,0);
 	private List<LineaNaviera> misNavieras = new ArrayList<>();
 	private Set<Orden> ordenes = new HashSet<>();
 	private E_MejorRuta estrategia;
-	private Busqueda busquedaMaritima;
 
 
 	public TerminalPortuaria(String nombre, Coordenada coordenada)
@@ -38,64 +37,86 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.coordenada = coordenada;
 		this.nombre = nombre;
 	}
+	
+	//Metodo de busqueda de ruta maritima
+	public List<Viaje> buscar(Busqueda criterio) {
+        return criterio.filtrar(this.getMisViajes());
+    }
 
-	public void setCoordenada(Coordenada coord) {
-		this.coordenada = coord;
-	}
-
+    //Getters y setters y adds
 	public List<LineaNaviera> getMisNavieras()
 	{
 		return this.misNavieras;
+	}
+	
+	public void agregarNaviera(LineaNaviera naviera) {
+		this.misNavieras.add(naviera);
 	}
 
 	public Set<Orden> getOrdenes() {
 		return this.ordenes;
 	}
+	
+	 public Coordenada getCoordenadas() {
+		// TODO Auto-generated method stub
+		return this.coordenada;
+	 }
+	 
+	public String getNombre() {
+		return this.nombre;
+	}
+	
 
 
-	public List<Viaje> getMisViajes()
-	{
+	public List<Viaje> getMisViajes() {
 	    return this.misNavieras.stream()
 	            .flatMap(n -> n.getViajes().stream()) // Convierte los sets de viajes de todas las navieras en un solo stream
 	            .filter(viaje -> viaje.validarSiTerminalExisteEnViaje(this)) // Filtra los viajes que contienen la terminal
 	            .collect( Collectors.toList() ); // Recolecta los viajes en una lista.
 	}
 
-	public List<Viaje> busquedaViaje() {
-		return this.busquedaMaritima.filtrar(this.getMisViajes());
+	public void setEstrategia( E_MejorRuta estrategia ) {
+		 this.estrategia = estrategia;
 	}
 
-	 public void setEstrategia( E_MejorRuta estrategia ) {
-	 	this.estrategia = estrategia;
-	 }
-
-	 public E_MejorRuta getEstrategia() {
+	public E_MejorRuta getEstrategia() {
 		 return this.estrategia;
-	 }
+	}
 
 
-	 public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
+	public Circuito getMejorCircuito(TerminalPortuaria terminalDestino) {
 		 return estrategia.mejorCircuitoHacia(this, terminalDestino);
-	 }
+	}
+	 
+	public void registrarNuevaOrden(Orden orden) {
+		 this.ordenes.add(orden);
+	}
 
 
-	public void darAvisoShippers( Viaje viaje )
-	{
+	public void registrarNuevaNaviera(LineaNaviera nav) {
+		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
+		{
+			this.misNavieras.add(nav);
+		}
+	}
+
+
+	 
+    //Avisos para shippers y consigness
+	public void darAvisoShippers( Viaje viaje ) {
 		List<Orden> ordenesExportacion = ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
 		List<Cliente> listaShippers = ordenesExportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).toList();
 
-		listaShippers.stream().forEach( c -> c.recibirAviso("Su carga está llegando") );
+		listaShippers.stream().forEach( c -> c.recibirAviso("Su carga ha salido de la terminal") );
 	}
 
-	public void darAvisoConsignees( Viaje viaje )
-	{
+	public void darAvisoConsignees( Viaje viaje ) {
 		List<Orden> ordenesImportacion = ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
 		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).collect(Collectors.toList());
-		listaConsignees.stream().forEach( c -> c.recibirAviso("Su carga ha salido de la terminal") );
+		listaConsignees.stream().forEach( c -> c.recibirAviso("Su carga está llegando") );
 	}
 
-	public void enviarFacturaOrden( Viaje viaje )
-	{
+	public void enviarFacturaOrden( Viaje viaje ) {
 		List<Orden> ordenesVinculadasAlViaje = this.ordenes.stream().filter( o -> o.getViaje() == viaje ).toList();
 		ordenesVinculadasAlViaje.forEach( o -> {
 			try {
@@ -106,40 +127,25 @@ public class TerminalPortuaria implements ElementoVisitable {
 			}
 		} );
 	}
-
-
-	public void registrarNuevaOrden(Orden orden)
-	{
-		this.ordenes.add(orden);
+	
+	public LocalDateTime proximaSalidaHacia(TerminalPortuaria destino) {
+	    return this.getMisNavieras().stream()
+	        .flatMap(n -> n.getViajes().stream())
+	        .filter(v -> v.getPuertoInicio() == this && v.puertoDeLlegada() == destino)
+	        .map(Viaje::getFechaSalida)
+	        .min(LocalDateTime::compareTo)
+	        .orElse(null);
 	}
 
 
-	public void registrarNuevaNaviera(LineaNaviera nav)
-	{
-		if ( this.estoyEnUnCircuitoDeLaNaviera(nav) )
-		{
-			this.misNavieras.add(nav);
-		}
-	}
 
-
+	//Validaciones
 	public boolean estoyEnUnCircuitoDeLaNaviera(LineaNaviera nav)
 	{
 		List<Circuito> circuitosNaviera = nav.getCircuitos();
 		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
 	}
-
-	public void working(Buque buque) throws Exception
-	{
-		buque.working();
-	}
-
-	public void depart(Buque buque) throws Exception
-	{
-		buque.depart();
-	}
-
-
+	
 	public void entregaTerrestreExp(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
@@ -182,32 +188,36 @@ public class TerminalPortuaria implements ElementoVisitable {
 			throw new Exception ("El camión no coincide");
 		}
 	}
+	
+	
 
-	public String getNombre()
+	public void working(Buque buque) throws Exception
 	{
-		return this.nombre;
+		buque.working();
+	}
+
+	public void depart(Buque buque) throws Exception
+	{
+		buque.depart();
 	}
 
 
-
+	
 //	 Necesito pasar esta terminal por parametro para que me diga la duracion del viaje
 //	 public Duration duracionDelViaje() {
 //
 //	 }
 
 	 public void partiendoAViaje(Viaje viaje) {
-		// TODO Auto-generated method stub
-
-	 }
-
-	 public Coordenada getCoordenadas() {
-		// TODO Auto-generated method stub
-		return this.coordenada;
+		 this.darAvisoShippers(viaje);
 	 }
 
 	 public void proximoAArribar(Viaje viaje) {
-		// TODO Auto-generated method stub
-
+		 this.darAvisoConsignees(viaje);
+	 }
+	 
+	 public LocalDateTime fechaSalidaBuque(Buque buque) {
+		 return buque.getViaje().getFechaSalida();
 	 }
 
 
