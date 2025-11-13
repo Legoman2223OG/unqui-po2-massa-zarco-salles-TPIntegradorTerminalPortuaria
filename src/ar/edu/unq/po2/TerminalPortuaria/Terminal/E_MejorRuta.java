@@ -26,14 +26,18 @@ public abstract class E_MejorRuta {
 											  .flatMap(nav -> nav.circuitosQuePasanPor(terminalDestino).stream())
 											  .toList();
 	}
-	
+
 	protected HashMap<Viaje, Circuito> viajesPorCadaCircuito(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino) {
-		HashMap<Viaje, Circuito> mapCircuitoConViaje = new HashMap<Viaje, Circuito>();
-		
+		HashMap<Viaje, Circuito> mapCircuitoConViaje = new HashMap<>();
+
 		for (Circuito circ : this.circuitosQueContienen(terminalOrigen, terminalDestino)) {
 			mapCircuitoConViaje.put(circ.crearNuevoViaje(terminalOrigen,terminalDestino,LocalDateTime.now()), circ);
 		}
-		
+
 		return mapCircuitoConViaje;
+	}
+
+	protected Set<Viaje> viajesDesdeOrigenHasta(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino) {
+		return viajesPorCadaCircuito(terminalOrigen, terminalDestino).keySet();
 	}
 }

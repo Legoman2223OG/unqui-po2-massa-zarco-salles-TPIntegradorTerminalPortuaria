@@ -1,7 +1,5 @@
 package ar.edu.unq.po2.TerminalPortuaria.Container;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
@@ -17,7 +15,7 @@ public abstract class Container {
 	private double altura;
 	private String identificador;
 	protected IBillOfLanding bl;
-	
+
 	/**
 	 * Describe un Container con su ancho, largo, altura y su identificador.
 	 * @param ancho, double, el ancho del container, debe ser > 0. (Esta en metros cubicos)
@@ -25,9 +23,12 @@ public abstract class Container {
 	 * @param altura, double, la altura del container, debe ser > 0. (Esta en metros cubicos)
 	 * @param identificador, String, el identificador del contenedor, debe ser de 11 caracteres, siendo los primeros 4 parte del nombre del importador y los 7 restantes digitos numericos aleatorios.
 	 * @param bl, BillOfLanding, bill of landing que define el contenido del contenedor.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Container(double ancho, double largo, double altura, String identificador, IBillOfLanding bl) throws Exception {
+		asertarNumeroPositivo(ancho);
+		asertarNumeroPositivo(largo);
+		asertarNumeroPositivo(altura);
 		this.ancho = ancho;
 		this.largo = largo;
 		this.altura = altura;
@@ -37,19 +38,32 @@ public abstract class Container {
 	}
 
 	/**
+	 * Aserta que el numero ingresado sea positivo ya sea para el ancho, largo o altura del container.
+	 * @param numero, double, numero que se elige para el ancho, altura o largo del container.
+	 * @throws Exception, Si es que el numero ingresado es negativo o 0.
+	 */
+	private void asertarNumeroPositivo(double numero) throws Exception {
+		if(numero <= 0)
+			throw new Exception("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0");
+	}
+
+	/**
 	 * Asegura que el identificador sea 4 digitos alfabeticos y
 	 * 7 digitos numericos aleatorios.
 	 * @param identificador
 	 * @throws Exception, Si, las primeras 4 letras no son letras y los 7 ultimos caracteres no son digitos.
 	 */
 	private void asertarIdentificadorCorrecto(String identificador) throws Exception {
-		if(identificador.length() < 11)
+		if(identificador.length() != 11) {
 			throw new Exception("El identificador no es de 11 caracteres");
+		}
 		//Los primeros 4 caracteres deben ser letras.
-		if(!identificador.substring(0, 4).chars().allMatch(Character::isLetter))
+		if(!identificador.substring(0, 4).chars().allMatch(Character::isLetter)) {
 			throw new Exception("No esta incluido el nombre del importador, usar letras");
-		if(!identificador.substring(4,11).chars().allMatch(Character::isDigit))
+		}
+		if(!identificador.substring(4,11).chars().allMatch(Character::isDigit)) {
 			throw new Exception("No se incluyo digitos despues de las letras que identifican al importador");
+		}
 	}
 
 	public double getAncho() {
@@ -63,35 +77,35 @@ public abstract class Container {
 	public double getAltura() {
 		return altura;
 	}
-	
+
 	/**
 	 * Describe el dueño o los dueños del contenedor.
 	 * @return, List<Cliente>, una lista con el duenio o los duenios del contenedor.
 	 */
 	public abstract List<Cliente> getDuenio();
-	
+
 	/**
 	 * Describe el Bill Of Landing o los Bill of Landing del contenedor.
 	 * @return, List<BillOfLanding>, el bill of landing o los bill of landings del contenedor.
 	 */
 	public abstract List<BillOfLanding> getBillsOfLanding();
-	
+
 	/**
 	 * Describe el peso total del contenedor basado en su contenido.
 	 * @return, double, el peso del contenedor.
 	 */
 	public abstract double getPeso();
-	
+
 	/**
 	 * Agrega a un bill of landing al contenedor, solo posible para contenedores
 	 * que puedan tener más de un dueño.
 	 * @param bl, BillOfLanding, el bill of landing a agregar.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public abstract void agregarBillOfLanding(BillOfLanding bl) throws Exception;
-	
+
 	public abstract double consumoElectricidad() throws Exception;
-	
+
 	/**
 	 * Describe la capacidad del container.
 	 * @return double, la capacidad del container en metros cubicos.

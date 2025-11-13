@@ -8,7 +8,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 public class OrdenImportacion extends Orden implements ElementoVisitable {
 	protected LocalDateTime entregaContainer;
-	
+
 	public OrdenImportacion(LocalDateTime entregaContainer) {
 		super();
 		this.entregaContainer = entregaContainer;

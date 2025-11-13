@@ -9,7 +9,7 @@ public class Tramo {
 	private final TerminalPortuaria terminalDestino;
 	private final Duration tiempoDeTranscurso;
 	private Double precio;
-	
+
 	// Constructor
 	public Tramo(TerminalPortuaria terminalOrigen, TerminalPortuaria terminalDestino, Duration tiempoDeTranscurso, Double precio) {
 		this.terminalOrigen = terminalOrigen;
@@ -17,7 +17,7 @@ public class Tramo {
 		this.tiempoDeTranscurso = tiempoDeTranscurso;
 		this.precio = precio;
 	}
-	
+
 	// Getters
 	public TerminalPortuaria getPuertoOrigen() {
 		return terminalOrigen;
@@ -36,7 +36,7 @@ public class Tramo {
 	public Boolean iniciaEnPuertoDado(TerminalPortuaria puerto) {
 		return this.terminalOrigen == puerto;
 	}
-	
+
 	public Boolean terminaEnPuertoDado(TerminalPortuaria puerto) {
 		return this.terminalDestino == puerto;
 	}

@@ -5,50 +5,75 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class Buque {
 
-	private String nombreBuque;
 	private GPS gps;
+	private String nombre;
 	private BuqueStatus status;
-	private TerminalPortuaria destino;
 	private Viaje viaje;
-	
+
 	/**
-	 * Constructor con intenciones de testing para el testeo de las fases.
-	 * Empieza estando en el estado de outbound, con el gps marcando la respectiva coordenada
+	 * Instancia un buque en una coordenada especifica en conjunto a un viaje que debe de realizar. (Inicia en Outbound).
+	 * @param nombre, String, el nombre del buque, no puede ser nulo o vacio con espacios o sin espacios.
 	 * @param coordenada, Coordenada, una coordenada que indica donde se posiciona el barco actualmente, no puede ser nula.
-	 * @param destino, TerminalPortuaria, la terminal portuaria de destino del barco, no puede ser nula.
 	 * @param viaje, Viaje, el viaje que tiene que hacer el barco, no puede ser nulo.
 	 */
-	public Buque(String nombreBuque, Coordenada coordenada, TerminalPortuaria destino, Viaje viaje) {
-		this.nombreBuque = nombreBuque;
-		this.destino = destino;
+	public Buque(String nombre,Coordenada coordenada, Viaje viaje) {
+		this.nombre = nombre;
+		this.gps = new GPS(coordenada,this);
 		this.viaje = viaje;
+		this.status = new Outbound();
+	}
+
+	/**
+	 * Instancia un buque sin ningun viaje determinado y en una coordenada especifica.
+	 * @param nombre, String, el nombre del buque, no puede ser nulo o vacio con espacios o sin espacios.
+	 * @param coordenada, Coordenada, Una coordenada donde se situa el buque, no puede ser nula.
+	 */
+	public Buque(String nombre, Coordenada coordenada) {
+		this.nombre = nombre;
 		this.gps = new GPS(coordenada,this);
 		this.status = new Outbound();
 	}
 
-	public TerminalPortuaria getDestino() {
-		return this.destino;
-	}
-	
 	/**
-	 * Actualiza el estado según la distancia y el estado actual
+	 * Describe la terminal de destino a la que debe ir el buque según el viaje.
+	 * @throws NullPointerException, si es que el buque no tiene un viaje.
+	 * @return
+	 */
+	public TerminalPortuaria getDestino() {
+		return this.viaje.puertoDeLlegada();
+	}
+
+	/**
+	 * Describe la terminal de origen del viaje.
+	 * @throws NullPointerException, si es que el buque no tiene un viaje.
+	 * @return
+	 */
+	public TerminalPortuaria getOrigen() {
+		return this.viaje.getPuertoInicio();
+	}
+
+	/**
+	 * Actualiza el estado según la distancia y el estado actual.
 	 * @param distancia
 	 */
 	public void actualizarEstado(double distancia) {
-		status.actualizarEstado(distancia, this);
+		//Si no hay viaje, no es necesario chequear coordenadas.
+		if(viaje != null) {
+			this.status.actualizarEstado(distancia, this);
+		}
 	}
-	
+
 	/**
 	 * Si el buque se encuentra en la terminal de destino y necesita cargar o descargar, entonces pasa a la fase working.
-	 * @throws Exception 
+	 * @throws Exception, depende del estado, este mensaje podria no estar disponible para llamarlo.
 	 */
 	public void working() throws Exception {
 		this.status.working(this);
 	}
-	
+
 	/**
 	 * Si el buque se prepara para salir de la terminal origen, pasa a departing.
-	 * @throws Exception 
+	 * @throws Exception, depende del estado, este mensaje podria no estar disponible para llamarlo.
 	 */
 	public void depart() throws Exception {
 		this.status.depart(this);
@@ -65,19 +90,11 @@ public class Buque {
 	public Coordenada getCoordenadas() {
 		return this.gps.getCoordenadas();
 	}
-	
-	/**
-	 * Cambia las coordenadas del barco según su GPS.
-	 * @param coordenda, Coordenada, la nueva coordenada del buque, no puede ser nula.
-	 */
-	public void setCoordenadas(Coordenada coordenda) {
-		this.gps.setCoordenadas(coordenda);
-	}
-	
+
 	/**
 	 * Mueve el buque a una coordenada nueva.
 	 * @param coordenada, Coordenada, una nueva coordenada, no puede ser nula.
-	 * @throws Exception 
+	 * @throws Exception, depende del estado, este mensaje podria no estar disponible para llamarlo.
 	 */
 	public void moverA(Coordenada coordenada) throws Exception {
 		this.status.moverA(coordenada, this);
@@ -87,8 +104,23 @@ public class Buque {
 		return this.viaje;
 	}
 
-	public String getNombreBuque() {
-		return nombreBuque;
+	/**
+	 * Si es necesario cambiar de viaje, con este mensaje se podra cambiarlo. Si ya no necesita seguir un viaje,
+	 * puede quedarse en null.
+	 * @param viaje, Viaje, un nuevo viaje que debe hacer el buque.
+	 */
+	public void setViaje(Viaje viaje) {
+		this.status = new Outbound();
+		this.viaje = viaje;
 	}
+
+	public GPS getGps() {
+		return this.gps;
+	}
+
+	public String getNombre() {
+		return this.nombre;
+	}
+
 }
 

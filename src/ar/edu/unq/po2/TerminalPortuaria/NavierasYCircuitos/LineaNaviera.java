@@ -1,15 +1,15 @@
 package ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
+import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class LineaNaviera {
 	private List<Buque> buques = new ArrayList<>();
 	private List<Circuito> circuitos = new ArrayList<>();
 	private List<WrapperRecorrido> listaRecorridos = new ArrayList<>();
-	
+
 	// Constructor
 	public LineaNaviera() {}
 
@@ -25,7 +25,7 @@ public class LineaNaviera {
 	public List<WrapperRecorrido> getListaRecorridos() {
 		return listaRecorridos;
 	}
-	
+
 	// Metodos propios
 	public List<Circuito> circuitosQuePasanPor(TerminalPortuaria terminal) {
 		return this.circuitos.stream()
@@ -40,7 +40,6 @@ public class LineaNaviera {
 	public void addCircuito(Circuito circuito) {
 		circuitos.add(circuito);
 	}
-	
 	public List<Viaje> getViajes() {
 		return this.listaRecorridos.stream()
 								   .flatMap(r -> r.getListaViajes().stream())
@@ -57,15 +56,17 @@ public class LineaNaviera {
 			throw new Exception("Este buque no trabaja para esta linea naviera.");
 		}
 	}
-	
+
 	public boolean buqueExisteEnEstaNaviera(Buque buque) {
 		return this.buques.contains(buque);
 	}
-	
+
 	public Buque buscarBuquePorViaje(Viaje viaje) {
 	    for (WrapperRecorrido w : listaRecorridos) {
 	        Buque b = w.getBuqueDeViaje(viaje);
-	        if (b != null) return b;
+	        if (b != null) {
+				return b;
+			}
 	    }
 	    return null;
 	}
