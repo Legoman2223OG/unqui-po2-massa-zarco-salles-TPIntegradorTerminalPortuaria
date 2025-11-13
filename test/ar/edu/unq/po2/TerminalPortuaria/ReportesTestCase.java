@@ -43,7 +43,7 @@ public class ReportesTestCase {
         visitorMuelleTest = new ReporteMuelleVisitor();
 
         // Stubs
-        when(buqueMock.getNombreBuque()).thenReturn("Buque Test");
+        when(buqueMock.getNombre()).thenReturn("Buque Test");
         when(buqueMock.getViaje()).thenReturn(viajeMock);
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
@@ -59,6 +59,6 @@ public class ReportesTestCase {
         assertTrue(reporte.contains("Contenedores operados: 2"));
         assertTrue(reporte.contains("Fecha arribo: 2025-11-04T10:00"));
         assertTrue(reporte.contains("Fecha partida: 2025-11-04T18:00"));
-        verify(buqueMock, times(1)).getNombreBuque();
+        verify(buqueMock, times(1)).getNombre();
     }
 }

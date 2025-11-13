@@ -200,13 +200,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 
 	 @Override
 	 public void aceptar(ReporteVisitor visitor, Buque buque) {
-<<<<<<< HEAD
 		visitor.visitarTerminal(this, buque);
-		
-=======
-		visitor.visitar(this, buque);
-
->>>>>>> branch 'zarcojulian' of https://github.com/Legoman2223OG/unqui-po2-massa-zarco-salles-TPIntegradorTerminalPortuaria
 		for (Orden orden : ordenes) {
             orden.aceptar(visitor, buque);
         }
