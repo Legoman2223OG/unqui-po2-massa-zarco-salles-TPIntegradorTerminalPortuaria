@@ -47,8 +47,6 @@ public class TerminalTestCase {
     private Buque buqueMock;
     private Orden ordenMock;
     private Orden ordenTest;
-    private Orden ordenImportMock;
-    private Orden ordenExportMock;
     private Camion camionMock;
     private Camion camionMock2;
     private Chofer choferMock;
@@ -75,8 +73,6 @@ public class TerminalTestCase {
         buqueMock = mock(Buque.class);
         ordenMock = mock(Orden.class);
         ordenTest = mock(Orden.class);
-        ordenImportMock = mock(Orden.class);
-        ordenExportMock = mock(Orden.class);
         camionMock = mock(Camion.class);
         camionMock2 = mock(Camion.class);
         choferMock = mock(Chofer.class);
@@ -223,7 +219,6 @@ public class TerminalTestCase {
 
     @Test
 	public void testGetCoordenadas() {
-		// TODO Auto-generated method stub
 		assertEquals(terminal.getCoordenadas(), coordenadaDummy);
 	 }
 
@@ -396,16 +391,19 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() {
+        private Orden ordenImportMock = mock(OrdenImportacion.class);
+        private Orden ordenExportMock = mock(OrdenExportacion.class);
+    	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 
-        terminal.getOrdenes().add(ordenMock);
-        terminal.getOrdenes().add(ordenTest);
+        terminal.registrarNuevaOrden(ordenExportMock);;
+        terminal.registrarNuevaOrden(ordenImportMock);;
 
         terminal.aceptar(visitorMock, buqueMock);
         
         verify(visitorMock, times(1)).visitarTerminal(terminal, buqueMock);
-        verify(visitorMock, times(1)).visitarOrden(ordenImportMock, buqueMock);
-        verify(visitorMock, times(1)).visitarOrden(ordenExportMock, buqueMock);
+        verify(ordenImportMock, times(1)).aceptar(visitorMock, buqueMock);
+        verify(ordenExportMock, times(1)).aceptar(visitorMock, buqueMock);
     }
     
     
