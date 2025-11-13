@@ -14,9 +14,8 @@ public class OrdenImportacion extends Orden implements ElementoVisitable {
 
 	
 
-	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado,
-			boolean servicioLavado, LocalDateTime turno, int num) {
-		super(cliente, viaje, bill, TAsignado, servicioLavado, turno, num);
+	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado, LocalDateTime turno, int num) {
+		super(cliente, viaje, bill, TAsignado, turno, num);
 	}
 
 	@Override

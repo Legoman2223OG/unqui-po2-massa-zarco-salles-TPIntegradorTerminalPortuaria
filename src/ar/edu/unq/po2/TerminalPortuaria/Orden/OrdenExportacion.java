@@ -15,9 +15,8 @@ public class OrdenExportacion extends Orden implements ElementoVisitable {
 
 
 	
-	public OrdenExportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado,
-			boolean servicioLavado, LocalDateTime turno, int num) {
-		super(cliente, viaje, bill, TAsignado, servicioLavado, turno, num);
+	public OrdenExportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado, LocalDateTime turno, int num) {
+		super(cliente, viaje, bill, TAsignado, turno, num);
 		// TODO Auto-generated constructor stub
 	}
 

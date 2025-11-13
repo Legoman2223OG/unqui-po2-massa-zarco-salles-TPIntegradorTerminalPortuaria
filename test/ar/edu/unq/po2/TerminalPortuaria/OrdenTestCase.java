@@ -58,11 +58,11 @@ public class OrdenTestCase {
         when(clienteMock.recibirFactura(any(Factura.class))).thenReturn(null);
 
      // Instancia de OrdenExportacion
-        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101);
+        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
         ordenExp.getServicios().add(servicioMock);
 
         // Instancia de OrdenImportacion
-        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, false, fechaTurno, 101);
+        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
         ordenImp.getServicios().add(servicioMock);
     }
 
@@ -79,6 +79,16 @@ public class OrdenTestCase {
         double total = ordenImp.calcularCostoTotal();
         // 500 (servicio) + 1500 (tramo)
         assertEquals(2000.0, total, 0.001);
+    }
+    
+    @Test
+    public void testCostoServiciosConExcepcion() throws Exception {
+    	ordenExp.getServicios().remove(servicioMock);
+        Servicio servicioException = mock(Servicio.class);
+        when(servicioException.calcularPrecio()).thenThrow(new Exception("Error al calcular precio"));
+        ordenExp.getServicios().add(servicioException);
+        double total = ordenExp.costoServicios();
+        assertEquals(0.0, total, 0.001);
     }
     
     @Test

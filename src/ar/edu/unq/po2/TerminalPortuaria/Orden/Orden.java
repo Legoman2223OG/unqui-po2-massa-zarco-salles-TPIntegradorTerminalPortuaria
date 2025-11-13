@@ -22,12 +22,11 @@ public abstract class Orden implements ElementoVisitable {
 	protected IBillOfLanding bill;
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
-	protected boolean servicioLavado;
     private int numFactura;
     private LocalDateTime fechaTurno;
 
 
-	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, boolean servicioLavado, LocalDateTime turno, int num)
+	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, LocalDateTime turno, int num)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
