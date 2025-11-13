@@ -26,6 +26,9 @@ public abstract class Container {
 	 * @throws Exception
 	 */
 	public Container(double ancho, double largo, double altura, String identificador, IBillOfLanding bl) throws Exception {
+		asertarNumeroPositivo(ancho);
+		asertarNumeroPositivo(largo);
+		asertarNumeroPositivo(altura);
 		this.ancho = ancho;
 		this.largo = largo;
 		this.altura = altura;
@@ -35,13 +38,23 @@ public abstract class Container {
 	}
 
 	/**
+	 * Aserta que el numero ingresado sea positivo ya sea para el ancho, largo o altura del container.
+	 * @param numero, double, numero que se elige para el ancho, altura o largo del container.
+	 * @throws Exception, Si es que el numero ingresado es negativo o 0.
+	 */
+	private void asertarNumeroPositivo(double numero) throws Exception {
+		if(numero <= 0)
+			throw new Exception("Uno de los numeros ingresados para ancho, largo o altura es negativo o 0");
+	}
+
+	/**
 	 * Asegura que el identificador sea 4 digitos alfabeticos y
 	 * 7 digitos numericos aleatorios.
 	 * @param identificador
 	 * @throws Exception, Si, las primeras 4 letras no son letras y los 7 ultimos caracteres no son digitos.
 	 */
 	private void asertarIdentificadorCorrecto(String identificador) throws Exception {
-		if(identificador.length() < 11) {
+		if(identificador.length() != 11) {
 			throw new Exception("El identificador no es de 11 caracteres");
 		}
 		//Los primeros 4 caracteres deben ser letras.
