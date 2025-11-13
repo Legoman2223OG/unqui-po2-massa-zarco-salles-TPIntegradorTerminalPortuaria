@@ -8,6 +8,8 @@ import org.junit.jupiter.api.*;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
@@ -30,10 +32,13 @@ public class ReportesTestCase {
     @BeforeEach
     void setUp() {
         // DOC
+    	Cliente clienteMock = mock(Cliente.class);
+    	TransporteAsignado transporteMock = mock(TransporteAsignado.class);
+    	LocalDateTime fechaTurno = mock(LocalDateTime.class);
         buqueMock = mock(Buque.class);
         viajeMock = mock(Viaje.class);
-        ordenImportTest = new OrdenImportacion(LocalDateTime.now());
-        ordenExportTest = new OrdenExportacion(LocalDateTime.now());
+        ordenImportTest = mock(OrdenImportacion.class);
+        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
 
         // SUT
         terminalTest = new TerminalPortuaria("Terminal Test", new Coordenada(0,0));

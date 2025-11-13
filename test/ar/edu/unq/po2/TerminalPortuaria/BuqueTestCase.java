@@ -359,5 +359,21 @@ class BuqueTestCase {
 		//Verify
 		verifyNoMoreInteractions(docT);
 	}
+	
+	/**
+	 * Un buque sin viaje se le asigna un viaje y le manda avisos a la terminal en el estado Inbound.
+	 * @throws Exception 
+	 */
+	@Test
+	void test22_BuqueSinViajeSeLeAsignaUnViaje() throws Exception {
+		//SUT
+		Buque buqueSinViaje = new Buque("Test", new Coordenada(50,50));
+		//Exercise
+		//Le ponemos el viaje y lo pasamos a inbound
+		buqueSinViaje.setViaje(docV);
+		buqueSinViaje.moverA(new Coordenada(10,10));
+		//Verify
+		verify(docT).proximoAArribar(docV);
+	}
 }
 
