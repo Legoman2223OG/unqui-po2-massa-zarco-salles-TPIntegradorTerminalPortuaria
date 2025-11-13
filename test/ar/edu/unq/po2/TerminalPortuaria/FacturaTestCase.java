@@ -1,18 +1,22 @@
 package ar.edu.unq.po2.TerminalPortuaria;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
+import ar.edu.unq.po2.TerminalPortuaria.Servicios.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-
-import org.junit.Test;
-
-import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.*;
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
-import ar.edu.unq.po2.TerminalPortuaria.Servicios.*;
 
 public class FacturaTestCase {
 
@@ -40,7 +44,7 @@ public class FacturaTestCase {
 
 	    boolean contieneMontoTotal = factura.getConceptos().stream()
 	        .anyMatch(c -> c.getNombre().equals("Monto total a pagar:") && c.getMonto() == 5000.0);
-	    assertTrue(contieneMontoTotal);
+	    Assertions.assertTrue(contieneMontoTotal);
 	}
 	
 	@Test

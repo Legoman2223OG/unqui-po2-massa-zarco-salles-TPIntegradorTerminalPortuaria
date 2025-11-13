@@ -421,7 +421,7 @@ class ContainerTestCase {
 	@Test
 	void test20_UnReeferNoPuedeTenerConsumoElectricoNegativo() {
 		//Exercise
-		Exception reeferException = Assertions.assertThrows(Exception.class, () -> new ReeferContainer(3,3,-3,"BELE3020302",docbl, -2));
+		Exception reeferException = Assertions.assertThrows(Exception.class, () -> new ReeferContainer(3,3,3,"BELE3020302",docbl, -2));
 		//Verify
 		Assertions.assertEquals("No se puede ingresar un numero negativo para consumo electrico", reeferException.getMessage());
 	}
