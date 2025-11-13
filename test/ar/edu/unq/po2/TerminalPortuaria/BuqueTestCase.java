@@ -3,6 +3,7 @@ package ar.edu.unq.po2.TerminalPortuaria;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Assertions;
@@ -42,7 +43,7 @@ class BuqueTestCase {
 	@Test
 	void test01_ElBuquePasaAInbound() throws Exception {
 		//Exercise
-		buque1.moverA(new Coordenada(49,49));
+		buque1.moverA(new Coordenada(29,29));
 		//Verify
 		verify(docT).proximoAArribar(docV);
 	}
@@ -55,7 +56,7 @@ class BuqueTestCase {
 	void test02_ElBuquePasaAWorking() throws Exception{
 		//Exercise
 		//Pasamos a Inbound.
-		buque1.moverA(new Coordenada(49,49));
+		buque1.moverA(new Coordenada(29,29));
 		//Pasamos a Arrived
 		buque1.moverA(new Coordenada(0,0));
 		//Verify
@@ -71,7 +72,7 @@ class BuqueTestCase {
 	void test03_ElBuquePasaDeWorkingADepartYLuegoOutbound() throws Exception {
 		//Exercise
 		//Pasamos a Inbound.
-		buque1.moverA(new Coordenada(49,49));
+		buque1.moverA(new Coordenada(29,29));
 		//Pasamos a Arrived
 		buque1.moverA(new Coordenada(0,0));
 		buque1.working();
@@ -91,11 +92,11 @@ class BuqueTestCase {
 	void test04_ElBuquePasaDeInboundAOutbound() throws Exception{
 		//Exercise
 		//Pasamos a Inbound.
-		buque1.moverA(new Coordenada(49,49));
+		buque1.moverA(new Coordenada(29,29));
 		//Pasamos a Outbound.
 		buque1.moverA(new Coordenada(60,60));
 		//Pasamos otra vez a Inbound para confirmar que se envia otra vez el mensaje
-		buque1.moverA(new Coordenada(49,49));
+		buque1.moverA(new Coordenada(29,29));
 		//Verify
 		verify(docT,times(2)).proximoAArribar(docV);
 	}
@@ -216,9 +217,9 @@ class BuqueTestCase {
 	@Test
 	void test14_BuqueSetteaSuEstado() throws Exception {
 		//Exercise
-		buque1.moverA(new Coordenada(40,40));
+		buque1.moverA(new Coordenada(29,29));
 		buque1.setStatus(new Outbound());
-		buque1.moverA(new Coordenada(40,40));
+		buque1.moverA(new Coordenada(29,29));
 		//Verify
 		verify(docT, times(2)).proximoAArribar(docV);
 	}
@@ -260,8 +261,8 @@ class BuqueTestCase {
 					() -> buque1.depart(),
 					"Aun no se encuentra operable en este estado");
 		//Verify
-		Assertions.assertEquals("Aun no se encuentra operable en este estado", workingException.getMessage());
-		Assertions.assertEquals("Aun no se encuentra operable en este estado", departException.getMessage());
+		Assertions.assertEquals("No se puede pasar a este estado actualmente", workingException.getMessage());
+		Assertions.assertEquals("No se puede partir en este estado", departException.getMessage());
 	}
 	
 	/**
@@ -324,6 +325,39 @@ class BuqueTestCase {
 				"Aun no se encuentra operable en este estado");
 		//Verify
 		Assertions.assertEquals("No se puede cambiar a este estado", workingException.getMessage());
+	}
+	
+	/**
+	 * Cuando el buque cambia de viaje, deja de mandarle mensajes a la terminal de destino.
+	 * @throws Exception 
+	 */
+	@Test
+	void test20_BuqueCambiaDeViajeYYaNoOperaConLaTerminalDeDestinoAnterior() throws Exception {
+		//DOC
+		TerminalPortuaria docT2 = mock(TerminalPortuaria.class);
+		when(docT2.getCoordenadas()).thenReturn(new Coordenada(100,100));
+		Viaje docV2 = mock(Viaje.class);
+		when(docV2.puertoDeLlegada()).thenReturn(docT2);
+		//Exercise
+		buque1.setViaje(docV2);
+		buque1.moverA(new Coordenada(80,80));
+		//Verify
+		verifyNoMoreInteractions(docT);
+		verify(docT2).proximoAArribar(docV2);
+	}
+	
+	/**
+	 * Un buque cuando deja de tener un viaje vigente, deja de enviar avisos a la terminal a la que tenia en el
+	 * viaje anterior.
+	 * @throws Exception 
+	 */
+	@Test
+	void test21_BuqueDejaDeTenerUnViajeVinculado() throws Exception {
+		//Exercise
+		buque1.setViaje(null);
+		buque1.moverA(new Coordenada(3,3));
+		//Verify
+		verifyNoMoreInteractions(docT);
 	}
 }
 

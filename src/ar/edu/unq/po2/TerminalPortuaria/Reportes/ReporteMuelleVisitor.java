@@ -23,12 +23,12 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
 
     @Override
     public void visitar(OrdenImportacion orden, Buque buque) {
-        contenedoresOperados++;
+        contenedoresOperados += 1;
     }
 
     @Override
     public void visitar(OrdenExportacion orden, Buque buque) {
-        contenedoresOperados++;
+        contenedoresOperados += 1;
     }
 
     @Override

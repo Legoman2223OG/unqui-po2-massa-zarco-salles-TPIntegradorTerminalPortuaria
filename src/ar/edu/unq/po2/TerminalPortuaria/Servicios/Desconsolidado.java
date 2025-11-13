@@ -32,7 +32,7 @@ public class Desconsolidado extends Servicio {
 
 	@Override
 	public boolean contienePerdidas() throws Exception {
-		throw new Exception("El servicio no se encarga de esta operacion");
+		throw new Exception("Este servicio no se encarga de esta operacion");
 	}
 
 }

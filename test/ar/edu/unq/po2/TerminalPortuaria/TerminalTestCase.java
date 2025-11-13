@@ -34,6 +34,8 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
