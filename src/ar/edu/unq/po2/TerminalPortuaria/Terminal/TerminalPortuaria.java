@@ -35,7 +35,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.coordenada = coordenada;
 		this.nombre = nombre;
 	}
-	
+//	
 	//Metodo de busqueda de ruta maritima
 	public List<Viaje> buscar(Busqueda filtro) {
         return filtro.filtrar(this.getMisViajes());

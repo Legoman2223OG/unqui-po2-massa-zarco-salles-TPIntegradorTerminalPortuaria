@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.BuqueStatus;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
@@ -174,6 +175,21 @@ public class TerminalTestCase {
     public void testCamionCorrecto() {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         assertDoesNotThrow(() -> terminal.validarCamion(camionMock, ordenMock));
+    }
+    
+    @Test
+    public void testBuscarConMock() {
+        TerminalPortuaria terminal = spy(new TerminalPortuaria(null, coordenadaDummy));
+        List<Viaje> viajesPrueba = new ArrayList<>();
+        viajesPrueba.add(viaje1);
+        viajesPrueba.add(viaje2);
+        doReturn(viajesPrueba).when(terminal).getMisViajes();
+        Busqueda filtro = mock(Busqueda.class);
+        List<Viaje> resultadoEsperado = mock(List.class);
+        when(filtro.filtrar(viajesPrueba)).thenReturn(resultadoEsperado);
+        List<Viaje> resultado = terminal.buscar(filtro);
+        assertEquals(resultadoEsperado, resultado);
+        verify(filtro).filtrar(viajesPrueba); // ✔️ acá estaba el error
     }
 
     @Test
