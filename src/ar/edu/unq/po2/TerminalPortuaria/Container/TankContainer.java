@@ -7,7 +7,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 
 public class TankContainer extends Container {
 
-	public TankContainer(double ancho, double largo, double altura, String identificador, IBillOfLanding bl)
+	public TankContainer(double ancho, double largo, double altura, String identificador, BillOfLanding bl)
 			throws Exception {
 		super(ancho, largo, altura, identificador, bl);
 	}

@@ -8,7 +8,7 @@ public class ReeferContainer extends Container {
 
 	private double consumoElectricidad;
 
-	public ReeferContainer(double ancho, double largo, double altura, String identificador, IBillOfLanding bl, double consumoElectricidad)
+	public ReeferContainer(double ancho, double largo, double altura, String identificador, BillOfLanding bl, double consumoElectricidad)
 			throws Exception {
 		super(ancho, largo, altura, identificador, bl);
 		asertarNumeroPositivoElectricidadConsumida(consumoElectricidad);
