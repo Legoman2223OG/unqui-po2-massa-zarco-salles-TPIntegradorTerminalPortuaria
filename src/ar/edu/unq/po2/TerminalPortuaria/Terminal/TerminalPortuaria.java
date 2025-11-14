@@ -27,7 +27,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 	private Coordenada coordenada = new Coordenada (0,0);
 	private List<LineaNaviera> misNavieras = new ArrayList<>();
 	private Set<Orden> ordenes = new HashSet<>();
-	private E_MejorRuta estrategia;
+	private E_MejorRuta estrategia = new E_MenorPrecio();
 
 
 	public TerminalPortuaria(String nombre, Coordenada coordenada)
