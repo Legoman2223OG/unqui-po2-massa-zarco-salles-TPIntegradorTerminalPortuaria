@@ -126,7 +126,7 @@ public class TerminalTestCase {
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
         LocalDateTime turno = LocalDateTime.now().minusHours(1);
         when(ordenMock.getTurno()).thenReturn(turno);
-        terminal.entregaTerrestreExp(ordenMock, camionMock, choferMock);
+        terminal.exportar(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
                 "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
@@ -137,7 +137,7 @@ public class TerminalTestCase {
     public void testEntregaTerrestreImp() throws Exception {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
-        terminal.validarEntregaTerrestreImp(ordenMock, camionMock, choferMock);
+        terminal.importar(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
                 "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
@@ -395,8 +395,8 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() {
-        private Orden ordenImportMock = mock(OrdenImportacion.class);
-        private Orden ordenExportMock = mock(OrdenExportacion.class);
+        Orden ordenImportMock = mock(OrdenImportacion.class);
+        Orden ordenExportMock = mock(OrdenExportacion.class);
     	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 
