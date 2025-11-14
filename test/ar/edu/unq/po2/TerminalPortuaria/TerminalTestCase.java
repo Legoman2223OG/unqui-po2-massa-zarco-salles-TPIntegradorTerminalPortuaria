@@ -223,7 +223,6 @@ public class TerminalTestCase {
 
     @Test
 	public void testGetCoordenadas() {
-		// TODO Auto-generated method stub
 		assertEquals(terminal.getCoordenadas(), coordenadaDummy);
 	 }
 
@@ -396,16 +395,19 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() {
+        private Orden ordenImportMock = mock(OrdenImportacion.class);
+        private Orden ordenExportMock = mock(OrdenExportacion.class);
+    	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 
-        terminal.getOrdenes().add(ordenMock);
-        terminal.getOrdenes().add(ordenTest);
+        terminal.registrarNuevaOrden(ordenExportMock);;
+        terminal.registrarNuevaOrden(ordenImportMock);;
 
         terminal.aceptar(visitorMock, buqueMock);
-
-        verify(visitorMock).visitarOrden(terminal, buqueMock);
-        verify(ordenMock).aceptar(visitorMock, buqueMock);
-        verify(ordenTest).aceptar(visitorMock, buqueMock);
+        
+        verify(visitorMock, times(1)).visitarTerminal(terminal, buqueMock);
+        verify(ordenImportMock, times(1)).aceptar(visitorMock, buqueMock);
+        verify(ordenExportMock, times(1)).aceptar(visitorMock, buqueMock);
     }
     
     
