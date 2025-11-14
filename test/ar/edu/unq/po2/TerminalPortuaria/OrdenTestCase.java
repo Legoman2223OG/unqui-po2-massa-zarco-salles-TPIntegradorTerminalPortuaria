@@ -96,7 +96,7 @@ public class OrdenTestCase {
         ReporteVisitor visitorT = mock(ReporteVisitor.class);
         Buque buqueT = mock(Buque.class);
         ordenExp.aceptar(visitorT, buqueT);
-        verify(visitorT, times(1)).visitar(ordenExp, buqueT);
+        verify(visitorT, times(1)).visitarOrden(ordenExp, buqueT);
 	}
     
     @Test
@@ -104,7 +104,7 @@ public class OrdenTestCase {
         ReporteVisitor visitorT = mock(ReporteVisitor.class);
         Buque buqueT = mock(Buque.class);
         ordenImp.aceptar(visitorT, buqueT);
-        verify(visitorT, times(1)).visitar(ordenImp, buqueT);
+        verify(visitorT, times(1)).visitarOrden(ordenImp, buqueT);
 	}
     
     @Test

@@ -47,8 +47,8 @@ public class TerminalTestCase {
     private Buque buqueMock;
     private Orden ordenMock;
     private Orden ordenTest;
-    private Orden ordenImportMock;
-    private Orden ordenExportMock;
+    private OrdenImportacion ordenImportMock;
+    private OrdenExportacion ordenExportMock;
     private Camion camionMock;
     private Camion camionMock2;
     private Chofer choferMock;
@@ -75,8 +75,8 @@ public class TerminalTestCase {
         buqueMock = mock(Buque.class);
         ordenMock = mock(Orden.class);
         ordenTest = mock(Orden.class);
-        ordenImportMock = mock(Orden.class);
-        ordenExportMock = mock(Orden.class);
+        ordenImportMock = mock(OrdenImportacion.class);
+        ordenExportMock = mock(OrdenExportacion.class);
         camionMock = mock(Camion.class);
         camionMock2 = mock(Camion.class);
         choferMock = mock(Chofer.class);
@@ -402,10 +402,10 @@ public class TerminalTestCase {
         terminal.getOrdenes().add(ordenTest);
 
         terminal.aceptar(visitorMock, buqueMock);
-        
-        verify(visitorMock, times(1)).visitarTerminal(terminal, buqueMock);
-        verify(visitorMock, times(1)).visitarOrden(ordenImportMock, buqueMock);
-        verify(visitorMock, times(1)).visitarOrden(ordenExportMock, buqueMock);
+
+        verify(visitorMock).visitarOrden(terminal, buqueMock);
+        verify(ordenMock).aceptar(visitorMock, buqueMock);
+        verify(ordenTest).aceptar(visitorMock, buqueMock);
     }
     
     

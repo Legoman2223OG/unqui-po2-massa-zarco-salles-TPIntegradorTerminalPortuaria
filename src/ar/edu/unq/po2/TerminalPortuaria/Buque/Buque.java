@@ -58,7 +58,7 @@ public class Buque {
 	 */
 	public void actualizarEstado(double distancia) {
 		//Si no hay viaje, no es necesario chequear coordenadas.
-		if(viaje != null) {
+		if(this.viaje != null && this.viaje.puertoDeLlegada() != null) {
 			this.status.actualizarEstado(distancia, this);
 		}
 	}

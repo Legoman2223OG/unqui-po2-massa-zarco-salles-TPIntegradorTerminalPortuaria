@@ -40,21 +40,29 @@ class GPSTestCase {
 	
 	/**
 	 * Un GPS recibe nuevas coordenadas y le avisa al buque que actualize su estado con la nueva distancia calculada.
+	 * Esto aplica para cualquier caso, ya sea si es la coordenadas de origen o destino.
 	 */
 	@Test
 	void test02_GPSActualizaSusCoordenadasYAvisaAlBuque() {
 		//DOC
 		TerminalPortuaria docT = mock(TerminalPortuaria.class);
-		Viaje docV = mock(Viaje.class);
 		when(docT.getCoordenadas()).thenReturn(new Coordenada(0,0));
-		when(docB.getViaje()).thenReturn(docV);
-		when(docB.getDestino()).thenReturn(docT);
 		//Exercise
-		gps.setCoordenadas(new Coordenada(9,9));
+		gps.setCoordenadas(new Coordenada(9,9),docT.getCoordenadas());
 		//Verify
-		verify(docB).getDestino();
 		verify(docT).getCoordenadas();
 		verify(docB).actualizarEstado(12.727922061357855d);
 	}
 
+	/**
+	 * Un GPS recibe nuevas coordenadas de un buque que no tiene un viaje / termino su viaje y no tiene un destino, por lo tanto
+	 * actualiza su posicion, pero no avisa sobre actualizar su estado.
+	 */
+	@Test
+	void test03_GPSActualizaSusCoordenadasPeroNoAvisaAlBuque() {
+		//Exercise
+		gps.setCoordenadas(new Coordenada(9,9));
+		//Verify
+		verifyNoInteractions(docB);
+	}
 }
