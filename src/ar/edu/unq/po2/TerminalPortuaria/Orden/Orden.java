@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
@@ -12,6 +13,7 @@ import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Servicios.Servicio;
 
 

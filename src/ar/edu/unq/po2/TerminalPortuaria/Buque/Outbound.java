@@ -34,6 +34,11 @@ public class Outbound extends BuqueStatus {
 
 	@Override
 	public void moverA(Coordenada coordenada, Buque buque) throws Exception {
-		buque.getGps().setCoordenadas(coordenada);
+		//En caso de no tener un destino en el tramo / viaje, entonces no avisa al cambio de estado y solo cambia sus coordenadas en el GPS.
+		if(buque.getViaje() == null || buque.getViaje().puertoDeLlegada() == null) {
+			buque.getGps().setCoordenadas(coordenada);
+			return;
+		}
+		buque.getGps().setCoordenadas(coordenada,buque.getDestino().getCoordenadas());
 	}
 }

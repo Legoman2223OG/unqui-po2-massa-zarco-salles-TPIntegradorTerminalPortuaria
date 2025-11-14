@@ -29,26 +29,25 @@ public class GPS {
         return Math.hypot(deltaX, deltaY);
 	}
 
-	/**
-	 * Avisa al barco para actualizar su estado según la coordenada en la que esta posicionado.
-	 * Si es que tiene un viaje vinculado.
-	 */
-	private void actualizarEstadoDelBuque(){
-		if(buque.getViaje() != null) {
-			buque.actualizarEstado(calcularDistancia(buque.getDestino().getCoordenadas()));
-		}
-	}
-
 	public Coordenada getCoordenadas() {
 		return this.coordenada;
 	}
 
 	/**
 	 * Cambia la coordenada y avisa al buque sobre si tiene que actualizar su estado.
-	 * @param coordenada2
+	 * @param coordenada, Coordenada, la coordenada nueva a la que se debe de mover. No puede ser nulo.
+	 * @param coordenadaTerminal, Coordenada de la terminal, ya sea la de origen o destino. No puede ser nulo.
 	 */
-	public void setCoordenadas(Coordenada coordenada2) {
-		this.coordenada = coordenada2;
-		actualizarEstadoDelBuque();
+	public void setCoordenadas(Coordenada coordenada, Coordenada coordenadaTerminal) {
+		this.coordenada = coordenada;
+		buque.actualizarEstado(calcularDistancia(coordenadaTerminal));
+	}
+	
+	/**
+	 * Cambia la coordenada pero sin avisarle al buque sobre actualizar su estado. (Esto suele pasar cuando el buque llego a su tramo final o no tiene un viaje).
+	 * @param coordenada, Coordenada, la nueva coordenada a donde se tiene que mover el buque.
+	 */
+	public void setCoordenadas(Coordenada coordenada) {
+		this.coordenada = coordenada;
 	}
 }

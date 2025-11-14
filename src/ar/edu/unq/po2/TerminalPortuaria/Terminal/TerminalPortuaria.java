@@ -23,8 +23,6 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 
 public class TerminalPortuaria implements ElementoVisitable {
-
-
 	private String nombre;
 	private Coordenada coordenada = new Coordenada (0,0);
 	private List<LineaNaviera> misNavieras = new ArrayList<>();
@@ -39,8 +37,8 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 	
 	//Metodo de busqueda de ruta maritima
-	public List<Viaje> buscar(Busqueda criterio) {
-        return criterio.filtrar(this.getMisViajes());
+	public List<Viaje> buscar(Busqueda filtro) {
+        return filtro.filtrar(this.getMisViajes());
     }
 
     //Getters y setters y adds
@@ -212,10 +210,9 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 
 
-	@Override
-	public void aceptar(ReporteVisitor visitor, Buque buque) {
-		visitor.visitar(this, buque);
-
+	 @Override
+	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitarTerminal(this, buque);
 		for (Orden orden : ordenes) {
            orden.aceptar(visitor, buque);
         }

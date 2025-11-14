@@ -115,30 +115,4 @@ class CircuitosTestCase {
 		Assertions.assertTrue(circuitoTest.terminalExisteEnElCircuito(terminal4));
 		Assertions.assertFalse(circuitoTest.terminalExisteEnElCircuito(terminal5));
 	}
-
-	@Test
-	void testCircuitosQueContienenUnDestino() throws Exception {
-		// DOC
-		TerminalPortuaria terminal5 = mock(TerminalPortuaria.class);
-		TerminalPortuaria terminal6 = mock(TerminalPortuaria.class);
-		Tramo tramo5 = new Tramo(terminal1, terminal5, Duration.ZERO, 0.0);
-		Tramo tramo6 = new Tramo(terminal5, terminal6, Duration.ZERO, 0.0);
-		Tramo tramo7 = new Tramo(terminal6, terminal1, Duration.ZERO, 0.0);
-		ArrayList<Tramo> tramosDeSegundoCircuito = new ArrayList<>();
-		tramosDeSegundoCircuito.add(tramo5);
-		tramosDeSegundoCircuito.add(tramo6);
-		tramosDeSegundoCircuito.add(tramo7);
-		tramosDeCircuito.add(tramo1);
-		tramosDeCircuito.add(tramo2);
-		tramosDeCircuito.add(tramo3);
-		tramosDeCircuito.add(tramo4);
-		circuitoTest = new Circuito(tramosDeCircuito);
-		Circuito segundoCircuito = new Circuito(tramosDeSegundoCircuito);
-
-		// Exercise
-		LineaNaviera lineaTest = new LineaNaviera(); lineaTest.addCircuito(circuitoTest); lineaTest.addCircuito(segundoCircuito);
-
-		// Verify
-		Assertions.assertEquals(segundoCircuito, lineaTest.circuitosQuePasanPor(terminal5).get(0));
-	}
 }

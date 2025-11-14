@@ -82,6 +82,7 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(20,20));
 		//Verify
 		verify(docT).partiendoAViaje(docV);
+		verify(docV).siguienteTramo();
 	}
 
 	/**
@@ -358,6 +359,41 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(3,3));
 		//Verify
 		verifyNoMoreInteractions(docT);
+	}
+	
+	/**
+	 * Un buque sin viaje se le asigna un viaje y le manda avisos a la terminal en el estado Inbound.
+	 * @throws Exception 
+	 */
+	@Test
+	void test22_BuqueSinViajeSeLeAsignaUnViaje() throws Exception {
+		//SUT
+		Buque buqueSinViaje = new Buque("Test", new Coordenada(50,50));
+		//Exercise
+		//Le ponemos el viaje y lo pasamos a inbound
+		buqueSinViaje.setViaje(docV);
+		buqueSinViaje.moverA(new Coordenada(10,10));
+		//Verify
+		verify(docT).proximoAArribar(docV);
+	}
+	
+	/**
+	 * Un buque que ha llegado a su último tramo (Luego de pasar a depart en su ultima terminal del tramo del viaje), ya no deberia tener vinculado una terminal destino.
+	 * @throws Exception 
+	 */
+	@Test
+	void test23_BuqueLuegoDeSuUltimoTramoYaNoActualizaSuEstado() throws Exception {
+		//Exercise
+		//Lo hacemos pasar a depart, y de paso simulamos que llego a su ultimo tramo y ya no tiene nada más que recorrer.
+		buque1.moverA(new Coordenada(0,0));
+		buque1.working();
+		buque1.depart();
+		when(docV.puertoDeLlegada()).thenReturn(null);
+		buque1.moverA(new Coordenada(50,50));
+		//Ya no deberia de recibir la señal la terminal de destino que tenia anteriormente.
+		buque1.moverA(new Coordenada(10,10));
+		//Verify
+		verify(docT, times(1)).proximoAArribar(docV);
 	}
 }
 

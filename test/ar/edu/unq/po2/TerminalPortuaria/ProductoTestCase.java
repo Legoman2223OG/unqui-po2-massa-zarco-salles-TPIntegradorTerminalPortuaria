@@ -2,6 +2,10 @@ package ar.edu.unq.po2.TerminalPortuaria;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,4 +69,28 @@ class ProductoTestCase {
 		Assertions.assertEquals("El peso no puede ser negativo o 0", prodExc.getMessage());
 	}
 
+	/**
+	 * Testeo de un producto en un Set para verificar si su hashcode funciona y de paso lo calculamos.
+	 */
+	@Test
+	void test05_HashCodeDeProducto() {
+		//Exercise
+		Set<Producto> set = new HashSet<Producto>(Arrays.asList(prod));
+		int hash = prod.hashCode();
+		//Verify
+		Assertions.assertEquals(1157849423, hash);
+		Assertions.assertTrue(set.contains(prod));
+	}
+	
+	/**
+	 * Dos productos son diferentes.
+	 * @throws Exception 
+	 */
+	@Test
+	void test05_ProductosDiferentes() throws Exception {
+		//DOC
+		Producto prodDiff = new Producto("Test2",30.0);
+		//Verify
+		Assertions.assertFalse(prod.equals(prodDiff));
+	}
 }
