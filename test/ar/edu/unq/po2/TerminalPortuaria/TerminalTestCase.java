@@ -47,6 +47,8 @@ public class TerminalTestCase {
     private Buque buqueMock;
     private Orden ordenMock;
     private Orden ordenTest;
+    private OrdenImportacion ordenImportMock;
+    private OrdenExportacion ordenExportMock;
     private Camion camionMock;
     private Camion camionMock2;
     private Chofer choferMock;
@@ -73,6 +75,8 @@ public class TerminalTestCase {
         buqueMock = mock(Buque.class);
         ordenMock = mock(Orden.class);
         ordenTest = mock(Orden.class);
+        ordenImportMock = mock(OrdenImportacion.class);
+        ordenExportMock = mock(OrdenExportacion.class);
         camionMock = mock(Camion.class);
         camionMock2 = mock(Camion.class);
         choferMock = mock(Chofer.class);

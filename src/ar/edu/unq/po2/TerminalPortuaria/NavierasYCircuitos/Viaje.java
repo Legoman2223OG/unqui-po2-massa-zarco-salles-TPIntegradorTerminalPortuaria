@@ -89,4 +89,10 @@ public class Viaje {
 	public boolean validarSiTerminalExisteEnViaje(TerminalPortuaria terminal) {
 		return this.todasLasTerminalesDentroDelViaje().contains(terminal);
 	}
+
+
+	public void siguienteTramo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -10,7 +10,7 @@ public class Depart extends BuqueStatus {
 	public void actualizarEstado(double distancia, Buque buque) {
 		if(distancia > 1) {
 			buque.setStatus(new Outbound());
-			buque.getDestino().partiendoAViaje(buque.getViaje());
+			buque.getOrigen().partiendoAViaje(buque.getViaje());
 		}
 	}
 
@@ -28,7 +28,7 @@ public class Depart extends BuqueStatus {
 
 	@Override
 	public void moverA(Coordenada coordenada, Buque buque) throws Exception {
-		buque.getGps().setCoordenadas(coordenada);
+		buque.getGps().setCoordenadas(coordenada, buque.getViaje().getPuertoInicio().getCoordenadas());
 	}
 
 }
