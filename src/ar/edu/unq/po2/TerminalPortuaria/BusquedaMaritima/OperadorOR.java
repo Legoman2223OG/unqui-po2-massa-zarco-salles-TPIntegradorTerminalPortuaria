@@ -16,7 +16,7 @@ public class OperadorOR implements Busqueda {
 		for (Busqueda v : this.viajes) {
 			viajesFiltrados.addAll(v.filtrar(listaDeViajes));
 		}
-		return viajesFiltrados;
+		return viajesFiltrados.stream().distinct().toList();
 	}
 
 	@Override

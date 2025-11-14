@@ -27,7 +27,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 	private Coordenada coordenada = new Coordenada (0,0);
 	private List<LineaNaviera> misNavieras = new ArrayList<>();
 	private Set<Orden> ordenes = new HashSet<>();
-	private E_MejorRuta estrategia;
+	private E_MejorRuta estrategia = new E_MenorPrecio();
 
 
 	public TerminalPortuaria(String nombre, Coordenada coordenada)
@@ -141,7 +141,8 @@ public class TerminalPortuaria implements ElementoVisitable {
 		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
 	}
 	
-	public void entregaTerrestreExp(Orden orden, Camion camion, Chofer chofer) throws Exception
+	//Realiza validaciones de camion y chofer y horario, si cumplen se registra la orden
+	public void exportar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
 		this.validarChofer(chofer, orden);
@@ -149,8 +150,8 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.registrarNuevaOrden(orden);
 	}
 
-
-	public void validarEntregaTerrestreImp(Orden orden, Camion camion, Chofer chofer) throws Exception
+	//Realiza validaciones de camion y chofer, si cumplen se registra la orden
+	public void importar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
 		this.validarChofer(chofer, orden);
