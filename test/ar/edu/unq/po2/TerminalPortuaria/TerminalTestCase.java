@@ -37,6 +37,7 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
@@ -190,6 +191,20 @@ public class TerminalTestCase {
         List<Viaje> resultado = terminal.buscar(filtro);
         assertEquals(resultadoEsperado, resultado);
         verify(filtro).filtrar(viajesPrueba); // ✔️ acá estaba el error
+    }
+    
+    @Test
+    public void testGenerarReporteDeBuqueEnTerminal() {
+
+        Buque buque = mock(Buque.class);
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        when(visitor.generarReporte()).thenReturn("Reporte generado");
+        TerminalPortuaria terminal = spy(new TerminalPortuaria("BsAs", mock(Coordenada.class)));
+        String resultado = terminal.generarReporteDeBuque(visitor, buque);
+        assertEquals("Reporte generado", resultado);
+        verify(terminal).aceptar(visitor, buque);
+        verify(visitor).visitarTerminal(terminal, buque);
+        verify(visitor).generarReporte();
     }
 
     @Test
