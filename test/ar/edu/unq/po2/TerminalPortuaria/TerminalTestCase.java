@@ -395,8 +395,8 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() {
-        private Orden ordenImportMock = mock(OrdenImportacion.class);
-        private Orden ordenExportMock = mock(OrdenExportacion.class);
+        Orden ordenImportMock = mock(OrdenImportacion.class);
+        Orden ordenExportMock = mock(OrdenExportacion.class);
     	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 

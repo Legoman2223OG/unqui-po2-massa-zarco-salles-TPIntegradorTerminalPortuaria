@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Tramo;
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
+import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class ViajesTestCase {
@@ -24,27 +23,29 @@ public class ViajesTestCase {
 	private TerminalPortuaria terminalDeInicio;
 	private TerminalPortuaria terminal2;
 	private TerminalPortuaria terminal3;
-	private TerminalPortuaria terminal4;
+	private TerminalPortuaria terminalDestino;
 	private Tramo tramo1;
 	private Tramo tramo2;
 	private Tramo tramo3;
+	private Tramo tramo4;
 	private ArrayList<Tramo> tramosDelViaje = new ArrayList<>();
-
-	// Cambio
+	private Circuito circuitoTest;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws Exception {
 		terminalDeInicio = mock(TerminalPortuaria.class);
 		terminal2        = mock(TerminalPortuaria.class);
 		terminal3        = mock(TerminalPortuaria.class);
-		terminal4        = mock(TerminalPortuaria.class);
+		terminalDestino  = mock(TerminalPortuaria.class);
 
-		tramo1 = new Tramo(terminalDeInicio,terminal2,Duration.ofMinutes(28),62.8);
-		tramo2 = new Tramo(terminal2,       terminal3,Duration.ofHours(1),   128.0);
-		tramo3 = new Tramo(terminal3,       terminal4,Duration.ofMinutes(32),78.2);
-		tramosDelViaje.add(tramo1); tramosDelViaje.add(tramo2); tramosDelViaje.add(tramo3);
+		tramo1 = new Tramo(terminalDeInicio, terminal2,        Duration.ofMinutes(28), 62.8);
+		tramo2 = new Tramo(terminal2,        terminal3,        Duration.ofHours(1),    128.0);
+		tramo3 = new Tramo(terminal3,        terminalDestino,  Duration.ofMinutes(32), 78.2);
+		tramo4 = new Tramo(terminalDestino,  terminalDeInicio, Duration.ofMinutes(2),  3.0);
+		tramosDelViaje.add(tramo1); tramosDelViaje.add(tramo2); tramosDelViaje.add(tramo3); tramosDelViaje.add(tramo4);
+		circuitoTest = new Circuito(tramosDelViaje);
 
-		viajeTest = new Viaje(terminalDeInicio,tramosDelViaje,LocalDateTime.of(2025, 11, 10, 13, 50));
+		viajeTest = new Viaje(terminalDeInicio, terminalDestino, circuitoTest, LocalDateTime.of(2025, 11, 10, 13, 50));
 	}
 
 	@Test
@@ -54,13 +55,13 @@ public class ViajesTestCase {
 		Assertions.assertEquals(2, viajeTest.numeroDeTerminalesEntreOrigenYDestino());
 		Assertions.assertEquals(Duration.ofHours(2), viajeTest.duracionDelViaje());
 		Assertions.assertEquals(269.0, viajeTest.precioTotal());
-		Assertions.assertEquals(terminal4, viajeTest.puertoDeLlegada());
+		Assertions.assertEquals(terminalDestino, viajeTest.puertoDeLlegada());
 	}
 
 	@Test
 	void testTerminalesDelViaje() {
 		Set<TerminalPortuaria> listaTerminales = new HashSet<>();
-		listaTerminales.add(terminalDeInicio); listaTerminales.add(terminal2); listaTerminales.add(terminal3); listaTerminales.add(terminal4);
+		listaTerminales.add(terminalDeInicio); listaTerminales.add(terminal2); listaTerminales.add(terminal3); listaTerminales.add(terminalDestino);
 
 		// Verify
 		Assertions.assertEquals(listaTerminales, viajeTest.todasLasTerminalesDentroDelViaje());
