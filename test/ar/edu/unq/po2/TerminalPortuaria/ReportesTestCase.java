@@ -28,6 +28,7 @@ public class ReportesTestCase {
     private Viaje viajeMock;
     private OrdenImportacion ordenImportTest;
     private OrdenExportacion ordenExportTest;
+    private OrdenExportacion ordenExportTest2;
 
     @BeforeEach
     void setUp() {
@@ -39,19 +40,21 @@ public class ReportesTestCase {
         viajeMock = mock(Viaje.class);
         ordenImportTest = mock(OrdenImportacion.class);
         ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
+        ordenExportTest2 = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
 
         // SUT
         terminalTest = new TerminalPortuaria("Terminal Test", new Coordenada(0,0));
         terminalTest.registrarNuevaOrden(ordenImportTest);
         terminalTest.registrarNuevaOrden(ordenExportTest);
+        terminalTest.registrarNuevaOrden(ordenExportTest2);
         
         visitorMuelleTest = new ReporteMuelleVisitor();
 
         // Stubs
         when(buqueMock.getNombre()).thenReturn("Buque Test");
-        when(buqueMock.getViaje()).thenReturn(viajeMock);
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
+        when(buqueMock.getViaje()).thenReturn(viajeMock);
     }
 
     @Test

@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.BuqueStatus;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
+import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
@@ -36,6 +37,7 @@ import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
@@ -126,7 +128,7 @@ public class TerminalTestCase {
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
         LocalDateTime turno = LocalDateTime.now().minusHours(1);
         when(ordenMock.getTurno()).thenReturn(turno);
-        terminal.entregaTerrestreExp(ordenMock, camionMock, choferMock);
+        terminal.exportar(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
                 "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
@@ -137,7 +139,7 @@ public class TerminalTestCase {
     public void testEntregaTerrestreImp() throws Exception {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         when(ordenMock.getChoferAsignado()).thenReturn(choferMock);
-        terminal.validarEntregaTerrestreImp(ordenMock, camionMock, choferMock);
+        terminal.importar(ordenMock, camionMock, choferMock);
         assertTrue(
                 terminal.getOrdenes().contains(ordenMock),
                 "Error: la orden no quedó registrada en el Set de órdenes de la terminal"
@@ -174,6 +176,35 @@ public class TerminalTestCase {
     public void testCamionCorrecto() {
         when(ordenMock.getCamionAsignado()).thenReturn(camionMock);
         assertDoesNotThrow(() -> terminal.validarCamion(camionMock, ordenMock));
+    }
+    
+    @Test
+    public void testBuscarConMock() {
+        TerminalPortuaria terminal = spy(new TerminalPortuaria(null, coordenadaDummy));
+        List<Viaje> viajesPrueba = new ArrayList<>();
+        viajesPrueba.add(viaje1);
+        viajesPrueba.add(viaje2);
+        doReturn(viajesPrueba).when(terminal).getMisViajes();
+        Busqueda filtro = mock(Busqueda.class);
+        List<Viaje> resultadoEsperado = mock(List.class);
+        when(filtro.filtrar(viajesPrueba)).thenReturn(resultadoEsperado);
+        List<Viaje> resultado = terminal.buscar(filtro);
+        assertEquals(resultadoEsperado, resultado);
+        verify(filtro).filtrar(viajesPrueba); // ✔️ acá estaba el error
+    }
+    
+    @Test
+    public void testGenerarReporteDeBuqueEnTerminal() {
+
+        Buque buque = mock(Buque.class);
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        when(visitor.generarReporte()).thenReturn("Reporte generado");
+        TerminalPortuaria terminal = spy(new TerminalPortuaria("BsAs", mock(Coordenada.class)));
+        String resultado = terminal.generarReporteDeBuque(visitor, buque);
+        assertEquals("Reporte generado", resultado);
+        verify(terminal).aceptar(visitor, buque);
+        verify(visitor).visitarTerminal(terminal, buque);
+        verify(visitor).generarReporte();
     }
 
     @Test
@@ -395,8 +426,8 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() {
-        private Orden ordenImportMock = mock(OrdenImportacion.class);
-        private Orden ordenExportMock = mock(OrdenExportacion.class);
+        Orden ordenImportMock = mock(OrdenImportacion.class);
+        Orden ordenExportMock = mock(OrdenExportacion.class);
     	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 

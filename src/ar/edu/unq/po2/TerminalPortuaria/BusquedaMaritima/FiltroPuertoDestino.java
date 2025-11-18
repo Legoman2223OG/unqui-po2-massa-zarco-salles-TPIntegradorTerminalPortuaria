@@ -15,12 +15,6 @@ public class FiltroPuertoDestino implements Busqueda{
 	}
 
 
-	public TerminalPortuaria getPuertoDestino()
-	{
-		return puertoDestino;
-	}
-
-
 	@Override
 	public List<Viaje> filtrar(List<Viaje> listaDeViajes) {
 		return listaDeViajes.stream().filter(v -> v.puertoDeLlegada() == this.puertoDestino).toList();
