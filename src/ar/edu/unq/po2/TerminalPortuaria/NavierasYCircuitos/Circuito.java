@@ -51,7 +51,7 @@ public class Circuito {
 	}
 
 	public Viaje crearNuevoViaje(TerminalPortuaria puertoOrigen, TerminalPortuaria puertoDestino, LocalDateTime fechaSalida) {
-		return new Viaje(puertoOrigen,this.recorridoEntre_Y_(puertoOrigen, puertoDestino),fechaSalida);
+		return new Viaje(puertoOrigen,puertoDestino, this,fechaSalida);
 	}
 
 	public ArrayList<Tramo> recorridoEntre_Y_(TerminalPortuaria puertoOrigen, TerminalPortuaria puertoDestino) {
