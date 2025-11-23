@@ -26,7 +26,7 @@ public class Working extends BuqueStatus {
 	 */
 	@Override
 	public void depart(Buque buque) throws Exception {
-		buque.getViaje().siguienteTramo();
+		buque.getViaje().cambiarASiguienteTramo();
 		buque.setStatus(new Depart());
 	}
 

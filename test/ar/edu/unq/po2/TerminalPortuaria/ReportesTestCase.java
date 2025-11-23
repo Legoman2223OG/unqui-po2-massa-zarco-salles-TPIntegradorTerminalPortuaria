@@ -37,7 +37,7 @@ public class ReportesTestCase {
     	LocalDateTime fechaTurno = mock(LocalDateTime.class);
         buqueMock = mock(Buque.class);
         viajeMock = mock(Viaje.class);
-        ordenImportTest = mock(OrdenImportacion.class);
+        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
         ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
 
         // SUT

@@ -1,8 +1,8 @@
 package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class ReporteAduanaVisitor implements ReporteVisitor {
@@ -17,17 +17,16 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
     }
 
     @Override
-    public void visitarOrden(OrdenImportacion orden, Buque buque) {
-        html.append("<li>Container tipo: IMPORTACIÓN - ID: ")
+    public void visitarOrden(Orden orden, Buque buque) {
+    	if (orden.esOrdenImportacion()) {
+    		html.append("<li>Container tipo: IMPORTACIÓN - ID: ")
             .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</li>");
-    }
-
-    @Override
-    public void visitarOrden(OrdenExportacion orden, Buque buque) {
-        html.append("<li>Container tipo: EXPORTACIÓN - ID: ")
+    	} else {
+    		html.append("<li>Container tipo: EXPORTACIÓN - ID: ")
             .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</li>");
+    	}
     }
 
     @Override
@@ -35,4 +34,10 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
         html.append("</ul></body></html>");
         return html.toString();
     }
+
+	@Override
+	public void visitarBL(IBillOfLanding bl, Buque buque) {
+		// TODO Auto-generated method stub
+		
+	}
 }
