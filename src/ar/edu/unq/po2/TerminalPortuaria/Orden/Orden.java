@@ -107,6 +107,8 @@ public abstract class Orden implements ElementoVisitable {
 	    return this.costoServicios();
 	}
 	
-
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitarOrden(this, buque);
+	}
 
 }

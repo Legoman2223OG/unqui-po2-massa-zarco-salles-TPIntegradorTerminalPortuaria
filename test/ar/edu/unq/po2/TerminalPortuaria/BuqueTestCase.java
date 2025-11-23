@@ -82,7 +82,7 @@ class BuqueTestCase {
 		buque1.moverA(new Coordenada(20,20));
 		//Verify
 		verify(docT).partiendoAViaje(docV);
-		verify(docV).siguienteTramo();
+		verify(docV).cambiarASiguienteTramo();
 	}
 
 	/**

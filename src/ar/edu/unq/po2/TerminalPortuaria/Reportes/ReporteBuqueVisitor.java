@@ -1,8 +1,8 @@
 package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class ReporteBuqueVisitor implements ReporteVisitor {
@@ -16,18 +16,17 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
     public void visitarTerminal(TerminalPortuaria terminal, Buque buque) {} // Nada en particular con la terminal
 
     @Override
-    public void visitarOrden(OrdenImportacion orden, Buque buque) {
-        xml.append("<item>")
+    public void visitarOrden(Orden orden, Buque buque) {
+    	if (orden.esOrdenImportacion()) {
+    		xml.append("<item>")
             .append(orden.getBill().getBillOfLandings().get(0).hashCode())
             .append("</item>\n");
-    }
-
-    @Override
-    public void visitarOrden(OrdenExportacion orden, Buque buque) {
-        xml.append("</import>\n<export>\n");
-        xml.append("<item>")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
-            .append("</item>\n");
+    	} else {
+    		xml.append("</import>\n<export>\n");
+            xml.append("<item>")
+                .append(orden.getBill().getBillOfLandings().get(0).hashCode())
+                .append("</item>\n");
+    	}
     }
 
     @Override
@@ -35,4 +34,10 @@ public class ReporteBuqueVisitor implements ReporteVisitor {
         xml.append("</export>\n</report>");
         return xml.toString();
     }
+
+	@Override
+	public void visitarBL(IBillOfLanding bl, Buque buque) {
+		// TODO Auto-generated method stub
+		
+	}
 }

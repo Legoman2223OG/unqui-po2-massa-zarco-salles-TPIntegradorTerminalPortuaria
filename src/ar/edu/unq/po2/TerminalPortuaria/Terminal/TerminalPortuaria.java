@@ -215,7 +215,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 	 public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitarTerminal(this, buque);
 		for (Orden orden : ordenes) {
-           orden.aceptar(visitor, buque);
+			orden.aceptar(visitor, buque);
         }
 	}
 
