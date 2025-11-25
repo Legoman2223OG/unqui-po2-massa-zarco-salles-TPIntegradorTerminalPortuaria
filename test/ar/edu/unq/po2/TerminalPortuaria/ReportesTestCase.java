@@ -68,6 +68,7 @@ public class ReportesTestCase {
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
         when(spyContainer1.getIdentificador()).thenReturn("juli1234567");
+        when(buqueMock.getViaje()).thenReturn(viajeMock);
     }
 
     @Test
