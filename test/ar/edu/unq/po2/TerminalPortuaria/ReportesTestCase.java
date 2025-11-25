@@ -58,7 +58,6 @@ public class ReportesTestCase {
         terminalTest = new TerminalPortuaria("Terminal Test", new Coordenada(0,0));
         terminalTest.registrarNuevaOrden(ordenImportTest);
         terminalTest.registrarNuevaOrden(ordenExportTest);
-        terminalTest.registrarNuevaOrden(ordenExportTest2);
         
         visitorMuelleTest = new ReporteMuelleVisitor();
         visitorAduanaTest = new ReporteAduanaVisitor();
