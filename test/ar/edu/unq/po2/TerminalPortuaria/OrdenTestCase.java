@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
@@ -133,6 +134,26 @@ public class OrdenTestCase {
     	ordenExp.agregarServicio(servicioTestAgregar);
     	assertTrue(ordenImp.getServicios().contains(servicioTestAgregar));
     	assertTrue(ordenExp.getServicios().contains(servicioTestAgregar));
+    }
+    
+    @Test
+    public void testAceptarLlamaAlVisitorYAlContainerImp() {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+
+        ordenImp.aceptar(visitor, buque);
+        verify(visitor).visitarOrden(ordenImp, buque);
+        verify(container).aceptar(visitor, buque);
+    }
+    
+    @Test
+    public void testAceptarLlamaAlVisitorYAlContainerExp() {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+
+        ordenExp.aceptar(visitor, buque);
+        verify(visitor).visitarOrden(ordenExp, buque);
+        verify(container).aceptar(visitor, buque);
     }
 
     @Test
