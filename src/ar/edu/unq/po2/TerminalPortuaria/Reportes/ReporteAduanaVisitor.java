@@ -1,7 +1,7 @@
 package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -19,13 +19,9 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
     @Override
     public void visitarOrden(Orden orden, Buque buque) {
     	if (orden.esOrdenImportacion()) {
-    		html.append("<li>Container tipo: IMPORTACIÓN - ID: ")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
-            .append("</li>");
+    		html.append("<li>Container importado - ");
     	} else {
-    		html.append("<li>Container tipo: EXPORTACIÓN - ID: ")
-            .append(orden.getBill().getBillOfLandings().get(0).hashCode())
-            .append("</li>");
+    		html.append("<li>Container exportado - ");
     	}
     }
 
@@ -36,8 +32,9 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
     }
 
 	@Override
-	public void visitarBL(IBillOfLanding bl, Buque buque) {
-		// TODO Auto-generated method stub
-		
+	public void visitarContainer(Container container, Buque buque) {
+		html.append("Tipo: ").append(container.tipoDeContainer())
+		    .append("ID: ").append(container.getIdentificador())
+		    .append("</li>");
 	}
 }
