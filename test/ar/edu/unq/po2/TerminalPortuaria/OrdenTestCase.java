@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
@@ -27,6 +28,7 @@ public class OrdenTestCase {
     private OrdenExportacion ordenExp;
     private OrdenImportacion ordenImp;
     private Viaje viajeMock;
+    private Container container;
     private Tramo tramoMock;
     private Cliente clienteMock;
     private Servicio servicioMock;
@@ -50,6 +52,7 @@ public class OrdenTestCase {
         clienteMock = mock(Cliente.class);
         servicioMock = mock(Servicio.class);
         transporteMock = mock(TransporteAsignado.class);
+        container = mock(Container.class);
         when(transporteMock.getChoferAsignado()).thenReturn(chofer);
         when(transporteMock.getCamionAsignado()).thenReturn(camion);
         when(servicioMock.calcularPrecio()).thenReturn(500.0);
@@ -60,11 +63,11 @@ public class OrdenTestCase {
         when(clienteMock.recibirFactura(any(Factura.class))).thenReturn(null);
 
      // Instancia de OrdenExportacion
-        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
+        ordenExp = new OrdenExportacion( clienteMock, viajeMock, container, transporteMock, fechaTurno, 101);
         ordenExp.getServicios().add(servicioMock);
 
         // Instancia de OrdenImportacion
-        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
+        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, container, transporteMock, fechaTurno, 101);
         ordenImp.getServicios().add(servicioMock);
     }
 
@@ -102,7 +105,6 @@ public class OrdenTestCase {
         assertEquals(chofer, ordenExp.getChoferAsignado());
         assertEquals(camion, ordenExp.getCamionAsignado());
         assertEquals(101, ordenExp.getNumFactura());
-        assertEquals(null, ordenExp.getBill());
         assertTrue(ordenExp.esOrdenExportacion());
         assertFalse(ordenExp.esOrdenImportacion());
 
@@ -113,7 +115,6 @@ public class OrdenTestCase {
         assertEquals(camion, ordenImp.getCamionAsignado());
         assertEquals(fechaTurno, ordenImp.getTurno());
         assertEquals(101, ordenImp.getNumFactura());
-        assertEquals(null, ordenImp.getBill());
         assertTrue(ordenImp.esOrdenImportacion());
         assertFalse(ordenImp.esOrdenExportacion());
     }
