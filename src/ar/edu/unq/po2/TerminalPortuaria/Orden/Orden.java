@@ -22,18 +22,18 @@ public abstract class Orden implements ElementoVisitable {
 
 	protected Cliente cliente;
 	protected Viaje viaje;
-	protected IBillOfLanding bill;
+	protected Container container;
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
     private int numFactura;
     private LocalDateTime fechaTurno;
 
 
-	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, LocalDateTime turno, int num)
+	public Orden(Cliente cliente, Viaje viaje, Container container,TransporteAsignado TAsignado, LocalDateTime turno, int num)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
-		this.bill = bill;
+		this.container = container;
 		this.transporteAsignado = TAsignado;
 		this.fechaTurno = turno;
 		this.numFactura = num;
@@ -42,11 +42,6 @@ public abstract class Orden implements ElementoVisitable {
 	public abstract boolean esOrdenImportacion();
 	public abstract boolean esOrdenExportacion();
 	
-	public Container getContainerDeOrden() {
-		Servicio primerServicio = servicios.stream().findAny().get();
-		
-		return primerServicio.getContainer();
-	}
 	
 	public Set<Servicio> getServicios() {
 		return this.servicios;
@@ -73,15 +68,26 @@ public abstract class Orden implements ElementoVisitable {
 		return this.viaje;
 	}
 
-	public IBillOfLanding getBill()
-	{
-		return this.bill;
-	}
 
 	public Cliente getCliente()
 	{
 		return this.cliente;
 	}
+	
+	
+//  Metodo V2	
+//	public Container getContainerDeOrden() throws Exception{
+//		this.validarContainer();
+//		return this.container;
+//	}
+//	
+//	public void validarContainer() throws Exception {
+//		Servicio primerServicio = this.servicios.stream().findAny().get();
+//		if ( this.container != primerServicio.getContainer())
+//			{
+//				throw new Exception ("Container no coincide");
+//			}
+//	}
 
 
 	public int getNumFactura()
@@ -94,6 +100,11 @@ public abstract class Orden implements ElementoVisitable {
 		return new Factura(this);
 	}
 	
+	public Container getContainerDeOrden() {
+		Servicio primerServicio = servicios.stream().findAny().get();
+		
+		return primerServicio.getContainer();
+	}
 	
 	public void enviarFacturaPorMail() throws Exception{
 		Factura factura = this.generarFactura(this);
