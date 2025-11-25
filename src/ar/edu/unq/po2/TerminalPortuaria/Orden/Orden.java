@@ -22,18 +22,18 @@ public abstract class Orden implements ElementoVisitable {
 
 	protected Cliente cliente;
 	protected Viaje viaje;
-	protected IBillOfLanding bill;
+	protected Container container;
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
     private int numFactura;
     private LocalDateTime fechaTurno;
 
 
-	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, LocalDateTime turno, int num)
+	public Orden(Cliente cliente, Viaje viaje, Container container,TransporteAsignado TAsignado, LocalDateTime turno, int num)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
-		this.bill = bill;
+		this.container = container;
 		this.transporteAsignado = TAsignado;
 		this.fechaTurno = turno;
 		this.numFactura = num;
@@ -73,10 +73,6 @@ public abstract class Orden implements ElementoVisitable {
 		return this.viaje;
 	}
 
-	public IBillOfLanding getBill()
-	{
-		return this.bill;
-	}
 
 	public Cliente getCliente()
 	{

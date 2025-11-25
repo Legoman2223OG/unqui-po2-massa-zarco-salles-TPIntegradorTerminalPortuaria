@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
@@ -13,9 +14,12 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 public class OrdenImportacion extends Orden implements ElementoVisitable {
 
 	
-
-	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado, LocalDateTime turno, int num) {
-		super(cliente, viaje, bill, TAsignado, turno, num);
+	
+	
+	public OrdenImportacion(Cliente cliente, Viaje viaje, Container container, TransporteAsignado TAsignado,
+			LocalDateTime turno, int num) {
+		super(cliente, viaje, container, TAsignado, turno, num);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
