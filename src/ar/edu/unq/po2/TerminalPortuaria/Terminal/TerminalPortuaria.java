@@ -141,7 +141,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
 	}
 	
-	//Realiza validaciones de camion y chofer y horario, si cumplen se registra la orden
+	//Realiza validaciones de camion y chofer y horario, si cumplen se registra la orden y se simula exportacion
 	public void exportar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
@@ -150,7 +150,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.registrarNuevaOrden(orden);
 	}
 
-	//Realiza validaciones de camion y chofer, si cumplen se registra la orden
+	//Realiza validaciones de camion y chofer, si cumplen se registra la orden y se simula importacion
 	public void importar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
