@@ -13,6 +13,8 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
         html.append("<html><body>");
         html.append("<h2>Reporte de Aduana</h2>");
         html.append("<p>Buque: ").append(buque.getNombre()).append("</p>");
+        html.append("<p>Fecha de arribo: ").append(buque.getViaje().fechaDeLlegada()).append("</p>");
+        html.append("<p>Fecha de salida: ").append(buque.getViaje().getFechaSalida()).append("</p>");
         html.append("<ul>");
     }
 
@@ -34,7 +36,7 @@ public class ReporteAduanaVisitor implements ReporteVisitor {
 	@Override
 	public void visitarContainer(Container container, Buque buque) {
 		html.append("Tipo: ").append(container.tipoDeContainer())
-		    .append("ID: ").append(container.getIdentificador())
-		    .append("</li>");
+		    .append(". ID: ").append(container.getIdentificador())
+		    .append(".</li>");
 	}
 }

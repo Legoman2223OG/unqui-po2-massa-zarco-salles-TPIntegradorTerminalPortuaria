@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
+import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
+import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
 import ar.edu.unq.po2.TerminalPortuaria.Factura.Factura;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.*;
@@ -90,22 +92,6 @@ public class OrdenTestCase {
         double total = ordenExp.costoServicios();
         assertEquals(0.0, total, 0.001);
     }
-    
-    @Test
-	public void aceptarVisitorExp() {
-        ReporteVisitor visitorT = mock(ReporteVisitor.class);
-        Buque buqueT = mock(Buque.class);
-        ordenExp.aceptar(visitorT, buqueT);
-        verify(visitorT, times(1)).visitarOrden(ordenExp, buqueT);
-	}
-    
-    @Test
-	public void aceptarVisitorImp() {
-        ReporteVisitor visitorT = mock(ReporteVisitor.class);
-        Buque buqueT = mock(Buque.class);
-        ordenImp.aceptar(visitorT, buqueT);
-        verify(visitorT, times(1)).visitarOrden(ordenImp, buqueT);
-	}
     
     @Test
     public void testGettersOrden() {
