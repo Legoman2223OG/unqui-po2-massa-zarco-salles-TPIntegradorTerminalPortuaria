@@ -58,6 +58,7 @@ public class ReportesTestCase {
         terminalTest = new TerminalPortuaria("Terminal Test", new Coordenada(0,0));
         terminalTest.registrarNuevaOrden(ordenImportTest);
         terminalTest.registrarNuevaOrden(ordenExportTest);
+        terminalTest.registrarNuevaOrden(ordenExportTest2);
         
         visitorMuelleTest = new ReporteMuelleVisitor();
         visitorAduanaTest = new ReporteAduanaVisitor();
@@ -65,7 +66,6 @@ public class ReportesTestCase {
 
         // Stubs
         when(buqueMock.getNombre()).thenReturn("Buque Test");
-        when(buqueMock.getViaje()).thenReturn(viajeMock);
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
         when(spyContainer1.getIdentificador()).thenReturn("juli1234567");
