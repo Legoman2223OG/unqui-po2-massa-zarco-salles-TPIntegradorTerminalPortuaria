@@ -55,6 +55,7 @@ public class OrdenTestCase {
         container = mock(Container.class);
         when(transporteMock.getChoferAsignado()).thenReturn(chofer);
         when(transporteMock.getCamionAsignado()).thenReturn(camion);
+        when(servicioMock.getContainer()).thenReturn(container);
         when(servicioMock.calcularPrecio()).thenReturn(500.0);
         when(viajeMock.precioTotal()).thenReturn(1500.0);
 
@@ -104,6 +105,7 @@ public class OrdenTestCase {
         assertEquals(viajeMock, ordenExp.getViaje());
         assertEquals(chofer, ordenExp.getChoferAsignado());
         assertEquals(camion, ordenExp.getCamionAsignado());
+        assertEquals(container, ordenExp.getContainerDeOrden());
         assertEquals(101, ordenExp.getNumFactura());
         assertTrue(ordenExp.esOrdenExportacion());
         assertFalse(ordenExp.esOrdenImportacion());
@@ -113,6 +115,7 @@ public class OrdenTestCase {
         assertEquals(viajeMock, ordenImp.getViaje());
         assertEquals(chofer, ordenImp.getChoferAsignado());
         assertEquals(camion, ordenImp.getCamionAsignado());
+        assertEquals(container, ordenImp.getContainerDeOrden());
         assertEquals(fechaTurno, ordenImp.getTurno());
         assertEquals(101, ordenImp.getNumFactura());
         assertTrue(ordenImp.esOrdenImportacion());
