@@ -15,11 +15,9 @@ public class OrdenImportacion extends Orden implements ElementoVisitable {
 
 	
 	
-	
 	public OrdenImportacion(Cliente cliente, Viaje viaje, Container container, TransporteAsignado TAsignado,
 			LocalDateTime turno, int num) {
 		super(cliente, viaje, container, TAsignado, turno, num);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
