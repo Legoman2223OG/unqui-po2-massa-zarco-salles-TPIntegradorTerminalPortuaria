@@ -24,7 +24,6 @@ class BillOfLandingTestCase {
 	Cliente docC1 = mock(Cliente.class);
 	Cliente docC2 = mock(Cliente.class);
 	Cliente docC3 = mock(Cliente.class);
-	Container docCon = mock(Container.class);
 	Producto docP = mock(Producto.class);
 	Producto docP1 = mock(Producto.class);
 	Producto docP2 = mock(Producto.class);
@@ -48,11 +47,11 @@ class BillOfLandingTestCase {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		bl = new BillOfLanding(docC, docCon, docP,docP1);
-		bl2 = new BillOfLanding(docC1, docCon, docP2,docP3);
-		bl3 = new BillOfLanding(docC2, docCon, docP4,docP5);
-		bl4 = new BillOfLanding(docC3, docCon, docP6);
-		ble = new BillOfLandingEspecial(docCon, bl2,bl3,bl4);
+		bl = new BillOfLanding(docC, docP,docP1);
+		bl2 = new BillOfLanding(docC1, docP2,docP3);
+		bl3 = new BillOfLanding(docC2, docP4,docP5);
+		bl4 = new BillOfLanding(docC3, docP6);
+		ble = new BillOfLandingEspecial(bl2,bl3,bl4);
 	}
 
 	/**
@@ -136,7 +135,7 @@ class BillOfLandingTestCase {
 		//DOC
 		Cliente clienteDocNew = mock(Cliente.class);
 		Producto prodDoc = mock(Producto.class);
-		BillOfLanding blNew = new BillOfLanding(clienteDocNew,docCon,prodDoc);
+		BillOfLanding blNew = new BillOfLanding(clienteDocNew,prodDoc);
 		//Exercise
 		ble.agregarBillOfLanding(blNew);
 		List<Cliente> clientes = ble.getDuenios();

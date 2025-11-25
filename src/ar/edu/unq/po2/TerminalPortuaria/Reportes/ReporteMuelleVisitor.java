@@ -3,7 +3,7 @@ package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -35,5 +35,5 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
     }
 
 	@Override
-	public void visitarBL(IBillOfLanding bl, Buque buque) {} // Este metodo no hace nada particular para este reporte.
+	public void visitarContainer(Container container, Buque buque) {} // Este metodo no hace nada en particular para esta clase.
 }

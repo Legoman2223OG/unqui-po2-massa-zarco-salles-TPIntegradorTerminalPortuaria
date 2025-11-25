@@ -29,8 +29,6 @@ public interface IBillOfLanding {
 	 */
 	public abstract double getPeso();
 	
-	public abstract Container getContainer();
-	
 	/**
 	 * Agrega un BL a un BL compuesto.
 	 * @param bl, BillOfLanding, un BL a agregar, no puede ser nulo.

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
@@ -21,18 +22,18 @@ public abstract class Orden implements ElementoVisitable {
 
 	protected Cliente cliente;
 	protected Viaje viaje;
-	protected IBillOfLanding bill;
+	protected Container container;
 	protected Set<Servicio> servicios = new HashSet<>();
 	protected TransporteAsignado transporteAsignado;
     private int numFactura;
     private LocalDateTime fechaTurno;
 
 
-	public Orden(Cliente cliente, Viaje viaje, IBillOfLanding bill,TransporteAsignado TAsignado, LocalDateTime turno, int num)
+	public Orden(Cliente cliente, Viaje viaje, Container container,TransporteAsignado TAsignado, LocalDateTime turno, int num)
 	{
 		this.cliente = cliente;
 		this.viaje = viaje;
-		this.bill = bill;
+		this.container = container;
 		this.transporteAsignado = TAsignado;
 		this.fechaTurno = turno;
 		this.numFactura = num;
@@ -41,8 +42,13 @@ public abstract class Orden implements ElementoVisitable {
 	public abstract boolean esOrdenImportacion();
 	public abstract boolean esOrdenExportacion();
 	
+	
 	public Set<Servicio> getServicios() {
 		return this.servicios;
+	}
+	
+	public void agregarServicio(Servicio servicio) {
+		servicios.add(servicio);
 	}
 	
 	public LocalDateTime getTurno() {
@@ -62,15 +68,26 @@ public abstract class Orden implements ElementoVisitable {
 		return this.viaje;
 	}
 
-	public IBillOfLanding getBill()
-	{
-		return this.bill;
-	}
 
 	public Cliente getCliente()
 	{
 		return this.cliente;
 	}
+	
+	
+//  Metodo V2	
+//	public Container getContainerDeOrden() throws Exception{
+//		this.validarContainer();
+//		return this.container;
+//	}
+//	
+//	public void validarContainer() throws Exception {
+//		Servicio primerServicio = this.servicios.stream().findAny().get();
+//		if ( this.container != primerServicio.getContainer())
+//			{
+//				throw new Exception ("Container no coincide");
+//			}
+//	}
 
 
 	public int getNumFactura()
@@ -83,6 +100,11 @@ public abstract class Orden implements ElementoVisitable {
 		return new Factura(this);
 	}
 	
+	public Container getContainerDeOrden() {
+		Servicio primerServicio = servicios.stream().findAny().get();
+		
+		return primerServicio.getContainer();
+	}
 	
 	public void enviarFacturaPorMail() throws Exception{
 		Factura factura = this.generarFactura(this);
@@ -107,8 +129,6 @@ public abstract class Orden implements ElementoVisitable {
 	    return this.costoServicios();
 	}
 	
-	public void aceptar(ReporteVisitor visitor, Buque buque) {
-		visitor.visitarOrden(this, buque);
-	}
+	public abstract void aceptar(ReporteVisitor visitor, Buque buque);
 
 }

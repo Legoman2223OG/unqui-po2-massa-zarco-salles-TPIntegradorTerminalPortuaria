@@ -118,7 +118,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 				o.enviarFacturaPorMail();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				 System.err.println("No se pudo enviar la factura de la orden");
 			}
 		} );
 	}
@@ -141,7 +141,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 		return circuitosNaviera.stream().anyMatch(cir->cir.terminalExisteEnElCircuito(this));
 	}
 	
-	//Realiza validaciones de camion y chofer y horario, si cumplen se registra la orden
+	//Realiza validaciones de camion y chofer y horario, si cumplen se registra la orden y se simula exportacion
 	public void exportar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
@@ -150,7 +150,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 		this.registrarNuevaOrden(orden);
 	}
 
-	//Realiza validaciones de camion y chofer, si cumplen se registra la orden
+	//Realiza validaciones de camion y chofer, si cumplen se registra la orden y se simula importacion
 	public void importar(Orden orden, Camion camion, Chofer chofer) throws Exception
 	{
 		this.validarCamion(camion, orden);
@@ -211,15 +211,47 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 
 
-	 @Override
-	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+	@Override
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
+		 List<Orden> listaImports = this.todasLasImportaciones();
+		 List<Orden> listaExports = this.todasLasExportaciones();
+		 
 		visitor.visitarTerminal(this, buque);
-		for (Orden orden : ordenes) {
+		
+		for (Orden orden : listaImports) {
 			orden.aceptar(visitor, buque);
         }
+		
+		visitor.finDeImportaciones();
+		
+		for (Orden orden : listaExports) {
+			orden.aceptar(visitor, buque);
+		}
+	}
+	 
+	private List<Orden> todasLasImportaciones() {
+		List<Orden> imports = new ArrayList<>();
+
+	    for (Orden orden : ordenes) {
+	        if (orden.esOrdenImportacion())
+	            imports.add(orden);
+	    }
+	    
+	    return imports;
+	}
+	
+	private List<Orden> todasLasExportaciones() {
+		List<Orden> exports = new ArrayList<>();
+
+	    for (Orden orden : ordenes) {
+	        if (orden.esOrdenExportacion())
+	            exports.add(orden);
+	    }
+	    
+	    return exports;
 	}
 
-	public String generarReporteDeBuque(ReporteVisitor visitor, Buque buque) {
+	public String generarReporte(ReporteVisitor visitor, Buque buque) {
 		this.aceptar(visitor, buque);
 		return visitor.generarReporte();
 	}
