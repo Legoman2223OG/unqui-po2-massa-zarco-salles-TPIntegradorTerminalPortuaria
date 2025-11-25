@@ -6,6 +6,7 @@ import java.util.Set;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
@@ -41,8 +42,18 @@ public abstract class Orden implements ElementoVisitable {
 	public abstract boolean esOrdenImportacion();
 	public abstract boolean esOrdenExportacion();
 	
+	public Container getContainerDeOrden() {
+		Servicio primerServicio = servicios.stream().findAny().get();
+		
+		return primerServicio.getContainer();
+	}
+	
 	public Set<Servicio> getServicios() {
 		return this.servicios;
+	}
+	
+	public void agregarServicio(Servicio servicio) {
+		servicios.add(servicio);
 	}
 	
 	public LocalDateTime getTurno() {
@@ -107,6 +118,6 @@ public abstract class Orden implements ElementoVisitable {
 	    return this.costoServicios();
 	}
 	
-
+	public abstract void aceptar(ReporteVisitor visitor, Buque buque);
 
 }

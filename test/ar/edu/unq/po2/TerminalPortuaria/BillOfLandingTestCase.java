@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLandingEspecial;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.Producto;
 
 class BillOfLandingTestCase {
@@ -47,7 +48,7 @@ class BillOfLandingTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 		bl = new BillOfLanding(docC, docP,docP1);
-		bl2 = new BillOfLanding(docC1,docP2,docP3);
+		bl2 = new BillOfLanding(docC1, docP2,docP3);
 		bl3 = new BillOfLanding(docC2, docP4,docP5);
 		bl4 = new BillOfLanding(docC3, docP6);
 		ble = new BillOfLandingEspecial(bl2,bl3,bl4);

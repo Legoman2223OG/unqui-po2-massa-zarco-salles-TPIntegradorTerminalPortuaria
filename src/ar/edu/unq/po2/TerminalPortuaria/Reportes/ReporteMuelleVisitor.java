@@ -3,8 +3,8 @@ package ar.edu.unq.po2.TerminalPortuaria.Reportes;
 import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
-import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
+import ar.edu.unq.po2.TerminalPortuaria.Orden.Orden;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class ReporteMuelleVisitor implements ReporteVisitor {
@@ -22,15 +22,10 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
     }
 
     @Override
-    public void visitarOrden(OrdenImportacion orden, Buque buque) {
+    public void visitarOrden(Orden orden, Buque buque) {
         contenedoresOperados += 1;
     }
-
-    @Override
-    public void visitarOrden(OrdenExportacion orden, Buque buque) {
-        contenedoresOperados += 1;
-    }
-
+    
     @Override
 	public String generarReporte() {
         reporte.append("Fecha arribo: ").append(arribo).append("\n");
@@ -38,4 +33,7 @@ public class ReporteMuelleVisitor implements ReporteVisitor {
         reporte.append("Contenedores operados: ").append(contenedoresOperados).append("\n");
         return reporte.toString();
     }
+
+	@Override
+	public void visitarContainer(Container container, Buque buque) {} // Este metodo no hace nada en particular para esta clase.
 }

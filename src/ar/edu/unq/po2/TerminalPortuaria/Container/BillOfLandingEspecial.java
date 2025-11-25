@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 
 /**

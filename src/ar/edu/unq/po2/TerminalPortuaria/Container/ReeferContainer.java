@@ -53,4 +53,9 @@ public class ReeferContainer extends Container {
 		return this.consumoElectricidad;
 	}
 
+	@Override
+	public String tipoDeContainer() {
+		return "Reefer";
+	}
+
 }

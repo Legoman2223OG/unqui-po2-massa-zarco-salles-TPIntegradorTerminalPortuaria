@@ -21,7 +21,7 @@ public class BillOfLanding implements IBillOfLanding{
 	 * @param duenio, Cliente, el duenio importador del Bill of Landing. No puede ser nulo.
 	 * @param productos, Producto..., una lista de productos incluidos en el bill of landing. No pueden ser nulos
 	 */
-	public BillOfLanding(Cliente duenio, Producto...productos ){
+	public BillOfLanding(Cliente duenio, Producto...productos){
 		this.duenio = duenio;
 		this.productos = new ArrayList<>(Arrays.asList(productos));
 	}

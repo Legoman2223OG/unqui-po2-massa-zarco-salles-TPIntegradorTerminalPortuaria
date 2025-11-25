@@ -19,6 +19,10 @@ public abstract class Servicio {
 		this.container = container;
 		this.precioFijo = precioFijo;
 	}
+	
+	public Container getContainer() {
+		return container;
+	}
 
 	/**
 	 * Aserta que el numero indicado sea positivo o 0.
@@ -59,4 +63,8 @@ public abstract class Servicio {
 	 * @throws Exception
 	 */
 	public abstract boolean contienePerdidas() throws Exception;
+	
+	public Container getContainer() {
+		return this.container;
+	}
 }
