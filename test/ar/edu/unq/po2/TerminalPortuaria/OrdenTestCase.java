@@ -32,6 +32,7 @@ public class OrdenTestCase {
     private Tramo tramoMock;
     private Cliente clienteMock;
     private Servicio servicioMock;
+    private Servicio servicioTestAgregar;
     private TransporteAsignado transporteMock;
     private Chofer chofer;
     private Camion camion;
@@ -53,6 +54,7 @@ public class OrdenTestCase {
         servicioMock = mock(Servicio.class);
         transporteMock = mock(TransporteAsignado.class);
         container = mock(Container.class);
+        servicioTestAgregar = mock(Servicio.class);
         when(transporteMock.getChoferAsignado()).thenReturn(chofer);
         when(transporteMock.getCamionAsignado()).thenReturn(camion);
         when(servicioMock.getContainer()).thenReturn(container);
@@ -120,6 +122,17 @@ public class OrdenTestCase {
         assertEquals(101, ordenImp.getNumFactura());
         assertTrue(ordenImp.esOrdenImportacion());
         assertFalse(ordenImp.esOrdenExportacion());
+    }
+    
+    @Test
+    public void testAgregarServicio() {
+    	
+    	assertFalse(ordenImp.getServicios().contains(servicioTestAgregar));
+    	assertFalse(ordenExp.getServicios().contains(servicioTestAgregar));
+    	ordenImp.agregarServicio(servicioTestAgregar);
+    	ordenExp.agregarServicio(servicioTestAgregar);
+    	assertTrue(ordenImp.getServicios().contains(servicioTestAgregar));
+    	assertTrue(ordenExp.getServicios().contains(servicioTestAgregar));
     }
 
     @Test
