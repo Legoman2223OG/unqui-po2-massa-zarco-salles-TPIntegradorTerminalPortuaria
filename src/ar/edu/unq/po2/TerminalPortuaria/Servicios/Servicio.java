@@ -19,10 +19,6 @@ public abstract class Servicio {
 		this.container = container;
 		this.precioFijo = precioFijo;
 	}
-	
-	public Container getContainer() {
-		return container;
-	}
 
 	/**
 	 * Aserta que el numero indicado sea positivo o 0.

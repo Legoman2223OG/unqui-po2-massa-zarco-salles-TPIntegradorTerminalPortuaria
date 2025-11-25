@@ -204,7 +204,7 @@ public class TerminalTestCase {
         ReporteVisitor visitor = mock(ReporteVisitor.class);
         when(visitor.generarReporte()).thenReturn("Reporte generado");
         TerminalPortuaria terminal = spy(new TerminalPortuaria("BsAs", mock(Coordenada.class)));
-        String resultado = terminal.generarReporteDeBuque(visitor, buque);
+        String resultado = terminal.generarReporte(visitor, buque);
         assertEquals("Reporte generado", resultado);
         verify(terminal).aceptar(visitor, buque);
         verify(visitor).visitarTerminal(terminal, buque);
