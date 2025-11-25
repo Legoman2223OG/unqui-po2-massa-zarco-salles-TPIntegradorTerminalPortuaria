@@ -118,7 +118,7 @@ public class TerminalPortuaria implements ElementoVisitable {
 				o.enviarFacturaPorMail();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				 System.err.println("No se pudo enviar la factura de la orden");
 			}
 		} );
 	}
