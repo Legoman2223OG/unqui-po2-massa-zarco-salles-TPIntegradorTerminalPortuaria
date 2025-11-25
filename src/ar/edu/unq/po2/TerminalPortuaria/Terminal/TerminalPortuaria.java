@@ -211,15 +211,47 @@ public class TerminalPortuaria implements ElementoVisitable {
 	}
 
 
-	 @Override
-	 public void aceptar(ReporteVisitor visitor, Buque buque) {
+	@Override
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
+		 List<Orden> listaImports = this.todasLasImportaciones();
+		 List<Orden> listaExports = this.todasLasExportaciones();
+		 
 		visitor.visitarTerminal(this, buque);
-		for (Orden orden : ordenes) {
+		
+		for (Orden orden : listaImports) {
 			orden.aceptar(visitor, buque);
         }
+		
+		visitor.finDeImportaciones();
+		
+		for (Orden orden : listaExports) {
+			orden.aceptar(visitor, buque);
+		}
+	}
+	 
+	private List<Orden> todasLasImportaciones() {
+		List<Orden> imports = new ArrayList<>();
+
+	    for (Orden orden : ordenes) {
+	        if (orden.esOrdenImportacion())
+	            imports.add(orden);
+	    }
+	    
+	    return imports;
+	}
+	
+	private List<Orden> todasLasExportaciones() {
+		List<Orden> exports = new ArrayList<>();
+
+	    for (Orden orden : ordenes) {
+	        if (orden.esOrdenExportacion())
+	            exports.add(orden);
+	    }
+	    
+	    return exports;
 	}
 
-	public String generarReporteDeBuque(ReporteVisitor visitor, Buque buque) {
+	public String generarReporte(ReporteVisitor visitor, Buque buque) {
 		this.aceptar(visitor, buque);
 		return visitor.generarReporte();
 	}

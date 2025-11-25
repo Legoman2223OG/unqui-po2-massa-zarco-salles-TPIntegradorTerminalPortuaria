@@ -29,6 +29,8 @@ import ar.edu.unq.po2.TerminalPortuaria.Buque.BuqueStatus;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
 import ar.edu.unq.po2.TerminalPortuaria.BusquedaMaritima.Busqueda;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
+import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Camion;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.Chofer;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
@@ -39,6 +41,8 @@ import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenExportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Orden.OrdenImportacion;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
 import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
+import ar.edu.unq.po2.TerminalPortuaria.Servicios.Pesado;
+import ar.edu.unq.po2.TerminalPortuaria.Servicios.Servicio;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.E_MejorRuta;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -425,9 +429,16 @@ public class TerminalTestCase {
     }
     
     @Test
-    public void testAceptarLlamaVisitarYOrdenesAceptar() {
-        Orden ordenImportMock = mock(OrdenImportacion.class);
-        Orden ordenExportMock = mock(OrdenExportacion.class);
+    public void testAceptarLlamaVisitarYOrdenesAceptar() throws Exception {
+        Orden ordenImportTest = new OrdenImportacion(clienteMock, viaje1, null, null, null, 0);
+        Orden ordenExportTest = new OrdenExportacion(clienteMock, viaje2, null, null, null, 0);
+        DryContainer container1 = new DryContainer(1, 2, 3, null);
+        TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
+        Servicio servicio1 = new Pesado(container1, 0);
+        Servicio servicio2 = new Pesado(container2, 0);
+        
+        ordenImportTest.agregarServicio(servicio1);
+        ordenExportTest.agregarServicio(servicio2);
     	
         ReporteVisitor visitorMock = mock(ReporteVisitor.class);
 

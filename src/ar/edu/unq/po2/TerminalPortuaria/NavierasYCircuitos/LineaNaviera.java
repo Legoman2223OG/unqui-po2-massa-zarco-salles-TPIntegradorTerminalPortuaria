@@ -40,6 +40,7 @@ public class LineaNaviera {
 	public void addCircuito(Circuito circuito) {
 		circuitos.add(circuito);
 	}
+	
 	public List<Viaje> getViajes() {
 		return this.listaRecorridos.stream()
 								   .flatMap(r -> r.getListaViajes().stream())

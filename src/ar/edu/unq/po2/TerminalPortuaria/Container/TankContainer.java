@@ -37,4 +37,9 @@ public class TankContainer extends Container {
 		throw new Exception("Este contenedor no requiere de conexion a una fuente de electricidad");
 	}
 
+	@Override
+	public String tipoDeContainer() {
+		return "Tanque";
+	}
+
 }

@@ -2,14 +2,17 @@ package ar.edu.unq.po2.TerminalPortuaria.Container;
 
 import java.util.List;
 
+import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ElementoVisitable;
+import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 
 
 /**
  * Una clase que representa un container para transportar cosas. Posee un ancho, largo y altura incluido su peso.
  * Cada subclase debera tener un Bill Of Landing para tener en cuenta su contenido.
  */
-public abstract class Container {
+public abstract class Container implements ElementoVisitable {
 	private double ancho;
 	private double largo;
 	private double altura;
@@ -35,6 +38,10 @@ public abstract class Container {
 		asertarIdentificadorCorrecto(identificador);
 		this.identificador = identificador;
 		this.bl = bl;
+	}
+	
+	public String getIdentificador() {
+		return identificador;
 	}
 
 	/**
@@ -113,4 +120,10 @@ public abstract class Container {
 	public double getCapacidad() {
 		return this.altura * this.ancho * this.largo;
 	}
+	
+	public void aceptar(ReporteVisitor visitor, Buque buque) {
+		visitor.visitarContainer(this, buque);
+	}
+	
+	public abstract String tipoDeContainer();
 }
