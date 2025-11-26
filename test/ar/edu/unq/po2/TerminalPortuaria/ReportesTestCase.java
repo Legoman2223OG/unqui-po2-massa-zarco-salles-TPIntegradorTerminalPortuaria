@@ -33,7 +33,6 @@ public class ReportesTestCase {
     private OrdenImportacion ordenImportTest;
     private OrdenExportacion ordenExportTest;
     private Container spyContainer1;
-    private Container spyContainer2;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -41,13 +40,13 @@ public class ReportesTestCase {
     	Cliente clienteMock = mock(Cliente.class);
     	TransporteAsignado transporteMock = mock(TransporteAsignado.class);
     	LocalDateTime fechaTurno = mock(LocalDateTime.class);
-        buqueMock = mock(Buque.class);
-        viajeMock = mock(Viaje.class);
-        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        DryContainer container1 = new DryContainer(1, 2, 3, null);
+    	DryContainer container1 = new DryContainer(1, 2, 3, null);
         TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
         spyContainer1 = spy(container1);
+        buqueMock = mock(Buque.class);
+        viajeMock = mock(Viaje.class);
+        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, spyContainer1, transporteMock, fechaTurno, 101);
+        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, container2, transporteMock, fechaTurno, 101);
         Servicio servicio1 = new Pesado(spyContainer1, 0);
         Servicio servicio2 = new Pesado(container2, 0);
         

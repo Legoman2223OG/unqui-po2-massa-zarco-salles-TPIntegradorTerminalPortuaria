@@ -51,6 +51,11 @@ public class ViajesTestCase {
 	@Test
 	void testPropiedadesDelViaje() {
 		// Verify
+		Assertions.assertEquals(terminalDeInicio, viajeTest.getPuertoInicio());
+		Assertions.assertEquals(circuitoTest, viajeTest.getCircuitoDelViaje());
+		Assertions.assertEquals(LocalDateTime.of(2025, 11, 10, 13, 50), viajeTest.getFechaSalida());
+		Assertions.assertEquals(terminalDeInicio, viajeTest.getUltimaTerminalDePartida());
+		Assertions.assertEquals(terminal2, viajeTest.getProximaTerminal());
 		Assertions.assertEquals(LocalDateTime.of(2025, 11, 10, 15, 50), viajeTest.fechaDeLlegada());
 		Assertions.assertEquals(2, viajeTest.numeroDeTerminalesEntreOrigenYDestino());
 		Assertions.assertEquals(Duration.ofHours(2), viajeTest.duracionDelViaje());
@@ -74,5 +79,22 @@ public class ViajesTestCase {
 
 		// Verify
 		Assertions.assertEquals(false, viajeTest.validarSiTerminalExisteEnViaje(terminal5));
+	}
+	
+	@Test
+	void testCambiarAProximoTramo() {
+		// Exercise
+		viajeTest.cambiarASiguienteTramo();
+		
+		// Verify
+		Assertions.assertEquals(terminal2, viajeTest.getUltimaTerminalDePartida());
+		Assertions.assertEquals(terminal3, viajeTest.getProximaTerminal());
+		
+		// Exercise
+		viajeTest.cambiarASiguienteTramo();
+				
+		// Verify
+		Assertions.assertEquals(terminal2, viajeTest.getUltimaTerminalDePartida());
+		Assertions.assertEquals(null, viajeTest.getProximaTerminal());
 	}
 }
