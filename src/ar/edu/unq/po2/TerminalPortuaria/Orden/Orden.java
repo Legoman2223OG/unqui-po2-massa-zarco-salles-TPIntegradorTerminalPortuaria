@@ -75,7 +75,6 @@ public abstract class Orden implements ElementoVisitable {
 		return this.cliente;
 	}
 	
-	
 
 	public Container getContainerDeOrden() throws Exception{
 		return this.container;

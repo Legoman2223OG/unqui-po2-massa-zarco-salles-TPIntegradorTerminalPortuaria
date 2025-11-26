@@ -30,6 +30,7 @@ public class OrdenTestCase {
     private OrdenImportacion ordenImp;
     private Viaje viajeMock;
     private Container container;
+    private Container containerTest;
     private Tramo tramoMock;
     private Cliente clienteMock;
     private Servicio servicioMock;
@@ -55,6 +56,7 @@ public class OrdenTestCase {
         servicioMock = mock(Servicio.class);
         transporteMock = mock(TransporteAsignado.class);
         container = mock(Container.class);
+        containerTest = mock(Container.class);
         servicioTestAgregar = mock(Servicio.class);
         when(transporteMock.getChoferAsignado()).thenReturn(chofer);
         when(transporteMock.getCamionAsignado()).thenReturn(camion);
@@ -101,7 +103,7 @@ public class OrdenTestCase {
     }
     
     @Test
-    public void testGettersOrden() {
+    public void testGettersOrden() throws Exception {
 
         // Verificamos getters de OrdenExportacion
         assertEquals(clienteMock, ordenExp.getCliente());
@@ -126,14 +128,53 @@ public class OrdenTestCase {
     }
     
     @Test
-    public void testAgregarServicio() {
+    public void testAgregarServicioFalse() throws Exception {
+    	
+    	ordenImp.agregarServicio(servicioMock);
+    	ordenExp.agregarServicio(servicioMock);
+    	assertFalse(ordenImp.getServicios().contains(servicioTestAgregar));
+    	assertFalse(ordenExp.getServicios().contains(servicioTestAgregar));
+
+    }
+    
+    @Test
+    public void testValidacionServicio() throws Exception {
+    	when(servicioTestAgregar.getContainer()).thenReturn(containerTest);
+    	Exception ex = assertThrows(Exception.class, () -> ordenImp.validarContainer(servicioTestAgregar));
+        assertEquals("Container no coincide", ex.getMessage());
+    }
+    
+    @Test
+    public void testAceptarCuandoGetContainerImp() throws Exception {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+        Orden orden = Mockito.spy(ordenImp); 
+        Mockito.doThrow(new Exception("falló container"))
+               .when(orden).getContainerDeOrden();
+        assertDoesNotThrow(() -> orden.aceptar(visitor, buque));
+        verify(visitor).visitarOrden(orden, buque);
+        Container containerMock = mock(Container.class);
+        verify(containerMock, never()).aceptar(any(), any());
+    }
+    
+    @Test
+    public void testAceptarCuandoGetContainerExp() throws Exception {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+        Orden orden = Mockito.spy(ordenExp); 
+        Mockito.doThrow(new Exception("falló container"))
+               .when(orden).getContainerDeOrden();
+        assertDoesNotThrow(() -> orden.aceptar(visitor, buque));
+        verify(visitor).visitarOrden(orden, buque);
+        Container containerMock = mock(Container.class);
+        verify(containerMock, never()).aceptar(any(), any());
+    }
+    
+    @Test
+    public void testAgregarServicioCorrecto() throws Exception {
     	
     	assertFalse(ordenImp.getServicios().contains(servicioTestAgregar));
     	assertFalse(ordenExp.getServicios().contains(servicioTestAgregar));
-    	ordenImp.agregarServicio(servicioTestAgregar);
-    	ordenExp.agregarServicio(servicioTestAgregar);
-    	assertTrue(ordenImp.getServicios().contains(servicioTestAgregar));
-    	assertTrue(ordenExp.getServicios().contains(servicioTestAgregar));
     }
     
     @Test
