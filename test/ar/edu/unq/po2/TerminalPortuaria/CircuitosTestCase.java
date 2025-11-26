@@ -11,14 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Circuito;
-import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.LineaNaviera;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Tramo;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 class CircuitosTestCase {
 	// SUT
 	private Circuito circuitoTest;
-	private LineaNaviera navieraTest;
 
 	// DOC
 	private TerminalPortuaria terminal1;
@@ -69,6 +67,21 @@ class CircuitosTestCase {
 		Assertions.assertEquals("Terminal 4", circuitoTest.getTramos().get(3).getPuertoOrigen().getNombre());
 		Assertions.assertEquals("Terminal 1", circuitoTest.getTramos().get(3).getPuertoDestino().getNombre());
 	}
+	
+	@Test
+	void testInicioYFinalDeCadaTramo() {
+		Assertions.assertTrue(tramo1.iniciaEnPuertoDado(terminal1));
+		Assertions.assertTrue(tramo1.terminaEnPuertoDado(terminal2));
+		Assertions.assertTrue(tramo2.iniciaEnPuertoDado(terminal2));
+		Assertions.assertTrue(tramo2.terminaEnPuertoDado(terminal3));
+		Assertions.assertTrue(tramo3.iniciaEnPuertoDado(terminal3));
+		Assertions.assertTrue(tramo3.terminaEnPuertoDado(terminal4));
+		Assertions.assertTrue(tramo4.iniciaEnPuertoDado(terminal4));
+		Assertions.assertTrue(tramo4.terminaEnPuertoDado(terminal1));
+		
+		Assertions.assertFalse(tramo3.terminaEnPuertoDado(terminal1));
+		Assertions.assertFalse(tramo1.iniciaEnPuertoDado(terminal4));
+	}
 
 	@Test
 	void testRechazaCircuitoSinCerrar() {
@@ -79,6 +92,13 @@ class CircuitosTestCase {
 
 		// Verify
 		Assertions.assertThrows(Exception.class, () -> new Circuito(tramosDeCircuito));
+	}
+	
+	@Test
+	void testCircuitoVacio() throws Exception {
+		Circuito circuitoVacioTest = new Circuito(new ArrayList<>());
+		
+		Assertions.assertTrue(circuitoVacioTest.getTramos().isEmpty());
 	}
 
 	@Test
