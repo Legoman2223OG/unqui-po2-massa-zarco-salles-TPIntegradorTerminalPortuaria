@@ -47,7 +47,8 @@ public abstract class Orden implements ElementoVisitable {
 		return this.servicios;
 	}
 	
-	public void agregarServicio(Servicio servicio) {
+	public void agregarServicio(Servicio servicio) throws Exception {
+		this.validarContainer(servicio);
 		servicios.add(servicio);
 	}
 	
@@ -75,19 +76,17 @@ public abstract class Orden implements ElementoVisitable {
 	}
 	
 	
-//  Metodo V2	
-//	public Container getContainerDeOrden() throws Exception{
-//		this.validarContainer();
-//		return this.container;
-//	}
-//	
-//	public void validarContainer() throws Exception {
-//		Servicio primerServicio = this.servicios.stream().findAny().get();
-//		if ( this.container != primerServicio.getContainer())
-//			{
-//				throw new Exception ("Container no coincide");
-//			}
-//	}
+
+	public Container getContainerDeOrden() throws Exception{
+		return this.container;
+	}
+	
+	public void validarContainer(Servicio servicio) throws Exception {
+		if ( this.container != servicio.getContainer())
+			{
+				throw new Exception ("Container no coincide");
+			}
+	}
 
 
 	public int getNumFactura()
@@ -100,11 +99,6 @@ public abstract class Orden implements ElementoVisitable {
 		return new Factura(this);
 	}
 	
-	public Container getContainerDeOrden() {
-		Servicio primerServicio = servicios.stream().findAny().get();
-		
-		return primerServicio.getContainer();
-	}
 	
 	public void enviarFacturaPorMail() throws Exception{
 		Factura factura = this.generarFactura(this);
