@@ -38,6 +38,10 @@ public class OrdenExportacion extends Orden implements ElementoVisitable {
 	@Override
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitarOrden(this, buque);
-		this.getContainerDeOrden().aceptar(visitor, buque);
+		try {
+			this.getContainerDeOrden().aceptar(visitor, buque);
+		} catch (Exception e) {
+			System.err.println("Error al obtener el container");
+		}
 	}
 }
