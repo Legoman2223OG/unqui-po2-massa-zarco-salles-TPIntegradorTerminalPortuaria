@@ -32,7 +32,7 @@ public class ReportesTestCase {
     private Viaje viajeMock;
     private OrdenImportacion ordenImportTest;
     private OrdenExportacion ordenExportTest;
-    private Container spyContainer1;
+    private Container spyContainer;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -42,12 +42,8 @@ public class ReportesTestCase {
     	LocalDateTime fechaTurno = mock(LocalDateTime.class);
     	DryContainer container1 = new DryContainer(1, 2, 3, null);
         TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
-        spyContainer1 = spy(container1);
-        buqueMock = mock(Buque.class);
-        viajeMock = mock(Viaje.class);
-        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, spyContainer1, transporteMock, fechaTurno, 101);
-        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, container2, transporteMock, fechaTurno, 101);
-        Servicio servicio1 = new Pesado(spyContainer1, 0);
+        spyContainer = spy(container1);
+        Servicio servicio1 = new Pesado(spyContainer, 0);
         Servicio servicio2 = new Pesado(container2, 0);
         
         ordenImportTest.agregarServicio(servicio1);
@@ -64,10 +60,10 @@ public class ReportesTestCase {
 
         // Stubs
         when(buqueMock.getNombre()).thenReturn("Buque Test");
+        when(buqueMock.getViaje()).thenReturn(viajeMock);
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
-        when(spyContainer1.getIdentificador()).thenReturn("juli1234567");
-        when(buqueMock.getViaje()).thenReturn(viajeMock);
+        when(spyContainer.getIdentificador()).thenReturn("juli1234567");
     }
 
     @Test
