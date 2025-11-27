@@ -15,19 +15,11 @@ public class WrapperRecorrido {
 	}
 
 	// Getter
-	public Buque getBuque() {
-		return buque;
-	}
-
 	public List<Viaje> getListaViajes() {
 		return listaViajes;
 	}
 
 	// Metodos propios
-	public void agregarViaje(Viaje viaje) {
-		this.listaViajes.add(viaje);
-	}
-
 	public Buque getBuqueDeViaje(Viaje viaje) {
 	    return listaViajes.contains(viaje) ? buque : null;
 	}

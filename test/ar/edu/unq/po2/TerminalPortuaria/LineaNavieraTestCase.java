@@ -87,14 +87,27 @@ public class LineaNavieraTestCase {
 	@Test
 	void testBuscarBuquePorViaje() throws Exception {
 		// Exercise
-		List<Viaje> viaje1 = Arrays.asList(circuitoTest1.crearNuevoViaje(terminalGestionadaTest, terminalIntermedia2, LocalDateTime.now()));
-		List<Viaje> viaje2 = Arrays.asList(circuitoTest2.crearNuevoViaje(terminalIntermedia2, terminalIntermedia3, LocalDateTime.now()));
+		Viaje viaje1 = circuitoTest1.crearNuevoViaje(terminalGestionadaTest, terminalIntermedia2, LocalDateTime.now());
+		Viaje viaje2 = circuitoTest2.crearNuevoViaje(terminalIntermedia2, terminalIntermedia3, LocalDateTime.now());
+		Viaje viaje3 = circuitoTest1.crearNuevoViaje(terminalGestionadaTest, terminalIntermedia1, null);
+		List<Viaje> listaViaje1 = Arrays.asList(viaje1);
+		List<Viaje> listaViaje2 = Arrays.asList(viaje2);
+		
 		navieraTest.addBuque(buqueMock2);
-		navieraTest.registrarNuevoRecorrido(buqueMock1, viaje1);
-		navieraTest.registrarNuevoRecorrido(buqueMock2, viaje2);
+		navieraTest.registrarNuevoRecorrido(buqueMock1, listaViaje1);
+		navieraTest.registrarNuevoRecorrido(buqueMock2, listaViaje2);
 		
 		// Verify
-		Assertions.assertEquals(buqueMock1, navieraTest.buscarBuquePorViaje(viaje1.get(0)));
-		Assertions.assertEquals(buqueMock2, navieraTest.buscarBuquePorViaje(viaje2.get(0)));
+		Assertions.assertTrue(navieraTest.getBuques().contains(buqueMock1));
+		Assertions.assertTrue(navieraTest.getBuques().contains(buqueMock2));
+		
+		Assertions.assertTrue(navieraTest.getViajes().contains(viaje1));
+		Assertions.assertTrue(navieraTest.getViajes().contains(viaje2));
+		Assertions.assertFalse(navieraTest.getViajes().contains(viaje3));
+		
+		Assertions.assertEquals(buqueMock1, navieraTest.buscarBuquePorViaje(viaje1));
+		Assertions.assertEquals(buqueMock2, navieraTest.buscarBuquePorViaje(viaje2));
+		
+		Assertions.assertEquals(null, navieraTest.buscarBuquePorViaje(viaje3));
 	}
 }

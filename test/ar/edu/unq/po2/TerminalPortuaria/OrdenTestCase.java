@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.*;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.*;
@@ -27,9 +29,12 @@ public class OrdenTestCase {
     private OrdenExportacion ordenExp;
     private OrdenImportacion ordenImp;
     private Viaje viajeMock;
+    private Container container;
+    private Container containerTest;
     private Tramo tramoMock;
     private Cliente clienteMock;
     private Servicio servicioMock;
+    private Servicio servicioTestAgregar;
     private TransporteAsignado transporteMock;
     private Chofer chofer;
     private Camion camion;
@@ -50,8 +55,12 @@ public class OrdenTestCase {
         clienteMock = mock(Cliente.class);
         servicioMock = mock(Servicio.class);
         transporteMock = mock(TransporteAsignado.class);
+        container = mock(Container.class);
+        containerTest = mock(Container.class);
+        servicioTestAgregar = mock(Servicio.class);
         when(transporteMock.getChoferAsignado()).thenReturn(chofer);
         when(transporteMock.getCamionAsignado()).thenReturn(camion);
+        when(servicioMock.getContainer()).thenReturn(container);
         when(servicioMock.calcularPrecio()).thenReturn(500.0);
         when(viajeMock.precioTotal()).thenReturn(1500.0);
 
@@ -60,11 +69,11 @@ public class OrdenTestCase {
         when(clienteMock.recibirFactura(any(Factura.class))).thenReturn(null);
 
      // Instancia de OrdenExportacion
-        ordenExp = new OrdenExportacion( clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
+        ordenExp = new OrdenExportacion( clienteMock, viajeMock, container, transporteMock, fechaTurno, 101);
         ordenExp.getServicios().add(servicioMock);
 
         // Instancia de OrdenImportacion
-        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
+        ordenImp = new OrdenImportacion(  clienteMock, viajeMock, container, transporteMock, fechaTurno, 101);
         ordenImp.getServicios().add(servicioMock);
     }
 
@@ -94,15 +103,15 @@ public class OrdenTestCase {
     }
     
     @Test
-    public void testGettersOrden() {
+    public void testGettersOrden() throws Exception {
 
         // Verificamos getters de OrdenExportacion
         assertEquals(clienteMock, ordenExp.getCliente());
         assertEquals(viajeMock, ordenExp.getViaje());
         assertEquals(chofer, ordenExp.getChoferAsignado());
         assertEquals(camion, ordenExp.getCamionAsignado());
+        assertEquals(container, ordenExp.getContainerDeOrden());
         assertEquals(101, ordenExp.getNumFactura());
-        assertEquals(null, ordenExp.getBill());
         assertTrue(ordenExp.esOrdenExportacion());
         assertFalse(ordenExp.esOrdenImportacion());
 
@@ -111,11 +120,81 @@ public class OrdenTestCase {
         assertEquals(viajeMock, ordenImp.getViaje());
         assertEquals(chofer, ordenImp.getChoferAsignado());
         assertEquals(camion, ordenImp.getCamionAsignado());
+        assertEquals(container, ordenImp.getContainerDeOrden());
         assertEquals(fechaTurno, ordenImp.getTurno());
         assertEquals(101, ordenImp.getNumFactura());
-        assertEquals(null, ordenImp.getBill());
         assertTrue(ordenImp.esOrdenImportacion());
         assertFalse(ordenImp.esOrdenExportacion());
+    }
+    
+    @Test
+    public void testAgregarServicioFalse() throws Exception {
+    	
+    	ordenImp.agregarServicio(servicioMock);
+    	ordenExp.agregarServicio(servicioMock);
+    	assertFalse(ordenImp.getServicios().contains(servicioTestAgregar));
+    	assertFalse(ordenExp.getServicios().contains(servicioTestAgregar));
+
+    }
+    
+    @Test
+    public void testValidacionServicio() throws Exception {
+    	when(servicioTestAgregar.getContainer()).thenReturn(containerTest);
+    	Exception ex = assertThrows(Exception.class, () -> ordenImp.validarContainer(servicioTestAgregar));
+        assertEquals("Container no coincide", ex.getMessage());
+    }
+    
+    @Test
+    public void testAceptarCuandoGetContainerImp() throws Exception {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+        Orden orden = Mockito.spy(ordenImp); 
+        Mockito.doThrow(new Exception("falló container"))
+               .when(orden).getContainerDeOrden();
+        assertDoesNotThrow(() -> orden.aceptar(visitor, buque));
+        verify(visitor).visitarOrden(orden, buque);
+        Container containerMock = mock(Container.class);
+        verify(containerMock, never()).aceptar(any(), any());
+    }
+    
+    @Test
+    public void testAceptarCuandoGetContainerExp() throws Exception {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+        Orden orden = Mockito.spy(ordenExp); 
+        Mockito.doThrow(new Exception("falló container"))
+               .when(orden).getContainerDeOrden();
+        assertDoesNotThrow(() -> orden.aceptar(visitor, buque));
+        verify(visitor).visitarOrden(orden, buque);
+        Container containerMock = mock(Container.class);
+        verify(containerMock, never()).aceptar(any(), any());
+    }
+    
+    @Test
+    public void testAgregarServicioCorrecto() throws Exception {
+    	
+    	assertFalse(ordenImp.getServicios().contains(servicioTestAgregar));
+    	assertFalse(ordenExp.getServicios().contains(servicioTestAgregar));
+    }
+    
+    @Test
+    public void testAceptarLlamaAlVisitorYAlContainerImp() {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+
+        ordenImp.aceptar(visitor, buque);
+        verify(visitor).visitarOrden(ordenImp, buque);
+        verify(container).aceptar(visitor, buque);
+    }
+    
+    @Test
+    public void testAceptarLlamaAlVisitorYAlContainerExp() {
+        ReporteVisitor visitor = mock(ReporteVisitor.class);
+        Buque buque = mock(Buque.class);
+
+        ordenExp.aceptar(visitor, buque);
+        verify(visitor).visitarOrden(ordenExp, buque);
+        verify(container).aceptar(visitor, buque);
     }
 
     @Test

@@ -59,8 +59,4 @@ public abstract class Servicio {
 	 * @throws Exception
 	 */
 	public abstract boolean contienePerdidas() throws Exception;
-	
-	public Container getContainer() {
-		return this.container;
-	}
 }

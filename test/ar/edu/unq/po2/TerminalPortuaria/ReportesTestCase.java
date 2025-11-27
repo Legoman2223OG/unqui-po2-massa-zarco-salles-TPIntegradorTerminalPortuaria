@@ -40,11 +40,7 @@ public class ReportesTestCase {
     	Cliente clienteMock = mock(Cliente.class);
     	TransporteAsignado transporteMock = mock(TransporteAsignado.class);
     	LocalDateTime fechaTurno = mock(LocalDateTime.class);
-        buqueMock = mock(Buque.class);
-        viajeMock = mock(Viaje.class);
-        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        DryContainer container1 = new DryContainer(1, 2, 3, null);
+    	DryContainer container1 = new DryContainer(1, 2, 3, null);
         TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
         spyContainer = spy(container1);
         Servicio servicio1 = new Pesado(spyContainer, 0);

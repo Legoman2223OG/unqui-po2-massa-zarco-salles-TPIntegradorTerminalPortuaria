@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.IBillOfLanding;
 import ar.edu.unq.po2.TerminalPortuaria.EmpresaTransportista.TransporteAsignado;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
@@ -13,9 +14,10 @@ import ar.edu.unq.po2.TerminalPortuaria.Reportes.ReporteVisitor;
 public class OrdenImportacion extends Orden implements ElementoVisitable {
 
 	
-
-	public OrdenImportacion(Cliente cliente, Viaje viaje, IBillOfLanding bill, TransporteAsignado TAsignado, LocalDateTime turno, int num) {
-		super(cliente, viaje, bill, TAsignado, turno, num);
+	
+	public OrdenImportacion(Cliente cliente, Viaje viaje, Container container, TransporteAsignado TAsignado,
+			LocalDateTime turno, int num) {
+		super(cliente, viaje, container, TAsignado, turno, num);
 	}
 
 	@Override
@@ -33,7 +35,11 @@ public class OrdenImportacion extends Orden implements ElementoVisitable {
 	@Override
 	public void aceptar(ReporteVisitor visitor, Buque buque) {
 		visitor.visitarOrden(this, buque);
-		this.getContainerDeOrden().aceptar(visitor, buque);
+		try {
+			this.getContainerDeOrden().aceptar(visitor, buque);
+		} catch (Exception e) {
+			System.err.println("Error al obtener el container");
+		}
 	}
 	
 	@Override
