@@ -37,6 +37,10 @@ public abstract class Servicio {
 	public Servicio(Container container) {
 		this.container = container;
 	}
+	
+	public Container getContainer() {
+		return this.container;
+	}
 
 	/**
 	 * Calcula el precio según como lo define el servicio.

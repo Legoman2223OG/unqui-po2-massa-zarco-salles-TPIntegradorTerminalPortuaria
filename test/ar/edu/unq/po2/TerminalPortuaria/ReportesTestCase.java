@@ -28,8 +28,8 @@ public class ReportesTestCase {
     private ReporteBuqueVisitor visitorBuqueTest;
     
     // DOC
-    private Buque buqueMock;
-    private Viaje viajeMock;
+    private Buque buqueMock = mock(Buque.class);
+    private Viaje viajeMock = mock(Viaje.class);
     private OrdenImportacion ordenImportTest;
     private OrdenExportacion ordenExportTest;
     private Container spyContainer;
@@ -45,6 +45,8 @@ public class ReportesTestCase {
         spyContainer = spy(container1);
         Servicio servicio1 = new Pesado(spyContainer, 0);
         Servicio servicio2 = new Pesado(container2, 0);
+        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, spyContainer, transporteMock, fechaTurno, 0);
+        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, container2, transporteMock, fechaTurno, 0);
         
         ordenImportTest.agregarServicio(servicio1);
         ordenExportTest.agregarServicio(servicio2);
