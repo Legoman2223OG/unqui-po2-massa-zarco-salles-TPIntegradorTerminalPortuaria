@@ -99,14 +99,14 @@ public class TerminalPortuaria implements ElementoVisitable {
 	 
     //Avisos para shippers y consigness
 	public void darAvisoShippers( Viaje viaje ) {
-		List<Orden> ordenesExportacion = ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
+		List<Orden> ordenesExportacion = this.todasLasExportaciones();
 		List<Cliente> listaShippers = ordenesExportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).toList();
 
 		listaShippers.stream().forEach( c -> c.recibirAviso("Su carga ha salido de la terminal") );
 	}
 
 	public void darAvisoConsignees( Viaje viaje ) {
-		List<Orden> ordenesImportacion = ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
+		List<Orden> ordenesImportacion = this.todasLasImportaciones();
 		List<Cliente> listaConsignees = ordenesImportacion.stream().filter( o -> o.getViaje() == viaje ).map( v -> v.getCliente() ).collect(Collectors.toList());
 		listaConsignees.stream().forEach( c -> c.recibirAviso("Su carga está llegando") );
 	}
@@ -228,27 +228,14 @@ public class TerminalPortuaria implements ElementoVisitable {
 			orden.aceptar(visitor, buque);
 		}
 	}
-	 
-	private List<Orden> todasLasImportaciones() {
-		List<Orden> imports = new ArrayList<>();
-
-	    for (Orden orden : ordenes) {
-	        if (orden.esOrdenImportacion())
-	            imports.add(orden);
-	    }
-	    
-	    return imports;
+	
+	//Filtros para Ordenes
+	private List<Orden> todasLasImportaciones() {  
+	    return ordenes.stream().filter( o -> o.esOrdenImportacion() ).toList();
 	}
 	
 	private List<Orden> todasLasExportaciones() {
-		List<Orden> exports = new ArrayList<>();
-
-	    for (Orden orden : ordenes) {
-	        if (orden.esOrdenExportacion())
-	            exports.add(orden);
-	    }
-	    
-	    return exports;
+	    return ordenes.stream().filter( o -> o.esOrdenExportacion() ).toList();
 	}
 
 	public String generarReporte(ReporteVisitor visitor, Buque buque) {

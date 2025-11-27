@@ -430,7 +430,7 @@ public class TerminalTestCase {
     
     @Test
     public void testAceptarLlamaVisitarYOrdenesAceptar() throws Exception {
-    	DryContainer container1 = new DryContainer(1, 2, 3, null);
+        DryContainer container1 = new DryContainer(1, 2, 3, null);
         TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
         Orden ordenImportTest = new OrdenImportacion(clienteMock, viaje1, container1, null, null, 0);
         Orden ordenExportTest = new OrdenExportacion(clienteMock, viaje2, container2, null, null, 0);
