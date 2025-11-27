@@ -32,6 +32,6 @@ public class Inbound extends BuqueStatus {
 
 	@Override
 	public void moverA(Coordenada coordenada, Buque buque) throws Exception {
-		buque.getGps().setCoordenadas(coordenada, buque.getDestino().getCoordenadas());
+		buque.getGestorDeCoordenadas().setCoordenadas(coordenada, buque.getDestino().getCoordenadas());
 	}
 }

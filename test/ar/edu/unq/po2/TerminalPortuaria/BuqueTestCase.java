@@ -175,12 +175,12 @@ class BuqueTestCase {
 	}
 	
 	/**
-	 * Indica que el buque sin haberlo movido, su gps indica que esta en la coordenada 60,60.
+	 * Indica que el buque sin haberlo movido, su gestor de coordenadas indica que esta en la coordenada 60,60.
 	 */
 	@Test
-	void test11_GPSDeUnBuque() {
+	void test11_GestorDeCoordenadasDeUnBuque() {
 		//Exercise
-		Coordenada coords = buque1.getGps().getCoordenadas();
+		Coordenada coords = buque1.getGestorDeCoordenadas().getCoordenadas();
 		//Verify
 		Assertions.assertEquals(new Coordenada(60,60), coords);
 	}

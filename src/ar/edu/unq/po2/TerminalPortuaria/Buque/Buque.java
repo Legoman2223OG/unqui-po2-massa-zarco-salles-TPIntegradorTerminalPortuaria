@@ -5,7 +5,7 @@ import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
 public class Buque {
 
-	private GPS gps;
+	private GestorDeCoordenadas gestorDeCoordenadas;
 	private String nombre;
 	private BuqueStatus status;
 	private Viaje viaje;
@@ -18,7 +18,7 @@ public class Buque {
 	 */
 	public Buque(String nombre,Coordenada coordenada, Viaje viaje) {
 		this.nombre = nombre;
-		this.gps = new GPS(coordenada,this);
+		this.gestorDeCoordenadas = new GestorDeCoordenadas(coordenada,this);
 		this.viaje = viaje;
 		this.status = new Outbound();
 	}
@@ -30,7 +30,7 @@ public class Buque {
 	 */
 	public Buque(String nombre, Coordenada coordenada) {
 		this.nombre = nombre;
-		this.gps = new GPS(coordenada,this);
+		this.gestorDeCoordenadas = new GestorDeCoordenadas(coordenada,this);
 		this.status = new Outbound();
 	}
 
@@ -88,7 +88,7 @@ public class Buque {
 	 * @return Coordenada, La coordenada del buque, no puede ser nula.
 	 */
 	public Coordenada getCoordenadas() {
-		return this.gps.getCoordenadas();
+		return this.gestorDeCoordenadas.getCoordenadas();
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class Buque {
 		this.viaje = viaje;
 	}
 
-	public GPS getGps() {
-		return this.gps;
+	public GestorDeCoordenadas getGestorDeCoordenadas() {
+		return this.gestorDeCoordenadas;
 	}
 
 	public String getNombre() {

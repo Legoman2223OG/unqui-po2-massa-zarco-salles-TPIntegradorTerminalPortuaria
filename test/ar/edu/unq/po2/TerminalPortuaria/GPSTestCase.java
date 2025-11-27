@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Buque;
 import ar.edu.unq.po2.TerminalPortuaria.Buque.Coordenada;
-import ar.edu.unq.po2.TerminalPortuaria.Buque.GPS;
+import ar.edu.unq.po2.TerminalPortuaria.Buque.GestorDeCoordenadas;
 import ar.edu.unq.po2.TerminalPortuaria.NavierasYCircuitos.Viaje;
 import ar.edu.unq.po2.TerminalPortuaria.Terminal.TerminalPortuaria;
 
@@ -17,14 +17,14 @@ class GPSTestCase {
 	//DOC
 	Buque docB = mock(Buque.class);
 	//SUT
-	private GPS gps;
+	private GestorDeCoordenadas gps;
 	/**
 	 * Crea un escenario donde el GPS se encuentra en las coordenadas 10,10 y conoce a un buque.
 	 * @throws Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		gps = new GPS(new Coordenada(10,10), docB);
+		gps = new GestorDeCoordenadas(new Coordenada(10,10), docB);
 	}
 
 	/**

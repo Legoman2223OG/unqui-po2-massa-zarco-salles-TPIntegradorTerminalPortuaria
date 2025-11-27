@@ -28,7 +28,7 @@ public class Depart extends BuqueStatus {
 
 	@Override
 	public void moverA(Coordenada coordenada, Buque buque) throws Exception {
-		buque.getGps().setCoordenadas(coordenada, buque.getViaje().getPuertoInicio().getCoordenadas());
+		buque.getGestorDeCoordenadas().setCoordenadas(coordenada, buque.getViaje().getPuertoInicio().getCoordenadas());
 	}
 
 }

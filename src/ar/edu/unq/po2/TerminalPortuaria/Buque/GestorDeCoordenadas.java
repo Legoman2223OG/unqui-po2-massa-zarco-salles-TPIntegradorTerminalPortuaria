@@ -4,7 +4,7 @@ package ar.edu.unq.po2.TerminalPortuaria.Buque;
  * Una clase que representa un GPS de un buque, el cual permite hacer calculos de coordenadas y actualizar la información
  * del buque.
  */
-public class GPS {
+public class GestorDeCoordenadas {
 	private Buque buque;
 	private Coordenada coordenada;
 
@@ -13,7 +13,7 @@ public class GPS {
 	 * @param coordenada, Coordenada, la Coordenada de ubicación del buque, no puede ser nula.
 	 * @param buque, Buque, El buque al cual esta vinculado el GPS, no puede ser nulo.
 	 */
-	public GPS(Coordenada coordenada, Buque buque) {
+	public GestorDeCoordenadas(Coordenada coordenada, Buque buque) {
 		this.coordenada = coordenada;
 		this.buque = buque;
 	}
