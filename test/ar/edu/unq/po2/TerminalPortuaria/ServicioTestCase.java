@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.TerminalPortuaria.Cliente.Cliente;
 import ar.edu.unq.po2.TerminalPortuaria.Container.BillOfLanding;
+import ar.edu.unq.po2.TerminalPortuaria.Container.Container;
 import ar.edu.unq.po2.TerminalPortuaria.Container.DryContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.ReeferContainer;
 import ar.edu.unq.po2.TerminalPortuaria.Container.TankContainer;
@@ -228,5 +229,27 @@ class ServicioTestCase {
 		Assertions.assertEquals("Este servicio no se encarga de esta operacion", pesExc.getMessage());
 		Assertions.assertEquals("Este servicio no se encarga de esta operacion", descExc.getMessage());
 		Assertions.assertEquals("Este servicio no se encarga de esta operacion", almExcedExc.getMessage());
+	}
+	
+	/**
+	 * Cada servicio del escenario describe su propio container.
+	 */
+	@Test
+	void test12_UnServicioDescribeSuContainer() {
+		//Exercise
+		Container container = electricidadService.getContainer();
+		Container container1 = lavadoService.getContainer();
+		Container container2 = pesadoService.getContainer();
+		Container container3 = almacenamientoExcediente.getContainer();
+		Container container4 = desconsolidadoService.getContainer();
+		Container container5 = revisionPerdidasService.getContainer();
+		//Verify
+		Assertions.assertEquals(rc, container);
+		Assertions.assertEquals(dc, container1);
+		Assertions.assertEquals(dcc, container2);
+		Assertions.assertEquals(dc, container3);
+		Assertions.assertEquals(dcc, container4);
+		Assertions.assertEquals(tc, container5);
+		
 	}
 }

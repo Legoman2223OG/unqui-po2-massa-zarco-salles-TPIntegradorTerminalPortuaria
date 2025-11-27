@@ -32,8 +32,7 @@ public class ReportesTestCase {
     private Viaje viajeMock;
     private OrdenImportacion ordenImportTest;
     private OrdenExportacion ordenExportTest;
-    private Container spyContainer1;
-    private Container spyContainer2;
+    private Container spyContainer;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -41,14 +40,10 @@ public class ReportesTestCase {
     	Cliente clienteMock = mock(Cliente.class);
     	TransporteAsignado transporteMock = mock(TransporteAsignado.class);
     	LocalDateTime fechaTurno = mock(LocalDateTime.class);
-        buqueMock = mock(Buque.class);
-        viajeMock = mock(Viaje.class);
-        ordenImportTest = new OrdenImportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        ordenExportTest = new OrdenExportacion(clienteMock, viajeMock, null, transporteMock, fechaTurno, 101);
-        DryContainer container1 = new DryContainer(1, 2, 3, null);
+    	DryContainer container1 = new DryContainer(1, 2, 3, null);
         TankContainer container2 = new TankContainer(3, 4, 5, "juan0987654", null);
-        spyContainer1 = spy(container1);
-        Servicio servicio1 = new Pesado(spyContainer1, 0);
+        spyContainer = spy(container1);
+        Servicio servicio1 = new Pesado(spyContainer, 0);
         Servicio servicio2 = new Pesado(container2, 0);
         
         ordenImportTest.agregarServicio(servicio1);
@@ -58,7 +53,6 @@ public class ReportesTestCase {
         terminalTest = new TerminalPortuaria("Terminal Test", new Coordenada(0,0));
         terminalTest.registrarNuevaOrden(ordenImportTest);
         terminalTest.registrarNuevaOrden(ordenExportTest);
-        terminalTest.registrarNuevaOrden(ordenExportTest2);
         
         visitorMuelleTest = new ReporteMuelleVisitor();
         visitorAduanaTest = new ReporteAduanaVisitor();
@@ -66,9 +60,10 @@ public class ReportesTestCase {
 
         // Stubs
         when(buqueMock.getNombre()).thenReturn("Buque Test");
+        when(buqueMock.getViaje()).thenReturn(viajeMock);
         when(viajeMock.getFechaSalida()).thenReturn(LocalDateTime.of(2025, 11, 4, 10, 0));
         when(viajeMock.fechaDeLlegada()).thenReturn(LocalDateTime.of(2025, 11, 4, 18, 0));
-        when(spyContainer1.getIdentificador()).thenReturn("juli1234567");
+        when(spyContainer.getIdentificador()).thenReturn("juli1234567");
     }
 
     @Test
